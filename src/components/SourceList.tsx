@@ -111,14 +111,20 @@ export default function SourceList({ sources }: { sources: Source[] }) {
           <SourceIcon type={source.type} />
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2">
-              <a
-                href={source.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm font-medium text-blue-800 hover:underline"
-              >
-                {source.title}
-              </a>
+              {source.url ? (
+                <a
+                  href={source.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-medium text-blue-800 hover:underline"
+                >
+                  {source.title}
+                </a>
+              ) : (
+                <span className="text-sm font-medium text-gray-700">
+                  {source.title}
+                </span>
+              )}
               <span className="text-xs text-gray-400">
                 {SOURCE_TYPE_LABELS[source.type]}
               </span>

@@ -9,6 +9,11 @@ export default function ClaimCard({ claim }: { claim: Claim }) {
         <div className="min-w-0 flex-1">
           <div className="mb-2 flex flex-wrap items-center gap-2">
             <StatusBadge status={claim.status} />
+            {claim.sourcesVerified === false && (
+              <span className="inline-flex items-center rounded-full bg-amber-50 px-2 py-0.5 text-xs font-medium text-amber-700 ring-1 ring-inset ring-amber-600/20">
+                Unverified Sources
+              </span>
+            )}
             <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">
               {TOPICS[claim.topic] || claim.topic}
             </span>

@@ -45,13 +45,10 @@ async function main() {
   console.log("╚══════════════════════════════════════╝");
   console.log(`  Sources checked: ${content.all.length} items`);
   console.log(`  Claims extracted: ${claims.length}`);
-  console.log(`  Drafts generated: ${drafts.length}`);
+  console.log(`  Claims published: ${drafts.length}`);
   console.log(`  Time: ${elapsed}s`);
-  console.log(`\n  Drafts saved to: content/drafts/`);
-  console.log(
-    `  Review drafts, verify [VERIFY] URLs, then move to content/claims/`
-  );
-  console.log(`  Or use: npm run review\n`);
+  console.log(`\n  Claims auto-published to: content/claims/`);
+  console.log(`  Unverified sources are flagged on the site.\n`);
 }
 
 main().catch((error) => {

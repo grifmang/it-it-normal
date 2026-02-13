@@ -53,6 +53,17 @@ export default async function ClaimPage({
       <ClaimReviewSchema claim={claim} />
 
       <article className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
+        {/* Unverified banner */}
+        {claim.sourcesVerified === false && (
+          <div className="mb-6 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3">
+            <p className="text-sm text-amber-800">
+              <span className="font-semibold">Note:</span> Some sources in this
+              analysis have not been manually verified. Dates or URLs may be
+              approximate.
+            </p>
+          </div>
+        )}
+
         {/* Header */}
         <header className="mb-8">
           <div className="mb-3 flex flex-wrap items-center gap-2">

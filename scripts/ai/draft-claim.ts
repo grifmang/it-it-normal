@@ -75,7 +75,22 @@ Return ONLY the markdown content, starting with --- and ending with ---`,
 
   // Extract the frontmatter content
   const frontmatterMatch = text.match(/---[\s\S]*---/);
-  const markdown = frontmatterMatch ? frontmatterMatch[0] + "\n" : text;
+  let markdown = frontmatterMatch ? frontmatterMatch[0] + "\n" : text;
+
+  // Check for unverified items before cleaning
+  const verifyCount = (markdown.match(/\[VERIFY\]/g) || []).length;
+  const dateNeeded = (markdown.match(/\[DATE NEEDED\]/g) || []).length;
+  const hasUnverified = verifyCount > 0 || dateNeeded > 0;
+
+  // Clean up [VERIFY] and [DATE NEEDED] markers
+  markdown = markdown.replace(/\[VERIFY\]\s*/g, "");
+  markdown = markdown.replace(/\[DATE NEEDED\]/g, "Unknown");
+
+  // Add sourcesVerified flag to frontmatter
+  markdown = markdown.replace(
+    /^(---\n)/,
+    hasUnverified ? "$1sourcesVerified: false\n" : "$1sourcesVerified: true\n"
+  );
 
   // Generate slug from claim text
   const slug = claim.claim
@@ -86,25 +101,21 @@ Return ONLY the markdown content, starting with --- and ending with ---`,
     .slice(0, 80)
     .replace(/-$/, "");
 
-  // Save to drafts directory
+  // Auto-publish directly to claims directory
   const filename = `${slug}.md`;
-  const filepath = path.join(config.draftsDir, filename);
+  const filepath = path.join(config.claimsDir, filename);
 
-  // Ensure drafts directory exists
-  if (!fs.existsSync(config.draftsDir)) {
-    fs.mkdirSync(config.draftsDir, { recursive: true });
+  // Ensure claims directory exists
+  if (!fs.existsSync(config.claimsDir)) {
+    fs.mkdirSync(config.claimsDir, { recursive: true });
   }
 
   fs.writeFileSync(filepath, markdown, "utf8");
-  console.log(`  -> Draft saved: content/drafts/${filename}`);
+  console.log(`  -> Published: content/claims/${filename}`);
 
-  // Check for items that need human review
-  const verifyCount = (markdown.match(/\[VERIFY\]/g) || []).length;
-  const dateNeeded = (markdown.match(/\[DATE NEEDED\]/g) || []).length;
-
-  if (verifyCount > 0 || dateNeeded > 0) {
+  if (hasUnverified) {
     console.log(
-      `  -> NEEDS REVIEW: ${verifyCount} unverified URLs, ${dateNeeded} missing dates`
+      `  -> Marked as unverified (${verifyCount} URLs, ${dateNeeded} dates)`
     );
   }
 

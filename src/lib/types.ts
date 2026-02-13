@@ -32,6 +32,7 @@ export interface ClaimFrontmatter {
   evidenceAgainst: string[];
   timeline: TimelineEvent[];
   whatThisMeans: string[];
+  sourcesVerified?: boolean;
 }
 
 export interface Claim extends ClaimFrontmatter {

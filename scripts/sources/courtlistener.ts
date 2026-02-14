@@ -23,7 +23,7 @@ export async function fetchCourtOpinions(): Promise<CourtOpinion[]> {
   try {
     const url = "https://www.courtlistener.com/api/rest/v4/opinions/?order_by=-date_created&type=010combined";
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 10000);
+    const timeout = setTimeout(() => controller.abort(), 30000);
     const response = await fetch(url, {
       headers: {
         Authorization: `Token ${config.courtListenerApiToken}`,
@@ -57,7 +57,12 @@ export async function fetchCourtOpinions(): Promise<CourtOpinion[]> {
 
     console.log(`[CourtListener] Found ${opinions.length} recent opinions`);
   } catch (error) {
-    console.error("[CourtListener] Error:", error);
+    if (error instanceof DOMException && error.name === "AbortError") {
+      console.warn("[CourtListener] Request timed out after 30s");
+    } else {
+      const message = error instanceof Error ? error.message : String(error);
+      console.error(`[CourtListener] Error: ${message}`);
+    }
   }
 
   return opinions;

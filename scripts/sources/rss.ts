@@ -2,9 +2,9 @@ import Parser from "rss-parser";
 import { config } from "../config";
 
 const parser = new Parser({
-  timeout: 10000,
+  timeout: 20000,
   headers: {
-    "User-Agent": "IsThisNormal/1.0 (claim-research-bot)",
+    "User-Agent": "Mozilla/5.0 (compatible; IsThisNormal/1.0)",
   },
 });
 

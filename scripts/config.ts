@@ -37,23 +37,26 @@ export const config = {
     "https://www.politifact.com/rss/all/",
     "https://www.snopes.com/feed/",
     "https://www.factcheck.org/feed/",
-    "https://www.reuters.com/fact-check/rss",
-    "https://apnews.com/hub/ap-fact-check/rss",
+    "https://apnews.com/ap-fact-check.rss",
     // Government
     "https://www.whitehouse.gov/presidential-actions/feed/",
-    "https://www.whitehouse.gov/briefing-room/feed/",
     "https://www.justice.gov/feeds/justice-news.xml",
+    "https://www.federalregister.gov/presidential-documents/executive-orders.rss",
+    "https://www.cbo.gov/publications/all/rss.xml",
+    "https://www.govinfo.gov/rss/gaoreports.xml",
     // News
     "https://rss.nytimes.com/services/xml/rss/nyt/Politics.xml",
     "https://feeds.washingtonpost.com/rss/politics",
     "https://feeds.npr.org/1014/rss.xml",
     // Wire services & political news
-    "https://rsshub.app/apnews/topics/politics",
-    "https://www.reutersagency.com/feed/?taxonomy=best-topics&post_type=best",
+    "https://apnews.com/politics.rss",
+    "https://openrss.org/www.reuters.com/world/us/",
     "https://thehill.com/feed/",
-    "https://www.politico.com/rss/politicopicks.xml",
+    "https://rss.politico.com/politics-news.xml",
     // Legal / SCOTUS
     "https://www.scotusblog.com/feed/",
+    // Congressional activity
+    "https://www.congress.gov/rss/most-viewed-bills.xml",
   ],
 
   // Pipeline settings

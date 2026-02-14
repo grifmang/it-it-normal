@@ -68,12 +68,13 @@ export async function searchGoogleFactCheck(query: string): Promise<FactCheckSea
   try {
     const response = await fetch(url, {
       headers: {
-        "User-Agent": "IsThisNormal/1.0 (claim-research-bot)",
+        "User-Agent": "Mozilla/5.0 (compatible; IsThisNormal/1.0)",
       },
     });
 
     if (!response.ok) {
-      console.error(`[Google Fact Check Search] HTTP ${response.status}`);
+      const body = await response.text().catch(() => "");
+      console.error(`[Google Fact Check Search] HTTP ${response.status}: ${body}`);
       return [];
     }
 
@@ -119,12 +120,13 @@ export async function fetchGoogleFactCheckClaims(): Promise<FactCheckClaim[]> {
   try {
     const response = await fetch(url, {
       headers: {
-        "User-Agent": "IsThisNormal/1.0 (claim-research-bot)",
+        "User-Agent": "Mozilla/5.0 (compatible; IsThisNormal/1.0)",
       },
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP ${response.status} ${response.statusText}`);
+      const body = await response.text().catch(() => "");
+      throw new Error(`HTTP ${response.status} ${response.statusText} — ${body}`);
     }
 
     const data = (await response.json()) as GoogleFactCheckResponse;

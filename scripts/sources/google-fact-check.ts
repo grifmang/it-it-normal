@@ -160,15 +160,22 @@ export async function fetchGoogleFactCheckClaims(): Promise<FactCheckClaim[]> {
       });
 
       const url = `${GOOGLE_FACT_CHECK_API}?${params.toString()}`;
-      const response = await fetch(url, {
-        headers: {
-          "User-Agent": "Mozilla/5.0 (compatible; IsThisNormal/1.0)",
-        },
-      });
 
-      if (!response.ok) {
-        const body = await response.text().catch(() => "");
-        console.warn(`[Google Fact Check] Query "${query}" failed: HTTP ${response.status} — ${body}`);
+      let response: Response | null = null;
+      for (let attempt = 0; attempt < 3; attempt++) {
+        response = await fetch(url, {
+          headers: {
+            "User-Agent": "Mozilla/5.0 (compatible; IsThisNormal/1.0)",
+          },
+        });
+        if (response.status !== 503) break;
+        // Exponential backoff: 2s, 4s
+        await new Promise((r) => setTimeout(r, 2000 * (attempt + 1)));
+      }
+
+      if (!response || !response.ok) {
+        const body = response ? await response.text().catch(() => "") : "no response";
+        console.warn(`[Google Fact Check] Query "${query}" failed: HTTP ${response?.status} — ${body}`);
         continue;
       }
 

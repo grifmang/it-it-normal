@@ -8,6 +8,7 @@ export const config = {
   newsApiKey: process.env.NEWS_API_KEY || "",
   congressApiKey: process.env.CONGRESS_API_KEY || "",
   braveSearchApiKey: process.env.BRAVE_SEARCH_API_KEY || "",
+  courtListenerApiToken: process.env.COURTLISTENER_API_TOKEN || "",
 
   // Directories
   claimsDir: path.join(__dirname, "..", "content", "claims"),
@@ -33,8 +34,8 @@ export const config = {
     "https://www.snopes.com/feed/",
     "https://www.factcheck.org/feed/",
     // Government
-    "https://www.whitehouse.gov/feed/",
-    "https://www.justice.gov/feeds/opa/justice-news.xml",
+    "https://www.whitehouse.gov/briefing-room/feed/",
+    "https://www.justice.gov/opa/press-release/rss.xml",
     // News
     "https://rss.nytimes.com/services/xml/rss/nyt/Politics.xml",
     "https://feeds.washingtonpost.com/rss/politics",

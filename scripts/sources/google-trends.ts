@@ -1,4 +1,4 @@
-import googleTrends from "google-trends-api";
+import Parser from "rss-parser";
 import { config } from "../config";
 
 export interface TrendingTopic {
@@ -9,41 +9,34 @@ export interface TrendingTopic {
   timestamp: string;
 }
 
+const parser = new Parser({
+  timeout: 10000,
+  headers: {
+    "User-Agent": "IsThisNormal/1.0 (claim-research-bot)",
+  },
+});
+
 export async function fetchGoogleTrends(): Promise<TrendingTopic[]> {
   try {
-    const results = await Promise.race([
-      googleTrends.dailyTrends({
-        geo: config.googleTrendsGeo,
-      }),
-      new Promise<never>((_, reject) =>
-        setTimeout(() => reject(new Error("Google Trends timeout (10s)")), 10000)
-      ),
-    ]);
+    const geo = (config.googleTrendsGeo || "US").toUpperCase();
+    const feedUrl = `https://trends.google.com/trending/rss?geo=${encodeURIComponent(geo)}`;
 
-    const parsed = JSON.parse(results);
-    const days =
-      parsed.default?.trendingSearchesDays || [];
-
+    const feed = await parser.parseURL(feedUrl);
     const topics: TrendingTopic[] = [];
 
-    for (const day of days.slice(0, 2)) {
-      for (const search of day.trendingSearches || []) {
-        const title = search.title?.query || "";
-        const traffic = search.formattedTraffic || "";
-        const relatedQueries = (search.relatedQueries || []).map(
-          (q: { query: string }) => q.query
-        );
+    for (const item of (feed.items || []).slice(0, 25)) {
+      const title = item.title?.trim() || "";
+      if (!title) continue;
 
-        if (title) {
-          topics.push({
-            title,
-            source: "google-trends",
-            trafficVolume: traffic,
-            relatedQueries,
-            timestamp: new Date().toISOString(),
-          });
-        }
-      }
+      topics.push({
+        title,
+        source: "google-trends",
+        trafficVolume: "",
+        relatedQueries: [],
+        timestamp: item.pubDate
+          ? new Date(item.pubDate).toISOString()
+          : new Date().toISOString(),
+      });
     }
 
     console.log(`[Google Trends] Found ${topics.length} trending topics`);

@@ -8,14 +8,6 @@ const SOURCE_TYPE_LABELS: Record<SourceType, string> = {
   report: "Report",
 };
 
-const SOURCE_TYPE_ICONS: Record<SourceType, string> = {
-  court: "scale",
-  news: "newspaper",
-  official: "building",
-  transcript: "document",
-  report: "chart",
-};
-
 function SourceIcon({ type }: { type: SourceType }) {
   const icons: Record<SourceType, React.ReactNode> = {
     court: (

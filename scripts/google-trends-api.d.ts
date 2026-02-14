@@ -10,6 +10,7 @@ declare module "google-trends-api" {
   function realTimeTrends(options?: TrendsOptions): Promise<string>;
   function interestOverTime(options?: TrendsOptions): Promise<string>;
 
+  // eslint-disable-next-line import/no-anonymous-default-export
   export default {
     dailyTrends,
     realTimeTrends,

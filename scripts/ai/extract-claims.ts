@@ -41,7 +41,7 @@ Rules:
 - Extract SPECIFIC claims, not general topics (e.g., "ICE arrested 500 people in a single day" not "immigration enforcement")
 - Claims should be statements that can be verified or refuted with evidence
 - Focus on claims that are widely repeated, potentially misleading, or of high public interest
-- Assign a topic from: immigration, elections, doj, economy, healthcare, foreign_policy, environment, civil_rights
+- Assign a short, descriptive topic key that best fits each claim (for example: public_safety, education, immigration, health, elections, courts, foreign_policy, technology).
 - Score relevance 0-1 based on: public interest, verifiability, recency, potential for misinformation
 - Suggest specific search queries that would help research each claim
 - Do NOT extract claims that are purely opinion or editorial
@@ -52,7 +52,7 @@ Return ONLY valid JSON in this exact format:
   "claims": [
     {
       "claim": "The exact claim as it would be stated",
-      "topic": "topic_key",
+      "topic": "short_topic_key",
       "relevanceScore": 0.85,
       "sourceItems": ["Brief description of where this claim appeared"],
       "searchQueries": ["query 1 for research", "query 2 for research"]

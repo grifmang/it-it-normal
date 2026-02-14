@@ -37,11 +37,11 @@ export const config = {
     "https://www.politifact.com/rss/all/",
     "https://www.snopes.com/feed/",
     "https://www.factcheck.org/feed/",
-    "https://apnews.com/ap-fact-check.rss",
+    "https://feedx.net/rss/ap.xml",
     // Government
     "https://www.whitehouse.gov/presidential-actions/feed/",
     "https://www.justice.gov/feeds/justice-news.xml",
-    "https://www.federalregister.gov/presidential-documents/executive-orders.rss",
+    "https://www.govinfo.gov/rss/cdoc.xml",
     "https://www.cbo.gov/publications/all/rss.xml",
     "https://www.govinfo.gov/rss/gaoreports.xml",
     // News
@@ -49,7 +49,7 @@ export const config = {
     "https://feeds.washingtonpost.com/rss/politics",
     "https://feeds.npr.org/1014/rss.xml",
     // Wire services & political news
-    "https://apnews.com/politics.rss",
+    "https://feedx.net/rss/ap-politics.xml",
     "https://openrss.org/www.reuters.com/world/us/",
     "https://thehill.com/feed/",
     "https://rss.politico.com/politics-news.xml",

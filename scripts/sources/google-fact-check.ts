@@ -109,49 +109,64 @@ export async function fetchGoogleFactCheckClaims(): Promise<FactCheckClaim[]> {
     return [];
   }
 
-  const params = new URLSearchParams({
-    key: config.googleFactCheckApiKey,
-    languageCode: config.googleFactCheckLanguage,
-    pageSize: String(config.googleFactCheckPageSize),
-  });
+  const queries = ["politics", "government", "immigration", "economy"];
+  const allClaims: FactCheckClaim[] = [];
+  const seen = new Set<string>();
 
-  const url = `${GOOGLE_FACT_CHECK_API}?${params.toString()}`;
+  for (const query of queries) {
+    try {
+      const params = new URLSearchParams({
+        key: config.googleFactCheckApiKey,
+        query,
+        languageCode: config.googleFactCheckLanguage,
+        pageSize: String(config.googleFactCheckPageSize),
+      });
 
-  try {
-    const response = await fetch(url, {
-      headers: {
-        "User-Agent": "Mozilla/5.0 (compatible; IsThisNormal/1.0)",
-      },
-    });
+      const url = `${GOOGLE_FACT_CHECK_API}?${params.toString()}`;
+      const response = await fetch(url, {
+        headers: {
+          "User-Agent": "Mozilla/5.0 (compatible; IsThisNormal/1.0)",
+        },
+      });
 
-    if (!response.ok) {
-      const body = await response.text().catch(() => "");
-      throw new Error(`HTTP ${response.status} ${response.statusText} — ${body}`);
+      if (!response.ok) {
+        const body = await response.text().catch(() => "");
+        console.warn(`[Google Fact Check] Query "${query}" failed: HTTP ${response.status} — ${body}`);
+        continue;
+      }
+
+      const data = (await response.json()) as GoogleFactCheckResponse;
+      for (const claim of data.claims || []) {
+        const key = claim.text || "";
+        if (!key || seen.has(key)) continue;
+        seen.add(key);
+
+        const reviews = (claim.claimReview || []).map((review) => ({
+          publisher: review.publisher?.name || "Unknown publisher",
+          reviewTitle: review.title || "",
+          textualRating: review.textualRating || "Unrated",
+          reviewUrl: review.url || "",
+          languageCode: review.languageCode || claim.languageCode || config.googleFactCheckLanguage,
+          reviewDate: review.reviewDate || "",
+        }));
+
+        if (reviews.length > 0) {
+          allClaims.push({
+            text: key,
+            claimant: claim.claimant || "",
+            claimDate: claim.claimDate || "",
+            languageCode: claim.languageCode || config.googleFactCheckLanguage,
+            reviews,
+            source: "googleFactCheck",
+          });
+        }
+      }
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      console.warn(`[Google Fact Check] Query "${query}" error: ${message}`);
     }
-
-    const data = (await response.json()) as GoogleFactCheckResponse;
-    const claims = (data.claims || []).map((claim): FactCheckClaim => ({
-      text: claim.text || "",
-      claimant: claim.claimant || "",
-      claimDate: claim.claimDate || "",
-      languageCode: claim.languageCode || config.googleFactCheckLanguage,
-      reviews: (claim.claimReview || []).map((review) => ({
-        publisher: review.publisher?.name || "Unknown publisher",
-        reviewTitle: review.title || "",
-        textualRating: review.textualRating || "Unrated",
-        reviewUrl: review.url || "",
-        languageCode: review.languageCode || claim.languageCode || config.googleFactCheckLanguage,
-        reviewDate: review.reviewDate || "",
-      })),
-      source: "googleFactCheck",
-    }));
-
-    const filtered = claims.filter((claim) => claim.text && claim.reviews.length > 0);
-    console.log(`[Google Fact Check] Retrieved ${filtered.length} claims`);
-    return filtered;
-  } catch (error) {
-    const message = error instanceof Error ? error.message : String(error);
-    console.warn(`[Google Fact Check] Skipping due to error: ${message}`);
-    return [];
   }
+
+  console.log(`[Google Fact Check] Retrieved ${allClaims.length} claims`);
+  return allClaims;
 }

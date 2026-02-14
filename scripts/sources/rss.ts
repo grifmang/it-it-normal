@@ -43,7 +43,8 @@ export async function fetchRssFeeds(): Promise<RssItem[]> {
 
       console.log(`[RSS] ${feedName}: ${feed.items?.length || 0} items`);
     } catch (error) {
-      console.error(`[RSS] Error fetching ${feedUrl}:`, error);
+      const message = error instanceof Error ? error.message : String(error);
+      console.warn(`[RSS] Skipping ${feedUrl}: ${message}`);
     }
   }
 

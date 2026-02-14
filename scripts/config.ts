@@ -29,8 +29,8 @@ export const config = {
     "https://www.snopes.com/feed/",
     "https://www.factcheck.org/feed/",
     // Government
-    "https://www.whitehouse.gov/briefing-room/feed/",
-    "https://www.justice.gov/opa/press-release/rss.xml",
+    "https://www.whitehouse.gov/feed/",
+    "https://www.justice.gov/feeds/justice-news.xml",
     // News
     "https://rss.nytimes.com/services/xml/rss/nyt/Politics.xml",
     "https://feeds.washingtonpost.com/rss/politics",

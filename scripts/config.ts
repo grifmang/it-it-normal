@@ -9,6 +9,7 @@ export const config = {
   congressApiKey: process.env.CONGRESS_API_KEY || "",
   braveSearchApiKey: process.env.BRAVE_SEARCH_API_KEY || "",
   courtListenerApiToken: process.env.COURTLISTENER_API_TOKEN || "",
+  googleFactCheckApiKey: process.env.GOOGLE_FACT_CHECK_API_KEY || "",
 
   // Directories
   claimsDir: path.join(__dirname, "..", "content", "claims"),
@@ -19,6 +20,10 @@ export const config = {
   redditSubreddits: (
     process.env.REDDIT_SUBREDDITS || "politics,news,neutralpolitics"
   ).split(",").map(s => s.trim()).filter(Boolean),
+  googleFactCheckLanguage: process.env.GOOGLE_FACT_CHECK_LANGUAGE || "en-US",
+  googleFactCheckPageSize: parseInt(
+    process.env.GOOGLE_FACT_CHECK_PAGE_SIZE || "20"
+  ),
   // Publish mode
   autoPublish: process.env.AUTO_PUBLISH === "true",
 
@@ -28,10 +33,11 @@ export const config = {
     "https://www.politifact.com/rss/all/",
     "https://www.snopes.com/feed/",
     "https://www.factcheck.org/feed/",
+    "https://www.reuters.com/fact-check/rss",
+    "https://apnews.com/hub/ap-fact-check/rss",
     // Government
-    "https://obamawhitehouse.archives.gov/feed/press",
-    "https://obamawhitehouse.archives.gov/feed/blog/white-house",
     "https://www.whitehouse.gov/presidential-actions/feed/",
+    "https://www.whitehouse.gov/briefing-room/feed/",
     "https://www.justice.gov/feeds/justice-news.xml",
     // News
     "https://rss.nytimes.com/services/xml/rss/nyt/Politics.xml",

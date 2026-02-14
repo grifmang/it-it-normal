@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2026-02-14T07:53:32.057Z",
+    "sourcesCount": 165,
+    "claimsExtracted": 6,
+    "claimsGenerated": 2,
+    "claimsSkipped": 3,
+    "errors": 1,
+    "durationMs": 90866
+  }
+]

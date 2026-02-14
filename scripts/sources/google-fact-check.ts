@@ -109,7 +109,44 @@ export async function fetchGoogleFactCheckClaims(): Promise<FactCheckClaim[]> {
     return [];
   }
 
-  const queries = ["politics", "government", "immigration", "economy"];
+  const queries = [
+    // Trump & MAGA
+    "Donald Trump", "Trump executive order", "Trump claim",
+    "MAGA", "Trump conspiracy", "Trump indictment",
+    "Trump election fraud", "stolen election", "January 6",
+    "deep state", "weaponized DOJ",
+    // Immigration & border
+    "immigration", "border crisis", "ICE deportation",
+    "illegal immigrants crime", "migrant caravan",
+    // Government & policy
+    "government spending", "national debt", "federal budget",
+    "Congress", "Supreme Court",
+    // Elections & voting
+    "voter fraud", "voter ID", "election integrity",
+    "mail-in ballots", "voting machines",
+    // Healthcare & medicine
+    "vaccine", "COVID vaccine", "vaccine side effects",
+    "RFK Jr", "FDA", "CDC", "fluoride",
+    "ivermectin", "hydroxychloroquine",
+    "Medicare", "Medicaid", "Affordable Care Act",
+    "abortion", "reproductive rights",
+    // Conspiracy theories & misinformation
+    "QAnon", "great replacement", "chemtrails",
+    "5G", "Bill Gates microchip",
+    "climate change hoax", "election rigged",
+    // Economy
+    "inflation", "economy", "tariffs", "trade war",
+    "jobs report", "unemployment",
+    // Other hot-button issues
+    "gun control", "Second Amendment",
+    "critical race theory", "DEI", "woke",
+    "transgender", "drag queen",
+    "Hunter Biden", "Biden crime family",
+    "Project 2025", "DOGE Elon Musk",
+    // Epstein & Twitter Files
+    "Jeffrey Epstein", "Epstein files", "Epstein client list",
+    "Trump Epstein", "Twitter Files",
+  ];
   const allClaims: FactCheckClaim[] = [];
   const seen = new Set<string>();
 
@@ -161,6 +198,8 @@ export async function fetchGoogleFactCheckClaims(): Promise<FactCheckClaim[]> {
           });
         }
       }
+      // Rate limit between queries
+      await new Promise((r) => setTimeout(r, 250));
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
       console.warn(`[Google Fact Check] Query "${query}" error: ${message}`);

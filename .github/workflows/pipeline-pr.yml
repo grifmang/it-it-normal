@@ -49,6 +49,9 @@ jobs:
       - name: Run pipeline
         run: npm run pipeline
 
+      - name: Refresh existing claims
+        run: npm run update-claims
+
       - name: Check for new content
         id: changes
         run: |

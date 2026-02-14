@@ -37,7 +37,8 @@ jobs:
           ANTHROPIC_API_KEY=${{ secrets.ANTHROPIC_API_KEY }}
           NEWS_API_KEY=${{ secrets.NEWS_API_KEY }}
           CONGRESS_API_KEY=${{ secrets.CONGRESS_API_KEY }}
-          BRAVE_SEARCH_API_KEY=${{ secrets.BRAVE_SEARCH_API_KEY }}
+          GOOGLE_FACT_CHECK_API_KEY=${{ secrets.GOOGLE_FACT_CHECK_API_KEY }}
+          COURTLISTENER_API_TOKEN=${{ secrets.COURTLISTENER_API_TOKEN }}
           AUTO_PUBLISH=true
           GOOGLE_TRENDS_GEO=US
           REDDIT_SUBREDDITS=politics,news,neutralpolitics

@@ -29,7 +29,8 @@ export const config = {
     "https://www.snopes.com/feed/",
     "https://www.factcheck.org/feed/",
     // Government
-    "https://www.whitehouse.gov/feed/",
+    "https://obamawhitehouse.archives.gov/feed/press",
+    "https://obamawhitehouse.archives.gov/feed/blog/white-house",
     "https://www.whitehouse.gov/presidential-actions/feed/",
     "https://www.justice.gov/feeds/justice-news.xml",
     // News

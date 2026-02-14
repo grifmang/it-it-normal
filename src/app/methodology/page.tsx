@@ -114,6 +114,24 @@ export default function MethodologyPage() {
           </div>
         </section>
 
+
+        <section>
+          <h2 className="mb-3 text-lg font-semibold text-gray-900">
+            Continuous Fact-Check Coverage
+          </h2>
+          <p>
+            We continuously monitor structured fact-check ecosystems (including
+            Google Fact Check claim reviews and dedicated fact-checker feeds) to
+            identify where claims are evolving, disputed across outlets, or
+            newly resurfacing with updated context.
+          </p>
+          <p className="mt-2">
+            Existing fact-checks are used as a starting map, not a final
+            verdict. We prioritize claims where new evidence, official records,
+            or changed circumstances may alter the interpretation.
+          </p>
+        </section>
+
         <section>
           <h2 className="mb-3 text-lg font-semibold text-gray-900">
             Editorial Standards

@@ -45,7 +45,8 @@ Rules:
 - Score relevance 0-1 based on: public interest, verifiability, recency, potential for misinformation
 - Suggest specific search queries that would help research each claim
 - Do NOT extract claims that are purely opinion or editorial
-- Do NOT extract claims already well-covered by major fact-checkers unless there's a new angle
+- Use existing fact-check coverage to identify unresolved, disputed, or newly evolving angles worth revisiting
+- Prefer claims where there is enough source material to support thorough verification, not just viral repetition
 
 Return ONLY valid JSON in this exact format:
 {
@@ -168,6 +169,23 @@ function buildDigest(content: AggregatedContent): string {
     for (const eo of content.executiveOrders.slice(0, 20)) {
       sections.push(
         `- [${eo.sourceName}] "${eo.title}" (${eo.publishedAt.slice(0, 10)}) | ${eo.summary.slice(0, 200)}`
+      );
+    }
+  }
+
+  if (content.googleFactChecks.length > 0) {
+    sections.push("\n## Google Fact Check Explorer (Recent Claim Reviews)");
+    for (const factCheck of content.googleFactChecks.slice(0, 30)) {
+      const topPublishers = factCheck.reviews
+        .slice(0, 3)
+        .map((review) => review.publisher)
+        .join(", ");
+      const topRatings = factCheck.reviews
+        .slice(0, 3)
+        .map((review) => review.textualRating)
+        .join(", ");
+      sections.push(
+        `- "${factCheck.text}" | Claimant: ${factCheck.claimant || "Unknown"} | Reviews: ${topPublishers || "n/a"} | Ratings: ${topRatings || "n/a"}`
       );
     }
   }

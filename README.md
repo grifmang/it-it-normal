@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Is This Normal?
 
-## Getting Started
+A Next.js application and pipeline for surfacing high-interest political claims, gathering evidence, and publishing structured fact-check pages.
 
-First, run the development server:
+## Run the web app
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Run the claim pipeline
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run pipeline
+```
 
-## Learn More
+This pipeline:
 
-To learn more about Next.js, take a look at the following resources:
+1. Aggregates claims and events from multiple sources (news, RSS, Congress, court opinions, executive actions, trends, Reddit).
+2. Pulls recent claim-review data from the Google Fact Check Tools API (when configured).
+3. Uses AI to extract specific, checkable, high-relevance claims.
+4. De-duplicates against existing claim files.
+5. Generates new drafts for review/publishing.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Environment variables
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Create `.env` in the repo root.
 
-## Deploy on Vercel
+Required:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `ANTHROPIC_API_KEY`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Optional but recommended:
+
+- `NEWS_API_KEY`
+- `CONGRESS_API_KEY`
+- `COURTLISTENER_API_TOKEN`
+- `BRAVE_SEARCH_API_KEY`
+- `GOOGLE_FACT_CHECK_API_KEY`
+- `GOOGLE_FACT_CHECK_LANGUAGE` (default: `en-US`)
+- `GOOGLE_FACT_CHECK_PAGE_SIZE` (default: `20`)
+- `MAX_CLAIMS_PER_RUN` (default: `5`)
+- `MIN_RELEVANCE_SCORE` (default: `0.6`)
+- `AUTO_PUBLISH` (`true`/`false`)
+
+## Quality focus
+
+To improve thoroughness and accuracy:
+
+- Prefer claims with multiple independent source types.
+- Use fact-check databases to find unresolved or newly-evolving angles.
+- Revisit previously checked claims when new official records or rulings appear.

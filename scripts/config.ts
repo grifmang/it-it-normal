@@ -6,6 +6,8 @@ dotenv.config({ path: path.join(__dirname, "..", ".env") });
 export const config = {
   anthropicApiKey: process.env.ANTHROPIC_API_KEY || "",
   newsApiKey: process.env.NEWS_API_KEY || "",
+  congressApiKey: process.env.CONGRESS_API_KEY || "",
+  braveSearchApiKey: process.env.BRAVE_SEARCH_API_KEY || "",
 
   // Directories
   claimsDir: path.join(__dirname, "..", "content", "claims"),

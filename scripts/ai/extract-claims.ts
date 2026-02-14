@@ -144,5 +144,23 @@ function buildDigest(content: AggregatedContent): string {
     }
   }
 
+  if (content.congress.length > 0) {
+    sections.push("\n## Congressional Activity (Recent Bills)");
+    for (const c of content.congress.slice(0, 15)) {
+      sections.push(
+        `- [${c.billNumber}] "${c.title}" | Latest: ${c.latestAction}`
+      );
+    }
+  }
+
+  if (content.courtlistener.length > 0) {
+    sections.push("\n## Federal Court Opinions (Recent)");
+    for (const o of content.courtlistener.slice(0, 10)) {
+      sections.push(
+        `- [${o.court}] "${o.caseName}" (${o.dateDecided}) | ${o.summary.slice(0, 200)}`
+      );
+    }
+  }
+
   return sections.join("\n");
 }

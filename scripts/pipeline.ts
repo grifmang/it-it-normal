@@ -1,6 +1,7 @@
 import { config, validateConfig } from "./config";
 import { aggregateAllSources } from "./sources";
 import { extractClaims } from "./ai/extract-claims";
+import { findDuplicates } from "./ai/dedup";
 import { generateAllDrafts } from "./ai/draft-claim";
 
 async function main() {
@@ -28,14 +29,22 @@ async function main() {
   }
 
   // Step 2: Extract claims using AI
-  const claims = await extractClaims(content);
+  const rawClaims = await extractClaims(content);
 
-  if (claims.length === 0) {
+  if (rawClaims.length === 0) {
     console.log("\nNo actionable claims extracted. Exiting.");
     return;
   }
 
-  // Step 3: Generate draft claim pages
+  // Step 3: Deduplicate against existing claims
+  const claims = findDuplicates(rawClaims, config.claimsDir, config.draftsDir);
+
+  if (claims.length === 0) {
+    console.log("\nAll extracted claims are duplicates. Exiting.");
+    return;
+  }
+
+  // Step 4: Generate draft claim pages
   const drafts = await generateAllDrafts(claims);
 
   // Summary
@@ -44,7 +53,8 @@ async function main() {
   console.log("║            Pipeline Complete          ║");
   console.log("╚══════════════════════════════════════╝");
   console.log(`  Sources checked: ${content.all.length} items`);
-  console.log(`  Claims extracted: ${claims.length}`);
+  console.log(`  Claims extracted: ${rawClaims.length}`);
+  console.log(`  Duplicates skipped: ${rawClaims.length - claims.length}`);
   console.log(`  Claims generated: ${drafts.length}`);
   console.log(`  Time: ${elapsed}s`);
   if (config.autoPublish) {

@@ -1,3 +1,5 @@
+import { config } from "../config";
+
 export interface CourtOpinion {
   caseName: string;
   court: string;
@@ -11,11 +13,23 @@ export interface CourtOpinion {
 export async function fetchCourtOpinions(): Promise<CourtOpinion[]> {
   const opinions: CourtOpinion[] = [];
 
+  if (!config.courtListenerApiToken) {
+    console.warn(
+      "[CourtListener] Skipping: missing COURTLISTENER_API_TOKEN (CourtListener now requires API auth)"
+    );
+    return opinions;
+  }
+
   try {
-    const url = `https://www.courtlistener.com/api/rest/v4/opinions/?order_by=-date_created&type=010combined`;
+    const url = "https://www.courtlistener.com/api/rest/v4/opinions/?order_by=-date_created&type=010combined";
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 10000);
-    const response = await fetch(url, { signal: controller.signal });
+    const response = await fetch(url, {
+      headers: {
+        Authorization: `Token ${config.courtListenerApiToken}`,
+      },
+      signal: controller.signal,
+    });
     clearTimeout(timeout);
 
     if (!response.ok) {

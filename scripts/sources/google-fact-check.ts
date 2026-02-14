@@ -198,8 +198,8 @@ export async function fetchGoogleFactCheckClaims(): Promise<FactCheckClaim[]> {
           });
         }
       }
-      // Rate limit between queries
-      await new Promise((r) => setTimeout(r, 250));
+      // Rate limit between queries to avoid 503s
+      await new Promise((r) => setTimeout(r, 500));
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
       console.warn(`[Google Fact Check] Query "${query}" error: ${message}`);

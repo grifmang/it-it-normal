@@ -49,8 +49,7 @@ export const config = {
     "https://feeds.washingtonpost.com/rss/politics",
     "https://feeds.npr.org/1014/rss.xml",
     // Wire services & political news
-    "https://feedx.net/rss/ap-politics.xml",
-    "https://openrss.org/www.reuters.com/world/us/",
+    "https://news.google.com/rss/search?q=when:24h+allinurl:reuters.com&ceid=US:en&hl=en-US&gl=US",
     "https://thehill.com/feed/",
     "https://rss.politico.com/politics-news.xml",
     // Legal / SCOTUS

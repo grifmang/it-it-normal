@@ -27,6 +27,10 @@ async function fetchSubreddit(subreddit: string, sort: "hot" | "new"): Promise<R
     });
 
     if (!response.ok) {
+      if (response.status === 401 || response.status === 403) {
+        throw new Error(`Status ${response.status} (Reddit blocked unauthenticated access from this environment)`);
+      }
+
       throw new Error(`Status ${response.status}`);
     }
 
@@ -65,7 +69,8 @@ export async function fetchRedditPosts(): Promise<RedditPost[]> {
       const fresh = await fetchSubreddit(normalized, "new");
       posts.push(...hot, ...fresh);
     } catch (error) {
-      console.error(`[Reddit] Error fetching r/${subreddit}:`, error);
+      const message = error instanceof Error ? error.message : String(error);
+      console.warn(`[Reddit] Skipping r/${subreddit}: ${message}`);
     }
 
     await new Promise((r) => setTimeout(r, 1200));

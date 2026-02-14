@@ -16,11 +16,15 @@ export async function fetchRedditPosts(): Promise<RedditPost[]> {
   for (const subreddit of config.redditSubreddits) {
     try {
       const url = `https://www.reddit.com/r/${subreddit}/hot.json?limit=25`;
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 10000);
       const response = await fetch(url, {
         headers: {
           "User-Agent": "IsThisNormal/1.0 (claim-research-bot)",
         },
+        signal: controller.signal,
       });
+      clearTimeout(timeout);
 
       if (!response.ok) {
         console.error(

@@ -15,11 +15,14 @@ export const config = {
   googleTrendsGeo: process.env.GOOGLE_TRENDS_GEO || "US",
   redditSubreddits: (
     process.env.REDDIT_SUBREDDITS || "politics,news,neutralpolitics"
-  ).split(","),
+  ).split(",").map(s => s.trim()).filter(Boolean),
   newsApiTopics: (
     process.env.NEWS_API_TOPICS ||
     "politics,government,congress,supreme court,immigration,election"
-  ).split(","),
+  ).split(",").map(s => s.trim()).filter(Boolean),
+
+  // Publish mode
+  autoPublish: process.env.AUTO_PUBLISH === "true",
 
   // RSS feeds to monitor
   rssFeeds: [

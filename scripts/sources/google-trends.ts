@@ -11,9 +11,14 @@ export interface TrendingTopic {
 
 export async function fetchGoogleTrends(): Promise<TrendingTopic[]> {
   try {
-    const results = await googleTrends.dailyTrends({
-      geo: config.googleTrendsGeo,
-    });
+    const results = await Promise.race([
+      googleTrends.dailyTrends({
+        geo: config.googleTrendsGeo,
+      }),
+      new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error("Google Trends timeout (10s)")), 10000)
+      ),
+    ]);
 
     const parsed = JSON.parse(results);
     const days =

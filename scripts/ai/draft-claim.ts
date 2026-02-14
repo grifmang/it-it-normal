@@ -1,8 +1,37 @@
 import Anthropic from "@anthropic-ai/sdk";
 import fs from "fs";
 import path from "path";
+import matter from "gray-matter";
+import { z } from "zod";
 import { config } from "../config";
 import { ExtractedClaim } from "./extract-claims";
+
+const ClaimFrontmatterSchema = z.object({
+  title: z.string(),
+  slug: z.string(),
+  topic: z.string(),
+  status: z.enum(["verified", "mixed", "unsupported", "unresolved"]),
+  summary: z.string(),
+  created: z.string(),
+  updated: z.string(),
+  sources: z.array(
+    z.object({
+      title: z.string(),
+      url: z.string(),
+      type: z.string(),
+      summary: z.string(),
+    })
+  ),
+  evidenceFor: z.array(z.string()),
+  evidenceAgainst: z.array(z.string()),
+  timeline: z.array(
+    z.object({
+      date: z.string(),
+      description: z.string(),
+    })
+  ),
+  whatThisMeans: z.array(z.string()),
+});
 
 const client = new Anthropic({ apiKey: config.anthropicApiKey });
 
@@ -86,11 +115,20 @@ Return ONLY the markdown content, starting with --- and ending with ---`,
   markdown = markdown.replace(/\[VERIFY\]\s*/g, "");
   markdown = markdown.replace(/\[DATE NEEDED\]/g, "Unknown");
 
-  // Add sourcesVerified flag to frontmatter
-  markdown = markdown.replace(
-    /^(---\n)/,
-    hasUnverified ? "$1sourcesVerified: false\n" : "$1sourcesVerified: true\n"
-  );
+  // Parse frontmatter with gray-matter and validate with Zod
+  const parsed = matter(markdown);
+  const validated = ClaimFrontmatterSchema.safeParse(parsed.data);
+  if (!validated.success) {
+    console.error(
+      `[Draft] Frontmatter validation failed for "${claim.claim}":`,
+      validated.error.issues
+    );
+    return "";
+  }
+
+  // Add sourcesVerified flag via parsed data
+  parsed.data.sourcesVerified = !hasUnverified;
+  markdown = matter.stringify(parsed.content, parsed.data);
 
   // Generate slug from claim text
   const slug = claim.claim
@@ -101,17 +139,18 @@ Return ONLY the markdown content, starting with --- and ending with ---`,
     .slice(0, 80)
     .replace(/-$/, "");
 
-  // Auto-publish directly to claims directory
+  // Route to claims or drafts based on autoPublish config
+  const targetDir = config.autoPublish ? config.claimsDir : config.draftsDir;
+  const targetLabel = config.autoPublish ? "content/claims" : "content/drafts";
   const filename = `${slug}.md`;
-  const filepath = path.join(config.claimsDir, filename);
+  const filepath = path.join(targetDir, filename);
 
-  // Ensure claims directory exists
-  if (!fs.existsSync(config.claimsDir)) {
-    fs.mkdirSync(config.claimsDir, { recursive: true });
+  if (!fs.existsSync(targetDir)) {
+    fs.mkdirSync(targetDir, { recursive: true });
   }
 
   fs.writeFileSync(filepath, markdown, "utf8");
-  console.log(`  -> Published: content/claims/${filename}`);
+  console.log(`  -> Saved: ${targetLabel}/${filename}`);
 
   if (hasUnverified) {
     console.log(

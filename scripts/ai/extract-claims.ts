@@ -1,14 +1,21 @@
 import Anthropic from "@anthropic-ai/sdk";
+import { z } from "zod";
 import { config } from "../config";
 import { AggregatedContent } from "../sources";
 
-export interface ExtractedClaim {
-  claim: string;
-  topic: string;
-  relevanceScore: number;
-  sourceItems: string[];
-  searchQueries: string[];
-}
+const ExtractedClaimSchema = z.object({
+  claim: z.string(),
+  topic: z.string(),
+  relevanceScore: z.number().min(0).max(1),
+  sourceItems: z.array(z.string()),
+  searchQueries: z.array(z.string()),
+});
+
+const ExtractedClaimsResponseSchema = z.object({
+  claims: z.array(ExtractedClaimSchema),
+});
+
+export type ExtractedClaim = z.infer<typeof ExtractedClaimSchema>;
 
 const client = new Anthropic({ apiKey: config.anthropicApiKey });
 
@@ -71,11 +78,15 @@ ${digest}`,
       return [];
     }
 
-    const parsed = JSON.parse(jsonMatch[0]);
-    const claims: ExtractedClaim[] = (parsed.claims || [])
-      .filter(
-        (c: ExtractedClaim) => c.relevanceScore >= config.minRelevanceScore
-      )
+    const raw = JSON.parse(jsonMatch[0]);
+    const validated = ExtractedClaimsResponseSchema.safeParse(raw);
+    if (!validated.success) {
+      console.error("[Extract] Zod validation failed:", validated.error.issues);
+      return [];
+    }
+
+    const claims: ExtractedClaim[] = validated.data.claims
+      .filter((c) => c.relevanceScore >= config.minRelevanceScore)
       .slice(0, config.maxClaimsPerRun);
 
     console.log(

@@ -1,4 +1,4 @@
-import { validateConfig } from "./config";
+import { config, validateConfig } from "./config";
 import { aggregateAllSources } from "./sources";
 import { extractClaims } from "./ai/extract-claims";
 import { generateAllDrafts } from "./ai/draft-claim";
@@ -45,10 +45,16 @@ async function main() {
   console.log("╚══════════════════════════════════════╝");
   console.log(`  Sources checked: ${content.all.length} items`);
   console.log(`  Claims extracted: ${claims.length}`);
-  console.log(`  Claims published: ${drafts.length}`);
+  console.log(`  Claims generated: ${drafts.length}`);
   console.log(`  Time: ${elapsed}s`);
-  console.log(`\n  Claims auto-published to: content/claims/`);
-  console.log(`  Unverified sources are flagged on the site.\n`);
+  if (config.autoPublish) {
+    console.log(`\n  Claims auto-published to: content/claims/`);
+    console.log(`  Unverified sources are flagged on the site.`);
+  } else {
+    console.log(`\n  Claims saved to: content/drafts/`);
+    console.log(`  Run 'npm run review' to review and publish drafts.`);
+  }
+  console.log();
 }
 
 main().catch((error) => {

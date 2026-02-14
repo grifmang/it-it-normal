@@ -19,7 +19,7 @@ export async function fetchNewsArticles(): Promise<NewsArticle[]> {
 
   try {
     const query = config.newsApiTopics.join(" OR ");
-    const url = `https://newsapi.org/v2/top-headlines?country=us&category=politics&pageSize=50&apiKey=${config.newsApiKey}`;
+    const url = `https://newsapi.org/v2/everything?q=${encodeURIComponent(query)}&language=en&sortBy=publishedAt&pageSize=50&apiKey=${config.newsApiKey}`;
 
     const response = await fetch(url);
 

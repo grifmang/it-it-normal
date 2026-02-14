@@ -12,6 +12,7 @@
     "review:auto": "tsx scripts/review-auto.ts",
     "verify": "tsx scripts/ai/verify-claim.ts",
     "update-claims": "tsx scripts/ai/update-claims.ts",
+    "resolve-sources": "tsx scripts/ai/resolve-sources.ts",
     "postbuild": "tsx scripts/generate-sitemap.ts && tsx scripts/generate-rss-feed.ts"
   },
   "dependencies": {

@@ -12,6 +12,7 @@ export interface Source {
   url: string;
   type: SourceType;
   summary: string;
+  needsResolution?: boolean;
 }
 
 export interface TimelineEvent {

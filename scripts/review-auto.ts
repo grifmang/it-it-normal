@@ -43,6 +43,14 @@ async function main() {
 
     const isVerified = frontmatter.sourcesVerified === true;
     const isNotUnresolved = frontmatter.status !== "unresolved";
+    const sources = (frontmatter.sources || []) as Array<{ needsResolution?: boolean }>;
+    const hasUnresolvedSources = sources.some((s) => s.needsResolution === true);
+
+    if (hasUnresolvedSources) {
+      console.log(`  -> Needs manual review (unresolved source URLs)`);
+      needsReview++;
+      continue;
+    }
 
     if (isVerified && isNotUnresolved) {
       // Already verified and has a resolved status — auto-publish

@@ -5,7 +5,8 @@ import matter from "gray-matter";
 import { z } from "zod";
 import { config } from "../config";
 import { ExtractedClaim } from "./extract-claims";
-import { searchBrave } from "../sources/brave-search";
+import { searchGoogleFactCheck } from "../sources/google-fact-check";
+import { resolveEmptySources } from "./resolve-sources";
 
 const ClaimFrontmatterSchema = z.object({
   title: z.string(),
@@ -21,6 +22,7 @@ const ClaimFrontmatterSchema = z.object({
       url: z.string(),
       type: z.string(),
       summary: z.string(),
+      needsResolution: z.boolean().optional(),
     })
   ),
   evidenceFor: z.array(z.string()),
@@ -72,10 +74,10 @@ export async function generateDraft(claim: ExtractedClaim): Promise<string> {
 
   const today = new Date().toISOString().split("T")[0];
 
-  // Search Brave for real URLs related to this claim
-  const braveResults = await searchBrave(claim.claim);
-  const braveContext = braveResults.length > 0
-    ? `\nBRAVE SEARCH RESULTS (use these real URLs as sources):\n${braveResults.map(r => `- "${r.title}" | ${r.url} | ${r.description.slice(0, 150)}`).join("\n")}`
+  // Search Google Fact Check for real URLs related to this claim
+  const factCheckResults = await searchGoogleFactCheck(claim.claim);
+  const factCheckContext = factCheckResults.length > 0
+    ? `\nFACT CHECK RESULTS (use these real, verified URLs as sources):\n${factCheckResults.map(r => `- "${r.title}" | ${r.url} | Publisher: ${r.publisher} | Rating: ${r.rating}`).join("\n")}`
     : "";
 
   const response = await client.messages.create({
@@ -91,14 +93,14 @@ Your task: Generate a complete claim page draft in markdown with YAML frontmatte
 CLAIM TO RESEARCH: "${claim.claim}"
 TOPIC: ${claim.topic}
 SUGGESTED RESEARCH QUERIES: ${claim.searchQueries.join(", ")}
-SOURCE CONTEXT: ${claim.sourceItems.join("; ")}${braveContext}
+SOURCE CONTEXT: ${claim.sourceItems.join("; ")}${factCheckContext}
 
 CRITICAL RULES:
 - Be STRICTLY NEUTRAL. No adjectives implying judgment. No editorial tone.
 - Every factual assertion must reference a source
 - Prefer .gov and .edu sources when available — they are more authoritative
 - Never fabricate URLs — always use [VERIFY] tag if you are uncertain about a URL
-- When Brave Search results are provided in the source context, use those real URLs instead of guessing
+- When Fact Check results are provided in the source context, use those real URLs instead of guessing
 - Cross-reference multiple sources before determining the claim status
 - For sources you cannot verify right now, use placeholder URLs with [VERIFY] tags
 - Status must be one of: verified, mixed, unsupported, unresolved
@@ -200,6 +202,16 @@ Return ONLY the markdown content, starting with --- and ending with ---`,
 
   fs.writeFileSync(filepath, markdown, "utf8");
   console.log(`  -> Saved: ${targetLabel}/${filename}`);
+
+  // Attempt to resolve any empty source URLs
+  try {
+    const { resolved, flagged } = await resolveEmptySources(filepath);
+    if (resolved > 0 || flagged > 0) {
+      console.log(`  -> Source resolution: ${resolved} resolved, ${flagged} flagged for review`);
+    }
+  } catch (error) {
+    console.warn(`  -> Source resolution skipped: ${error}`);
+  }
 
   if (hasUnverified) {
     console.log(

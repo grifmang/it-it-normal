@@ -6,9 +6,8 @@ import { fetchCongressActivity, CongressItem } from "./congress";
 import { fetchCourtOpinions, CourtOpinion } from "./courtlistener";
 import { fetchExecutiveOrders, ExecutiveOrderItem } from "./executive-orders";
 import { fetchGoogleFactCheckClaims, FactCheckClaim } from "./google-fact-check";
-import { searchBrave, BraveSearchResult } from "./brave-search";
 
-export type RawItem = TrendingTopic | RedditPost | NewsArticle | RssItem | CongressItem | CourtOpinion | ExecutiveOrderItem | FactCheckClaim | BraveSearchResult;
+export type RawItem = TrendingTopic | RedditPost | NewsArticle | RssItem | CongressItem | CourtOpinion | ExecutiveOrderItem | FactCheckClaim;
 
 export interface AggregatedContent {
   googleTrends: TrendingTopic[];
@@ -19,7 +18,6 @@ export interface AggregatedContent {
   courtlistener: CourtOpinion[];
   executiveOrders: ExecutiveOrderItem[];
   googleFactChecks: FactCheckClaim[];
-  braveSearch: BraveSearchResult[];
   all: RawItem[];
   fetchedAt: string;
 }
@@ -38,15 +36,7 @@ export async function aggregateAllSources(): Promise<AggregatedContent> {
     fetchGoogleFactCheckClaims(),
   ]);
 
-  // Search Brave for top 3 trending topics
-  const braveSearch: BraveSearchResult[] = [];
-  const topTrends = googleTrends.slice(0, 3);
-  for (const trend of topTrends) {
-    const results = await searchBrave(trend.title);
-    braveSearch.push(...results);
-  }
-
-  const all: RawItem[] = [...googleTrends, ...reddit, ...news, ...rss, ...congress, ...courtlistener, ...executiveOrders, ...googleFactChecks, ...braveSearch];
+  const all: RawItem[] = [...googleTrends, ...reddit, ...news, ...rss, ...congress, ...courtlistener, ...executiveOrders, ...googleFactChecks];
 
   console.log(`\n=== Total: ${all.length} items from all sources ===\n`);
 
@@ -59,7 +49,6 @@ export async function aggregateAllSources(): Promise<AggregatedContent> {
     courtlistener,
     executiveOrders,
     googleFactChecks,
-    braveSearch,
     all,
     fetchedAt: new Date().toISOString(),
   };

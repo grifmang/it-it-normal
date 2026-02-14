@@ -189,12 +189,5 @@ function buildDigest(content: AggregatedContent): string {
     }
   }
 
-  if (content.braveSearch.length > 0) {
-    sections.push("\n## Brave Search Results");
-    for (const r of content.braveSearch.slice(0, 20)) {
-      sections.push(`- "${r.title}" | ${r.url} | ${r.description.slice(0, 200)}`);
-    }
-  }
-
   return sections.join("\n");
 }

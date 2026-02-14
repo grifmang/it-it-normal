@@ -18,12 +18,17 @@ export const config = {
   // Source settings
   googleTrendsGeo: process.env.GOOGLE_TRENDS_GEO || "US",
   redditSubreddits: (
-    process.env.REDDIT_SUBREDDITS || "politics,news,neutralpolitics"
+    process.env.REDDIT_SUBREDDITS || "politics,news,neutralpolitics,PoliticalDiscussion,law,scotus"
+  ).split(",").map(s => s.trim()).filter(Boolean),
+  newsApiTopics: (
+    process.env.NEWS_API_TOPICS ||
+    "politics,government,congress,supreme court,immigration,election,executive order,federal budget,trade policy"
   ).split(",").map(s => s.trim()).filter(Boolean),
   googleFactCheckLanguage: process.env.GOOGLE_FACT_CHECK_LANGUAGE || "en-US",
   googleFactCheckPageSize: parseInt(
     process.env.GOOGLE_FACT_CHECK_PAGE_SIZE || "20"
   ),
+
   // Publish mode
   autoPublish: process.env.AUTO_PUBLISH === "true",
 
@@ -43,10 +48,17 @@ export const config = {
     "https://rss.nytimes.com/services/xml/rss/nyt/Politics.xml",
     "https://feeds.washingtonpost.com/rss/politics",
     "https://feeds.npr.org/1014/rss.xml",
+    // Wire services & political news
+    "https://rsshub.app/apnews/topics/politics",
+    "https://www.reutersagency.com/feed/?taxonomy=best-topics&post_type=best",
+    "https://thehill.com/feed/",
+    "https://www.politico.com/rss/politicopicks.xml",
+    // Legal / SCOTUS
+    "https://www.scotusblog.com/feed/",
   ],
 
   // Pipeline settings
-  maxClaimsPerRun: parseInt(process.env.MAX_CLAIMS_PER_RUN || "5"),
+  maxClaimsPerRun: parseInt(process.env.MAX_CLAIMS_PER_RUN || "6"),
   minRelevanceScore: parseFloat(process.env.MIN_RELEVANCE_SCORE || "0.6"),
 };
 

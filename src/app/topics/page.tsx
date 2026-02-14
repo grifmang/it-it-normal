@@ -6,6 +6,9 @@ import { TOPICS } from "@/lib/types";
 export const metadata: Metadata = {
   title: "Topics",
   description: "Browse political claims by topic area.",
+  alternates: {
+    canonical: "/topics",
+  },
 };
 
 export default async function TopicsPage() {

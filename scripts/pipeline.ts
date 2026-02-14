@@ -3,6 +3,7 @@ import { aggregateAllSources } from "./sources";
 import { extractClaims } from "./ai/extract-claims";
 import { findDuplicates } from "./ai/dedup";
 import { generateAllDrafts } from "./ai/draft-claim";
+import { recordMetrics } from "./metrics";
 
 async function main() {
   console.log("╔══════════════════════════════════════╗");
@@ -65,6 +66,18 @@ async function main() {
     console.log(`  Run 'npm run review' to review and publish drafts.`);
   }
   console.log();
+
+  // Record pipeline metrics for observability
+  const durationMs = Date.now() - startTime;
+  recordMetrics({
+    timestamp: new Date().toISOString(),
+    sourcesCount: content.all.length,
+    claimsExtracted: rawClaims.length,
+    claimsGenerated: drafts.length,
+    claimsSkipped: rawClaims.length - claims.length,
+    errors: claims.length - drafts.filter((d) => d !== "").length,
+    durationMs,
+  });
 }
 
 main().catch((error) => {

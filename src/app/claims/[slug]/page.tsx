@@ -1,12 +1,15 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getClaimBySlug, getClaimSlugs } from "@/lib/claims";
+import Link from "next/link";
+import { getClaimBySlug, getClaimSlugs, getClaimsByTopic } from "@/lib/claims";
 import { TOPICS, STATUS_LABELS } from "@/lib/types";
 import StatusBadge from "@/components/StatusBadge";
 import SourceList from "@/components/SourceList";
 import EvidenceSection from "@/components/EvidenceSection";
 import Timeline from "@/components/Timeline";
 import ClaimReviewSchema from "@/components/ClaimReviewSchema";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
+import AdUnit from "@/components/AdUnit";
 
 const STALE_CLAIM_DAYS = 7;
 
@@ -37,10 +40,16 @@ export async function generateMetadata({
     return {
       title: `"${claim.title}" — ${STATUS_LABELS[claim.status]}`,
       description: claim.summary,
+      alternates: {
+        canonical: `/claims/${claim.slug}`,
+      },
       openGraph: {
         title: `"${claim.title}"`,
         description: claim.summary,
         type: "article",
+        publishedTime: claim.created,
+        modifiedTime: claim.updated,
+        section: TOPICS[claim.topic] || claim.topic,
       },
     };
   } catch {
@@ -63,10 +72,24 @@ export default async function ClaimPage({
 
   const claimAgeDays = getClaimAgeDays(claim.updated);
   const isStaleClaim = claimAgeDays >= STALE_CLAIM_DAYS;
+  const topicName = TOPICS[claim.topic] || claim.topic;
+
+  // Get related claims from same topic (excluding current)
+  const topicClaims = await getClaimsByTopic(claim.topic);
+  const relatedClaims = topicClaims
+    .filter((c) => c.slug !== claim.slug)
+    .slice(0, 3);
 
   return (
     <>
       <ClaimReviewSchema claim={claim} />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", href: "/" },
+          { name: topicName, href: `/topics/${claim.topic}` },
+          { name: claim.title, href: `/claims/${claim.slug}` },
+        ]}
+      />
 
       <article className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
         {/* Unverified banner */}
@@ -95,9 +118,12 @@ export default async function ClaimPage({
         <header className="mb-8">
           <div className="mb-3 flex flex-wrap items-center gap-2">
             <StatusBadge status={claim.status} />
-            <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-              {TOPICS[claim.topic] || claim.topic}
-            </span>
+            <Link
+              href={`/topics/${claim.topic}`}
+              className="text-xs font-medium text-gray-500 uppercase tracking-wide hover:text-gray-700"
+            >
+              {topicName}
+            </Link>
           </div>
           <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">
             &ldquo;{claim.title}&rdquo;
@@ -132,6 +158,8 @@ export default async function ClaimPage({
           </p>
         </section>
 
+        <AdUnit slot="claim-after-summary" format="auto" />
+
         {/* Primary Sources */}
         {claim.sources.length > 0 && (
           <section className="mb-8">
@@ -155,6 +183,8 @@ export default async function ClaimPage({
             variant="against"
           />
         </div>
+
+        <AdUnit slot="claim-after-evidence" format="auto" />
 
         {/* Timeline */}
         {claim.timeline.length > 0 && (
@@ -195,6 +225,34 @@ export default async function ClaimPage({
         {claim.content && (
           <section className="prose prose-sm max-w-none">
             <div dangerouslySetInnerHTML={{ __html: claim.content }} />
+          </section>
+        )}
+
+        {/* Related Claims */}
+        {relatedClaims.length > 0 && (
+          <section className="mt-12 border-t border-gray-200 pt-8">
+            <h2 className="mb-4 text-base font-semibold text-gray-900">
+              Related Claims in {topicName}
+            </h2>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {relatedClaims.map((related) => (
+                <Link
+                  key={related.slug}
+                  href={`/claims/${related.slug}`}
+                  className="rounded-lg border border-gray-200 bg-white p-4 transition-shadow hover:shadow-md"
+                >
+                  <div className="mb-2">
+                    <StatusBadge status={related.status} />
+                  </div>
+                  <h3 className="text-sm font-semibold text-gray-900 line-clamp-2">
+                    &ldquo;{related.title}&rdquo;
+                  </h3>
+                  <p className="mt-1 text-xs text-gray-500 line-clamp-2">
+                    {related.summary}
+                  </p>
+                </Link>
+              ))}
+            </div>
           </section>
         )}
       </article>

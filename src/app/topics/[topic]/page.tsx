@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getClaimsByTopic, getTopicsWithCounts } from "@/lib/claims";
 import { TOPICS } from "@/lib/types";
 import ClaimCard from "@/components/ClaimCard";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import Link from "next/link";
 
 export async function generateStaticParams() {
@@ -20,6 +21,9 @@ export async function generateMetadata({
   return {
     title: `${topicName} Claims`,
     description: `Evidence-based analysis of political claims related to ${topicName.toLowerCase()}.`,
+    alternates: {
+      canonical: `/topics/${topic}`,
+    },
   };
 }
 
@@ -37,6 +41,14 @@ export default async function TopicPage({
   }
 
   return (
+    <>
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Topics", href: "/topics" },
+          { name: topicName, href: `/topics/${topic}` },
+        ]}
+      />
     <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
       <nav className="mb-4 text-sm text-gray-500">
         <Link href="/topics" className="hover:text-gray-700">
@@ -58,5 +70,6 @@ export default async function TopicPage({
         ))}
       </div>
     </div>
+    </>
   );
 }

@@ -32,6 +32,18 @@ export default function Footer() {
             >
               Search
             </Link>
+            <Link
+              href="/privacy"
+              className="text-xs text-gray-500 hover:text-gray-700"
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              href="/terms"
+              className="text-xs text-gray-500 hover:text-gray-700"
+            >
+              Terms of Service
+            </Link>
           </nav>
         </div>
         <div className="mt-6 border-t border-gray-200 pt-4">

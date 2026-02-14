@@ -20,8 +20,10 @@ export default function ClaimReviewSchema({ claim }: { claim: Claim }) {
     "@context": "https://schema.org",
     "@type": "ClaimReview",
     datePublished: claim.created,
+    dateModified: claim.updated,
     url: `https://isthisnormal.com/claims/${claim.slug}`,
     claimReviewed: claim.title,
+    reviewBody: claim.summary,
     author: {
       "@type": "Organization",
       name: "Is This Normal?",
@@ -38,7 +40,21 @@ export default function ClaimReviewSchema({ claim }: { claim: Claim }) {
       "@type": "Claim",
       name: claim.title,
       datePublished: claim.created,
+      ...(claim.sources.length > 0 && {
+        appearance: claim.sources.map((source) => ({
+          "@type": "CreativeWork",
+          name: source.title,
+          url: source.url,
+        })),
+      }),
     },
+    ...(claim.sources.length > 0 && {
+      isBasedOn: claim.sources.map((source) => ({
+        "@type": "CreativeWork",
+        name: source.title,
+        url: source.url,
+      })),
+    }),
   };
 
   return (

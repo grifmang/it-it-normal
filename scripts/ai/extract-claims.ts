@@ -111,7 +111,7 @@ function buildDigest(content: AggregatedContent): string {
 
   if (content.googleTrends.length > 0) {
     sections.push("## Google Trends (Trending Searches)");
-    for (const t of content.googleTrends.slice(0, 20)) {
+    for (const t of content.googleTrends.slice(0, 30)) {
       sections.push(
         `- "${t.title}" (${t.trafficVolume} searches) | Related: ${t.relatedQueries.slice(0, 3).join(", ")}`
       );
@@ -120,7 +120,7 @@ function buildDigest(content: AggregatedContent): string {
 
   if (content.reddit.length > 0) {
     sections.push("\n## Reddit (High-Engagement Political Posts)");
-    for (const p of content.reddit.slice(0, 25)) {
+    for (const p of content.reddit.slice(0, 40)) {
       sections.push(
         `- [r/${p.subreddit}, score: ${p.score}] "${p.title}" ${p.selftext ? `| ${p.selftext.slice(0, 200)}` : ""}`
       );
@@ -129,7 +129,7 @@ function buildDigest(content: AggregatedContent): string {
 
   if (content.news.length > 0) {
     sections.push("\n## News Headlines");
-    for (const a of content.news.slice(0, 30)) {
+    for (const a of content.news.slice(0, 50)) {
       sections.push(
         `- [${a.sourceName}] "${a.title}" | ${a.description?.slice(0, 200) || ""}`
       );
@@ -138,7 +138,7 @@ function buildDigest(content: AggregatedContent): string {
 
   if (content.rss.length > 0) {
     sections.push("\n## RSS Feeds (Fact-checkers, Government, News)");
-    for (const r of content.rss.slice(0, 30)) {
+    for (const r of content.rss.slice(0, 50)) {
       sections.push(
         `- [${r.feedSource}] "${r.title}" | ${r.contentSnippet?.slice(0, 200) || ""}`
       );
@@ -147,7 +147,7 @@ function buildDigest(content: AggregatedContent): string {
 
   if (content.congress.length > 0) {
     sections.push("\n## Congressional Activity (Recent Bills)");
-    for (const c of content.congress.slice(0, 15)) {
+    for (const c of content.congress.slice(0, 20)) {
       sections.push(
         `- [${c.billNumber}] "${c.title}" | Latest: ${c.latestAction}`
       );
@@ -156,13 +156,12 @@ function buildDigest(content: AggregatedContent): string {
 
   if (content.courtlistener.length > 0) {
     sections.push("\n## Federal Court Opinions (Recent)");
-    for (const o of content.courtlistener.slice(0, 10)) {
+    for (const o of content.courtlistener.slice(0, 15)) {
       sections.push(
         `- [${o.court}] "${o.caseName}" (${o.dateDecided}) | ${o.summary.slice(0, 200)}`
       );
     }
   }
-
 
   if (content.executiveOrders.length > 0) {
     sections.push("\n## Executive Orders (Last 7 Days)");
@@ -187,6 +186,13 @@ function buildDigest(content: AggregatedContent): string {
       sections.push(
         `- "${factCheck.text}" | Claimant: ${factCheck.claimant || "Unknown"} | Reviews: ${topPublishers || "n/a"} | Ratings: ${topRatings || "n/a"}`
       );
+    }
+  }
+
+  if (content.braveSearch.length > 0) {
+    sections.push("\n## Brave Search Results");
+    for (const r of content.braveSearch.slice(0, 20)) {
+      sections.push(`- "${r.title}" | ${r.url} | ${r.description.slice(0, 200)}`);
     }
   }
 

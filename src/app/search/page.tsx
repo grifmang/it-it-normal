@@ -6,6 +6,9 @@ import SearchPageClient from "./SearchPageClient";
 export const metadata: Metadata = {
   title: "Search Claims",
   description: "Search our database of political claims and evidence.",
+  alternates: {
+    canonical: "/search",
+  },
 };
 
 export default async function SearchPage() {

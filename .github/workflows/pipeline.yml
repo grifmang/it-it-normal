@@ -4,7 +4,7 @@ name: Run Claim Pipeline
 
 on:
   schedule:
-    - cron: "0 */4 * * *"
+    - cron: "0 */8 * * *"
   workflow_dispatch:
 
 permissions:
@@ -39,14 +39,15 @@ jobs:
           AUTO_PUBLISH=true
           GOOGLE_TRENDS_GEO=US
           REDDIT_SUBREDDITS=politics,news,neutralpolitics
-          MAX_CLAIMS_PER_RUN=5
+          NEWS_API_TOPICS=politics,government,congress,supreme court,immigration,election
+          MAX_CLAIMS_PER_RUN=6
           MIN_RELEVANCE_SCORE=0.6
           EOF
 
       - name: Run pipeline
         run: npm run pipeline
 
-      - name: Refresh existing claims
+      - name: Update existing claims
         run: npm run update-claims
 
       - name: Check for new content

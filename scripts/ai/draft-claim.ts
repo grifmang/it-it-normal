@@ -5,6 +5,7 @@ import matter from "gray-matter";
 import { z } from "zod";
 import { config } from "../config";
 import { ExtractedClaim } from "./extract-claims";
+import { searchBrave } from "../sources/brave-search";
 
 const ClaimFrontmatterSchema = z.object({
   title: z.string(),
@@ -35,10 +36,47 @@ const ClaimFrontmatterSchema = z.object({
 
 const client = new Anthropic({ apiKey: config.anthropicApiKey });
 
+/**
+ * Find up to 3 existing claims with the same topic to use as relatedSlugs.
+ */
+function findRelatedClaims(topic: string, currentSlug: string): string[] {
+  const dirs = [config.claimsDir, config.draftsDir];
+  const slugs: string[] = [];
+
+  for (const dir of dirs) {
+    if (!fs.existsSync(dir)) continue;
+    const files = fs.readdirSync(dir).filter((f) => f.endsWith(".md"));
+    for (const file of files) {
+      if (slugs.length >= 3) break;
+      try {
+        const content = fs.readFileSync(path.join(dir, file), "utf8");
+        const parsed = matter(content);
+        if (
+          parsed.data.topic === topic &&
+          parsed.data.slug !== currentSlug
+        ) {
+          slugs.push(parsed.data.slug);
+        }
+      } catch {
+        // Skip files that can't be parsed
+      }
+    }
+    if (slugs.length >= 3) break;
+  }
+
+  return slugs.slice(0, 3);
+}
+
 export async function generateDraft(claim: ExtractedClaim): Promise<string> {
   console.log(`\n=== Generating draft for: "${claim.claim}" ===`);
 
   const today = new Date().toISOString().split("T")[0];
+
+  // Search Brave for real URLs related to this claim
+  const braveResults = await searchBrave(claim.claim);
+  const braveContext = braveResults.length > 0
+    ? `\nBRAVE SEARCH RESULTS (use these real URLs as sources):\n${braveResults.map(r => `- "${r.title}" | ${r.url} | ${r.description.slice(0, 150)}`).join("\n")}`
+    : "";
 
   const response = await client.messages.create({
     model: "claude-sonnet-4-5-20250929",
@@ -53,11 +91,15 @@ Your task: Generate a complete claim page draft in markdown with YAML frontmatte
 CLAIM TO RESEARCH: "${claim.claim}"
 TOPIC: ${claim.topic}
 SUGGESTED RESEARCH QUERIES: ${claim.searchQueries.join(", ")}
-SOURCE CONTEXT: ${claim.sourceItems.join("; ")}
+SOURCE CONTEXT: ${claim.sourceItems.join("; ")}${braveContext}
 
 CRITICAL RULES:
 - Be STRICTLY NEUTRAL. No adjectives implying judgment. No editorial tone.
 - Every factual assertion must reference a source
+- Prefer .gov and .edu sources when available — they are more authoritative
+- Never fabricate URLs — always use [VERIFY] tag if you are uncertain about a URL
+- When Brave Search results are provided in the source context, use those real URLs instead of guessing
+- Cross-reference multiple sources before determining the claim status
 - For sources you cannot verify right now, use placeholder URLs with [VERIFY] tags
 - Status must be one of: verified, mixed, unsupported, unresolved
 - If you're uncertain about the status, use "unresolved"
@@ -128,6 +170,13 @@ Return ONLY the markdown content, starting with --- and ending with ---`,
 
   // Add sourcesVerified flag via parsed data
   parsed.data.sourcesVerified = !hasUnverified;
+
+  // Auto-populate relatedSlugs by finding existing claims with the same topic
+  const relatedSlugs = findRelatedClaims(parsed.data.topic, parsed.data.slug);
+  if (relatedSlugs.length > 0) {
+    parsed.data.relatedSlugs = relatedSlugs;
+  }
+
   markdown = matter.stringify(parsed.content, parsed.data);
 
   // Generate slug from claim text
@@ -172,7 +221,7 @@ export async function generateAllDrafts(
       paths.push(filepath);
 
       // Rate limiting between API calls
-      await new Promise((r) => setTimeout(r, 2000));
+      await new Promise((r) => setTimeout(r, 500));
     } catch (error) {
       console.error(`[Draft] Error generating draft for "${claim.claim}":`, error);
     }

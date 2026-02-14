@@ -4,6 +4,9 @@ export const metadata: Metadata = {
   title: "Methodology",
   description:
     "How we research, structure, and present evidence for political claims.",
+  alternates: {
+    canonical: "/methodology",
+  },
 };
 
 export default function MethodologyPage() {

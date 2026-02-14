@@ -54,28 +54,35 @@ async function fetchSubreddit(subreddit: string, sort: "hot" | "new"): Promise<R
   }
 }
 
-export async function fetchRedditPosts(): Promise<RedditPost[]> {
-  const posts: RedditPost[] = [];
+async function fetchSubredditWithDelay(subreddit: string, delayMs: number): Promise<RedditPost[]> {
+  await new Promise((r) => setTimeout(r, delayMs));
 
-  for (const subreddit of config.redditSubreddits) {
-    const normalized = subreddit.trim();
-    if (!/^[A-Za-z0-9_]+$/.test(normalized)) {
-      console.warn(`[Reddit] Skipping invalid subreddit name: ${subreddit}`);
-      continue;
-    }
-
-    try {
-      const hot = await fetchSubreddit(normalized, "hot");
-      const fresh = await fetchSubreddit(normalized, "new");
-      posts.push(...hot, ...fresh);
-    } catch (error) {
-      const message = error instanceof Error ? error.message : String(error);
-      console.warn(`[Reddit] Skipping r/${subreddit}: ${message}`);
-    }
-
-    await new Promise((r) => setTimeout(r, 1200));
+  const normalized = subreddit.trim();
+  if (!/^[A-Za-z0-9_]+$/.test(normalized)) {
+    console.warn(`[Reddit] Skipping invalid subreddit name: ${subreddit}`);
+    return [];
   }
 
+  try {
+    const hot = await fetchSubreddit(normalized, "hot");
+    const fresh = await fetchSubreddit(normalized, "new");
+    return [...hot, ...fresh];
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    console.warn(`[Reddit] Skipping r/${subreddit}: ${message}`);
+    return [];
+  }
+}
+
+export async function fetchRedditPosts(): Promise<RedditPost[]> {
+  // Fetch subreddits in parallel with 300ms staggered delays
+  const results = await Promise.all(
+    config.redditSubreddits.map((subreddit, i) =>
+      fetchSubredditWithDelay(subreddit, i * 300)
+    )
+  );
+
+  const posts = results.flat();
   const deduped = Array.from(new Map(posts.map((post) => [post.url, post])).values());
   console.log(`[Reddit] Found ${deduped.length} high-engagement posts`);
   return deduped;

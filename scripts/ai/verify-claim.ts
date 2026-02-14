@@ -183,7 +183,7 @@ export async function verifyAllDrafts(): Promise<void> {
       }
 
       // Rate limit between API calls
-      await new Promise((r) => setTimeout(r, 2000));
+      await new Promise((r) => setTimeout(r, 500));
     } catch (error) {
       console.error(`[Verify] Error verifying ${filename}:`, error);
       issues++;

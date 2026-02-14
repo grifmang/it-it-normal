@@ -36,12 +36,12 @@ export async function checkForUpdates(
   const parsed = matter(raw);
   const data = parsed.data;
 
-  // Skip if updated within the last 7 days
+  // Skip if updated within the last 3 days
   const updatedDate = new Date(data.updated);
-  const sevenDaysAgo = new Date();
-  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+  const threeDaysAgo = new Date();
+  threeDaysAgo.setDate(threeDaysAgo.getDate() - 3);
 
-  if (updatedDate > sevenDaysAgo) {
+  if (updatedDate > threeDaysAgo) {
     return null;
   }
 
@@ -176,10 +176,10 @@ export async function updateAllClaims(): Promise<void> {
 
     // Check if too recent
     const updatedDate = new Date(parsed.data.updated);
-    const sevenDaysAgo = new Date();
-    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+    const threeDaysAgo = new Date();
+    threeDaysAgo.setDate(threeDaysAgo.getDate() - 3);
 
-    if (updatedDate > sevenDaysAgo) {
+    if (updatedDate > threeDaysAgo) {
       console.log(`  [SKIP] "${title}" — updated ${parsed.data.updated}`);
       skipped++;
       continue;
@@ -240,8 +240,8 @@ export async function updateAllClaims(): Promise<void> {
         console.log(`    [NO UPDATES]`);
       }
 
-      // Rate limit: 2s between API calls
-      await new Promise((r) => setTimeout(r, 2000));
+      // Rate limit: 500ms between API calls
+      await new Promise((r) => setTimeout(r, 500));
     } catch (error) {
       console.error(`    [ERROR] ${error}`);
     }

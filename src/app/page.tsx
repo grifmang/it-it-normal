@@ -2,14 +2,30 @@ import { getAllClaims, getTopicsWithCounts } from "@/lib/claims";
 import { TOPICS } from "@/lib/types";
 import ClaimCard from "@/components/ClaimCard";
 import SearchBar from "@/components/SearchBar";
+import AdUnit from "@/components/AdUnit";
 import Link from "next/link";
 
 export default async function HomePage() {
   const claims = await getAllClaims();
   const topics = await getTopicsWithCounts();
 
+  const orgSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Is This Normal?",
+    url: "https://isthisnormal.com",
+    logo: "https://isthisnormal.com/og-default.svg",
+    description:
+      "Evidence-based political claim analysis. Primary sources. Structured evidence. No opinion.",
+    sameAs: [],
+  };
+
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
+      />
       {/* Hero */}
       <section className="border-b border-gray-200 bg-gray-50">
         <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
@@ -47,6 +63,8 @@ export default async function HomePage() {
             </div>
           </section>
         )}
+
+        <AdUnit slot="home-mid" format="horizontal" />
 
         {/* Recent Claims */}
         <section>

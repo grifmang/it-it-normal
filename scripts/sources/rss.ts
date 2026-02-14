@@ -19,7 +19,7 @@ export interface RssItem {
 
 export async function fetchRssFeeds(): Promise<RssItem[]> {
   const items: RssItem[] = [];
-  const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+  const twoDaysAgo = new Date(Date.now() - 48 * 60 * 60 * 1000);
 
   for (const feedUrl of config.rssFeeds) {
     try {
@@ -29,7 +29,7 @@ export async function fetchRssFeeds(): Promise<RssItem[]> {
       for (const item of (feed.items || []).slice(0, 15)) {
         const pubDate = item.pubDate ? new Date(item.pubDate) : new Date();
 
-        if (pubDate >= oneDayAgo) {
+        if (pubDate >= twoDaysAgo) {
           items.push({
             title: item.title || "",
             link: item.link || "",

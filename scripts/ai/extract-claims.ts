@@ -162,5 +162,15 @@ function buildDigest(content: AggregatedContent): string {
     }
   }
 
+
+  if (content.executiveOrders.length > 0) {
+    sections.push("\n## Executive Orders (Last 7 Days)");
+    for (const eo of content.executiveOrders.slice(0, 20)) {
+      sections.push(
+        `- [${eo.sourceName}] "${eo.title}" (${eo.publishedAt.slice(0, 10)}) | ${eo.summary.slice(0, 200)}`
+      );
+    }
+  }
+
   return sections.join("\n");
 }

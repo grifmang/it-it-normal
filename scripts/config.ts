@@ -30,6 +30,7 @@ export const config = {
     "https://www.factcheck.org/feed/",
     // Government
     "https://www.whitehouse.gov/feed/",
+    "https://www.whitehouse.gov/presidential-actions/feed/",
     "https://www.justice.gov/feeds/justice-news.xml",
     // News
     "https://rss.nytimes.com/services/xml/rss/nyt/Politics.xml",

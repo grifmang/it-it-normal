@@ -8,6 +8,19 @@ import EvidenceSection from "@/components/EvidenceSection";
 import Timeline from "@/components/Timeline";
 import ClaimReviewSchema from "@/components/ClaimReviewSchema";
 
+const STALE_CLAIM_DAYS = 7;
+
+function getClaimAgeDays(updatedAt: string): number {
+  const updatedTime = new Date(updatedAt).getTime();
+  if (Number.isNaN(updatedTime)) return 0;
+
+  const now = Date.now();
+  const diff = now - updatedTime;
+  if (diff <= 0) return 0;
+
+  return Math.floor(diff / (1000 * 60 * 60 * 24));
+}
+
 export async function generateStaticParams() {
   const slugs = getClaimSlugs();
   return slugs.map((slug) => ({ slug }));
@@ -48,6 +61,9 @@ export default async function ClaimPage({
     notFound();
   }
 
+  const claimAgeDays = getClaimAgeDays(claim.updated);
+  const isStaleClaim = claimAgeDays >= STALE_CLAIM_DAYS;
+
   return (
     <>
       <ClaimReviewSchema claim={claim} />
@@ -60,6 +76,17 @@ export default async function ClaimPage({
               <span className="font-semibold">Note:</span> Some sources in this
               analysis have not been manually verified. Dates or URLs may be
               approximate.
+            </p>
+          </div>
+        )}
+
+        {isStaleClaim && (
+          <div className="mb-6 rounded-lg border border-blue-200 bg-blue-50 px-4 py-3">
+            <p className="text-sm text-blue-900">
+              <span className="font-semibold">Freshness note:</span> This
+              analysis was last updated {claimAgeDays} days ago. Fast-moving
+              policy claims can change quickly, so check for newer official
+              updates before relying on this verdict.
             </p>
           </div>
         )}

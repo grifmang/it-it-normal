@@ -21,9 +21,10 @@ This pipeline:
 
 1. Aggregates claims and events from multiple sources (news, RSS, Congress, court opinions, executive actions, trends, Reddit).
 2. Pulls recent claim-review data from the Google Fact Check Tools API (when configured).
-3. Uses AI to extract specific, checkable, high-relevance claims.
-4. De-duplicates against existing claim files.
-5. Generates new drafts for review/publishing.
+3. Resolves/validates source URLs using DuckDuckGo search + Google Fact Check data (no Google Custom Search dependency).
+4. Uses AI to extract specific, checkable, high-relevance claims.
+5. De-duplicates against existing claim files.
+6. Generates new drafts for review/publishing.
 
 ## Environment variables
 
@@ -38,10 +39,10 @@ Optional but recommended:
 - `NEWS_API_KEY`
 - `CONGRESS_API_KEY`
 - `COURTLISTENER_API_TOKEN`
-- `BRAVE_SEARCH_API_KEY`
 - `GOOGLE_FACT_CHECK_API_KEY`
 - `GOOGLE_FACT_CHECK_LANGUAGE` (default: `en-US`)
 - `GOOGLE_FACT_CHECK_PAGE_SIZE` (default: `20`)
+- `DUCKDUCKGO_REGION` (default: `us-en`)
 - `MAX_CLAIMS_PER_RUN` (default: `5`)
 - `MIN_RELEVANCE_SCORE` (default: `0.6`)
 - `AUTO_PUBLISH` (`true`/`false`)

@@ -103,7 +103,6 @@ whatThisMeans:
     Representatives can support economic development projects in their districts
     while opposing the federal funding mechanisms that enable them, creating
     apparent contradictions in their positions
-sourcesVerified: false
 relatedSlugs:
   - ftc-ferguson-apple-news-warning-2025
   - ftc-chairman-apple-news-warning

@@ -2,7 +2,7 @@
 title: Federal agents fatally shot Alex Pretti and Renee Nicole Good in Minneapolis
 slug: federal-agents-shot-pretti-good-minneapolis
 topic: public_safety
-status: unresolved
+status: mixed
 summary: >-
   Reports indicate that federal agents were involved in a fatal shooting
   incident in Minneapolis that resulted in the deaths of two individuals
@@ -81,6 +81,5 @@ whatThisMeans:
     agent-involved shootings requires documentation from multiple authoritative
     sources including the involved federal agency, local law enforcement, and
     medical examiner reports
-sourcesVerified: false
 ---
 

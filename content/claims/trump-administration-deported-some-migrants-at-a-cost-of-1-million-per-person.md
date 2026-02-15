@@ -19,14 +19,12 @@ sources:
     summary: >-
       Reports on Democratic congressional findings regarding high-cost
       deportations to far-flung countries
-    needsResolution: true
   - title: Democratic Congressional Report on Deportation Spending
     url: ''
     type: report
     summary: >-
       Documents over $30 million spent on deportations to third countries during
       specific period
-    needsResolution: true
   - title: ICE Deportation Statistics
     url: 'https://www.ice.gov/remove/removal-statistics '
     type: official
@@ -87,7 +85,6 @@ whatThisMeans:
   - >-
     The figure highlights how diplomatic and logistical factors can dramatically
     increase deportation costs in certain circumstances
-sourcesVerified: false
 relatedSlugs:
   - 3000-federal-agents-twin-cities-immigration-operation
   - any-lucia-lopez-belloza-ice-deportation-mistake

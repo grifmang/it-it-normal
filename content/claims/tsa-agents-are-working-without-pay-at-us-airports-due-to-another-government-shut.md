@@ -4,7 +4,7 @@ title: >-
   shutdown
 slug: tsa-agents-working-without-pay-government-shutdown
 topic: government
-status: unresolved
+status: mixed
 summary: >-
   The claim states TSA agents are working without pay due to a government
   shutdown. Without current verification of an active shutdown in February 2026
@@ -82,6 +82,5 @@ whatThisMeans:
     The distinction between working without pay and working without immediate
     pay is significant for understanding the financial impact on affected
     employees
-sourcesVerified: false
 ---
 

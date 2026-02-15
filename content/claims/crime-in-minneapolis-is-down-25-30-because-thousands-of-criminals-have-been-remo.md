@@ -4,7 +4,7 @@ title: >-
   removed from the area through immigration enforcement
 slug: minneapolis-crime-down-immigration-enforcement
 topic: immigration
-status: unresolved
+status: mixed
 summary: >-
   The claim states that Minneapolis experienced a 25-30% reduction in crime due
   to removal of thousands of individuals through immigration enforcement. While
@@ -88,6 +88,5 @@ whatThisMeans:
   - >-
     The specific timeframe for measuring the crime reduction and the enforcement
     period must align to evaluate the causal relationship claimed
-sourcesVerified: false
 ---
 

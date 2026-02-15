@@ -4,7 +4,7 @@ title: >-
   border technology, creating a stalemate with the Pentagon
 slug: faa-el-paso-airspace-closure-pentagon-dispute
 topic: aviation_security
-status: unresolved
+status: mixed
 summary: >-
   The claim references an alleged FAA closure of El Paso's airspace due to
   concerns about border technology and a dispute with the Pentagon. Without
@@ -74,6 +74,5 @@ whatThisMeans:
     El Paso International Airport serves as a significant commercial aviation
     hub; any extended airspace closure would have substantial economic and
     transportation impacts
-sourcesVerified: true
 ---
 

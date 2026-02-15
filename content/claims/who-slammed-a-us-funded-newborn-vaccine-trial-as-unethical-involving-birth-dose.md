@@ -19,17 +19,14 @@ sources:
     url: ''
     type: news
     summary: Reports on WHO criticism of CDC-funded vaccine trial in Guinea-Bissau
-    needsResolution: true
   - title: CDC grant information for Guinea-Bissau research
     url: ''
     type: official
     summary: Details of CDC funding for vaccine research in Guinea-Bissau
-    needsResolution: true
   - title: WHO statements on vaccine trial ethics
     url: ''
     type: official
     summary: WHO position on ethical standards for vaccine trials
-    needsResolution: true
   - title: CDC Hepatitis B Vaccine Information
     url: 'https://www.cdc.gov/hepatitis/hbv/vaccchildren.htm'
     type: official
@@ -85,7 +82,6 @@ whatThisMeans:
   - >-
     The characterization of institutional criticism ('slammed' versus 'raised
     concerns') affects public interpretation of scientific and ethical disputes
-sourcesVerified: false
 relatedSlugs:
   - florida-university-measles-outbreak-21-states-2026
   - trump-cdc-grants-cut-blue-states-restraining-order

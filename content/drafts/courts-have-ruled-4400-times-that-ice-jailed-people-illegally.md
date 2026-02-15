@@ -96,7 +96,6 @@ whatThisMeans:
   - >-
     These rulings indicate systemic issues with ICE detention practices but do
     not mean all immigration detention is unlawful under federal statute
-sourcesVerified: false
 relatedSlugs:
   - 3000-federal-agents-twin-cities-immigration-operation
   - any-lucia-lopez-belloza-ice-deportation-mistake

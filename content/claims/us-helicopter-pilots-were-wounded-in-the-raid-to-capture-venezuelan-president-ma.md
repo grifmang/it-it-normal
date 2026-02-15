@@ -21,21 +21,18 @@ sources:
       Reported Trump's public statement revealing that US helicopter pilots were
       wounded during the Maduro capture operation and that one soldier would
       receive the Medal of Honor
-    needsResolution: true
   - title: White House statements on Venezuela operation
     url: ''
     type: official
     summary: >-
       Official statements from the White House regarding US military involvement
       in Venezuela
-    needsResolution: true
   - title: Department of Defense casualty reports
     url: ''
     type: official
     summary: >-
       Official DoD documentation of military casualties from Venezuela
       operations
-    needsResolution: true
 evidenceFor:
   - >-
     President Trump publicly stated that helicopter pilots were wounded in the
@@ -78,7 +75,6 @@ whatThisMeans:
   - >-
     This represents a major US military intervention in Latin America, with
     American service members engaged in direct combat operations
-sourcesVerified: false
 relatedSlugs:
   - binance-fired-investigators-iran-tether-sanctions
   - navalny-dart-frog-toxin-poisoning-claim

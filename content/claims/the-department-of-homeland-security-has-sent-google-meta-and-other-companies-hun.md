@@ -5,7 +5,7 @@ title: >-
   Immigration and Customs Enforcement
 slug: dhs-subpoenas-social-media-ice-tracking-accounts
 topic: civil_liberties
-status: unresolved
+status: mixed
 summary: >-
   Reports indicate the Department of Homeland Security issued subpoenas to
   social media companies requesting information about accounts that post content
@@ -76,7 +76,6 @@ whatThisMeans:
     The scale of requests (whether dozens or hundreds) affects the assessment of
     whether this represents routine law enforcement activity or a broader
     investigation of critics
-sourcesVerified: false
 relatedSlugs:
   - dhs-subpoenas-social-media-anti-ice-posts
 ---

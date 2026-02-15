@@ -4,7 +4,7 @@ title: >-
   new technology being used on the Mexican border
 slug: faa-el-paso-airspace-closure-border-technology
 topic: public_safety
-status: unresolved
+status: mixed
 summary: >-
   The claim references a reported FAA closure of El Paso airspace due to
   concerns about border technology. Without access to the full New York Times
@@ -68,7 +68,6 @@ whatThisMeans:
     Border security technology deployment that affects civilian airspace would
     involve coordination between multiple federal agencies including FAA,
     Department of Defense, and Department of Homeland Security
-sourcesVerified: false
 relatedSlugs:
   - locust-laser-system-el-paso-airspace
   - federal-agents-shot-pretti-good-minneapolis

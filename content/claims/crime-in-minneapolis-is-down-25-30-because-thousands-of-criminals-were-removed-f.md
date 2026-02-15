@@ -102,6 +102,5 @@ whatThisMeans:
     Verification requires specific data on: the number of individuals removed,
     their criminal histories, the specific crime categories that declined, and
     the timing of both trends
-sourcesVerified: false
 ---
 

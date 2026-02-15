@@ -4,7 +4,7 @@ title: >-
   toxin
 slug: navalny-dart-frog-toxin-poisoning-claim
 topic: foreign_policy
-status: unresolved
+status: mixed
 summary: >-
   This claim requires verification of recent European government statements
   regarding Alexei Navalny's cause of death and the specific toxin allegedly
@@ -22,7 +22,6 @@ sources:
     summary: >-
       Reported European nations' claims about Navalny poisoning with dart frog
       toxin
-    needsResolution: true
   - title: U.S. Department of State statement on Navalny's death
     url: 'https://www.state.gov/the-death-of-aleksey-navalny/'
     type: official
@@ -82,6 +81,5 @@ whatThisMeans:
     The claim requires verification of both the existence of European government
     statements and the scientific basis for identifying dart frog toxin
     specifically
-sourcesVerified: false
 ---
 

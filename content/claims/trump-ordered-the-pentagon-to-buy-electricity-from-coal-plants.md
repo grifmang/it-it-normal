@@ -73,6 +73,5 @@ whatThisMeans:
     The distinction between purchasing electricity from coal plants versus
     purchasing coal directly affects how the policy would be implemented and its
     scope
-sourcesVerified: false
 ---
 

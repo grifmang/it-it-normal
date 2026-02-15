@@ -21,14 +21,12 @@ sources:
     summary: >-
       Fortune headline or article characterizing Suleyman's statements about AI
       automation timeline
-    needsResolution: true
   - title: Mustafa Suleyman original interview or statement
     url: ''
     type: transcript
     summary: >-
       Original source of Suleyman's statements about AI and white-collar work
       automation
-    needsResolution: true
   - title: Microsoft AI leadership page
     url: 'https://www.microsoft.com/en-us/ai '
     type: official
@@ -84,7 +82,6 @@ whatThisMeans:
     Executive predictions about AI often serve promotional purposes for
     companies developing AI products and should be evaluated alongside
     independent technical assessments
-sourcesVerified: false
 relatedSlugs:
   - ftc-ferguson-apple-news-warning-2025
   - tenney-micron-syracuse-leadership-claim

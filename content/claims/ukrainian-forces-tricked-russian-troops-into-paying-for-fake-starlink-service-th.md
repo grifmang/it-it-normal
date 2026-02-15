@@ -22,21 +22,18 @@ sources:
     summary: >-
       Reports on Ukrainian OSINT volunteers creating fake Starlink services
       advertised on Telegram to collect intelligence from Russian troops
-    needsResolution: true
   - title: The Washington Post - Ukraine's information warfare tactics
     url: ''
     type: news
     summary: >-
       Discusses Ukrainian intelligence gathering operations targeting Russian
       military communications
-    needsResolution: true
   - title: Reuters - Russian troops seek communication alternatives
     url: ''
     type: news
     summary: >-
       Reports on Russian military personnel seeking alternative communication
       methods including unauthorized satellite internet access
-    needsResolution: true
 evidenceFor:
   - >-
     Ukrainian OSINT groups advertised fake Starlink services on Telegram
@@ -87,7 +84,6 @@ whatThisMeans:
   - >-
     Soldiers seeking to circumvent official communication channels for personal
     connectivity may inadvertently expose sensitive operational information
-sourcesVerified: false
 relatedSlugs:
   - navalny-dart-frog-toxin-poisoning-claim
 ---

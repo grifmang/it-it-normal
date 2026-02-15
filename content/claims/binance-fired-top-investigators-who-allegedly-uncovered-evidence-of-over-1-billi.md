@@ -4,7 +4,7 @@ title: >-
   billion in Tether flowing to Iran-linked wallets in sanctions violations
 slug: binance-fired-investigators-iran-tether-sanctions
 topic: foreign_policy
-status: unresolved
+status: mixed
 summary: >-
   Fortune reported in early 2025 that Binance dismissed investigators who
   allegedly discovered over $1 billion in Tether transactions connected to
@@ -22,7 +22,6 @@ sources:
     summary: >-
       Fortune reported on internal Binance investigation findings showing Tether
       flows to Iran-linked wallets and subsequent dismissal of investigators
-    needsResolution: true
   - title: >-
       U.S. Department of Treasury - Office of Foreign Assets Control (OFAC)
       Sanctions Programs
@@ -91,7 +90,6 @@ whatThisMeans:
   - >-
     The lack of public government enforcement action as of February 2026 means
     the full legal status of these allegations remains unclear
-sourcesVerified: false
 relatedSlugs:
   - navalny-dart-frog-toxin-poisoning-claim
   - ukraine-fake-starlink-russian-troops-location

@@ -84,7 +84,6 @@ whatThisMeans:
     The distinction between informal agency correspondence and formal
     enforcement actions affects whether this constitutes an official warning
     with legal consequences
-sourcesVerified: false
 relatedSlugs:
   - ftc-ferguson-apple-news-warning-2025
   - ftc-chairman-apple-news-warning

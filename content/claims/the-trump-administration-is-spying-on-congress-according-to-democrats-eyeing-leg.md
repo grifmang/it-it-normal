@@ -4,7 +4,7 @@ title: >-
   legal action
 slug: trump-admin-spying-congress-democrats-legal-action
 topic: government_oversight
-status: unresolved
+status: mixed
 summary: >-
   Democrats in Congress have reportedly expressed concerns about potential
   surveillance or monitoring of congressional communications by the Trump
@@ -79,6 +79,5 @@ whatThisMeans:
     Without detailed public evidence, it remains unclear whether alleged
     monitoring constitutes routine executive branch operations, authorized
     intelligence activities, or potentially improper surveillance
-sourcesVerified: false
 ---
 

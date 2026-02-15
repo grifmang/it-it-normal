@@ -77,6 +77,5 @@ whatThisMeans:
   - >-
     The warning aligns with broader Trump administration criticism of technology
     companies' content moderation and curation practices
-sourcesVerified: false
 ---
 

@@ -79,6 +79,5 @@ whatThisMeans:
   - >-
     The distinction between expressing regulatory concerns and issuing formal
     legal warnings affects the accuracy of the claim
-sourcesVerified: false
 ---
 

@@ -4,7 +4,7 @@ title: >-
   league related to resting starters to discourage tanking
 slug: utah-jazz-nba-fine-500000-tanking-resting-starters
 topic: sports
-status: unresolved
+status: mixed
 summary: >-
   The claim states the Utah Jazz received a $500,000 fine from the NBA for
   conduct detrimental to the league related to resting starters in an apparent
@@ -21,21 +21,18 @@ sources:
     summary: >-
       Report mentions NBA fine against Utah Jazz related to games against Magic
       and Heat involving resting starters
-    needsResolution: true
   - title: NBA Player Participation Policy
     url: ''
     type: official
     summary: >-
       NBA policy established to address player rest and participation issues,
       particularly involving star players and nationally televised games
-    needsResolution: true
   - title: NBA Conduct Detrimental to the League Provisions
     url: ''
     type: official
     summary: >-
       NBA Constitution and Bylaws provisions allowing commissioner to impose
       fines for conduct deemed detrimental to the league
-    needsResolution: true
 evidenceFor:
   - >-
     KSL.com news report indicates Jazz were fined by the NBA for conduct related
@@ -84,6 +81,5 @@ whatThisMeans:
     The specific circumstances of this reported fine, including whether players
     were claimed to be injured versus healthy-but-rested, would be relevant to
     determining policy violations
-sourcesVerified: false
 ---
 

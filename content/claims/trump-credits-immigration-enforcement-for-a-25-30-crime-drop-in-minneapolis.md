@@ -18,7 +18,6 @@ sources:
     summary: >-
       PolitiFact rated Trump's claim as wrong, finding no evidence that
       immigration enforcement caused the crime drop
-    needsResolution: true
   - title: Minneapolis Police Department Crime Dashboard
     url: 'https://www.minneapolismn.gov/government/government-data/crime-dashboard/'
     type: official
@@ -27,7 +26,6 @@ sources:
     url: ''
     type: official
     summary: Year-over-year crime data for Minneapolis
-    needsResolution: true
 evidenceFor:
   - >-
     Minneapolis experienced a measurable reduction in overall crime rates in
@@ -55,12 +53,13 @@ timeline:
       verify start of decline]
   - date: '2025-01-20'
     description: >-
-      Trump administration begins, and federal immigration enforcement policy priorities shift
-  - date: 'Date pending verification'
+      Trump administration begins, and federal immigration enforcement policy
+      priorities shift
+  - date: Date pending verification
     description: >-
       Trump makes statement crediting immigration enforcement for 25-30% crime
       drop in Minneapolis
-  - date: 'Date pending verification'
+  - date: Date pending verification
     description: PolitiFact publishes fact-check rating claim as wrong
 whatThisMeans:
   - >-
@@ -75,7 +74,6 @@ whatThisMeans:
   - >-
     Law enforcement agencies typically provide their own assessments of factors
     contributing to crime trends
-sourcesVerified: false
 relatedSlugs:
   - locust-laser-system-el-paso-airspace
   - minneapolis-crime-down-ice-enforcement

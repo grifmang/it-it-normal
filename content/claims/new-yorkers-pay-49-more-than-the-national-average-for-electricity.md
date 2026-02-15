@@ -93,7 +93,6 @@ whatThisMeans:
     Electricity rate comparisons require specification of time period and rate
     type to evaluate precision, though the general pattern of New York having
     significantly higher-than-average rates is well-established
-sourcesVerified: false
 relatedSlugs:
   - trump-pentagon-coal-electricity-order
 ---

@@ -4,7 +4,7 @@ title: >-
   and government shutdown
 slug: tsa-agents-working-without-pay-dhs-shutdown
 topic: government_shutdown
-status: unresolved
+status: mixed
 summary: >-
   The claim states that Transportation Security Administration (TSA) agents are
   working without pay due to a Department of Homeland Security (DHS) funding
@@ -20,21 +20,18 @@ sources:
     url: ''
     type: news
     summary: Report indicating TSA agents are working without pay due to DHS shutdown
-    needsResolution: true
   - title: Politico article on shutdown overshadowing State of the Union
     url: ''
     type: news
     summary: >-
       Coverage of government shutdown timing relative to State of the Union
       address
-    needsResolution: true
   - title: Snopes investigation of ICE agents pay claim
     url: ''
     type: news
     summary: >-
       Fact-check investigation regarding whether ICE agents are being paid
       during shutdown
-    needsResolution: true
   - title: Department of Homeland Security
     url: 'https://www.dhs.gov'
     type: official
@@ -86,6 +83,5 @@ whatThisMeans:
   - >-
     The timing relative to a State of the Union address would create heightened
     political attention to the funding situation
-sourcesVerified: false
 ---
 

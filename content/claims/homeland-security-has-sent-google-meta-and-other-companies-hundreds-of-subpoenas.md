@@ -4,7 +4,7 @@ title: >-
   subpoenas for information on accounts that track or comment on ICE
 slug: dhs-subpoenas-ice-tracking-accounts
 topic: civil_rights
-status: unresolved
+status: mixed
 summary: >-
   Reports indicate the Department of Homeland Security has issued subpoenas to
   technology companies seeking information about social media accounts related
@@ -79,6 +79,5 @@ whatThisMeans:
   - >-
     Legal challenges may arise if subpoenas are viewed as targeting protected
     speech or journalistic activity
-sourcesVerified: false
 ---
 

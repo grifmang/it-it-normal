@@ -92,6 +92,5 @@ whatThisMeans:
     Similar community alert systems have been discussed or implemented in other
     sanctuary jurisdictions using mobile apps or social media rather than
     physical sirens
-sourcesVerified: false
 ---
 

@@ -73,7 +73,6 @@ whatThisMeans:
     The case involves a college student who was removed from the United States
     and sent to Honduras before the error was recognized and addressed through
     the court system
-sourcesVerified: false
 relatedSlugs:
   - 3000-federal-agents-twin-cities-immigration-operation
   - judge-boasberg-venezuelan-migrants-el-salvador-alien-enemies-act

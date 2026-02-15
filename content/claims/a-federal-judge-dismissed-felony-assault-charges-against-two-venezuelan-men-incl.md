@@ -20,19 +20,16 @@ sources:
     summary: >-
       AP reported on the federal judge's dismissal of charges on Friday related
       to the Minneapolis ICE shooting incident involving Venezuelan men
-    needsResolution: true
   - title: U.S. District Court filing - District of Minnesota
     url: ''
     type: court
     summary: Court records documenting the dismissal order for felony assault charges
-    needsResolution: true
   - title: ICE Public Affairs Statement
     url: ''
     type: official
     summary: >-
       Official ICE statement regarding the Minneapolis enforcement operation and
       subsequent shooting
-    needsResolution: true
 evidenceFor:
   - >-
     A federal judge ordered dismissal of felony assault charges in the case, as
@@ -75,7 +72,6 @@ whatThisMeans:
     Further information about whether charges could be refiled and the specific
     legal grounds for dismissal would provide important context for
     understanding the case outcome
-sourcesVerified: false
 relatedSlugs:
   - 3000-federal-agents-twin-cities-immigration-operation
   - any-lucia-lopez-belloza-ice-deportation-mistake

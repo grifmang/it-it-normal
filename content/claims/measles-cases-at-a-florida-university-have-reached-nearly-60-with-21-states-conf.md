@@ -4,7 +4,7 @@ title: >-
   confirming measles cases nationwide
 slug: florida-university-measles-outbreak-21-states-2026
 topic: health
-status: unresolved
+status: mixed
 summary: >-
   A measles outbreak has been reported at a Florida university with claims of
   nearly 60 cases, while multiple states have reported measles cases nationwide
@@ -20,7 +20,6 @@ sources:
     summary: >-
       Reports measles outbreak at Florida university with nearly 60 cases and 21
       states confirming cases
-    needsResolution: true
   - title: CDC Measles Cases and Outbreaks
     url: 'https://www.cdc.gov/measles/cases-outbreaks.html'
     type: official
@@ -76,7 +75,6 @@ whatThisMeans:
     Verification of specific case numbers requires official confirmation from
     state health departments or CDC surveillance systems rather than news
     reports alone
-sourcesVerified: false
 relatedSlugs:
   - trump-cdc-grants-cut-blue-states-restraining-order
 ---

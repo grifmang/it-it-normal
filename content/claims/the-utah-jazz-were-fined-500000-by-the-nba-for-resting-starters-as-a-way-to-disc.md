@@ -21,17 +21,14 @@ sources:
     summary: >-
       Report on the $500,000 fine issued to the Jazz for conduct detrimental to
       the league related to resting starters
-    needsResolution: true
   - title: NBA official statement on Jazz fine
     url: ''
     type: official
     summary: NBA league office statement regarding the fine and policy violations
-    needsResolution: true
   - title: ESPN report on Jazz roster decisions
     url: ''
     type: news
     summary: Coverage of Jazz sitting healthy starters against Magic and Heat
-    needsResolution: true
 evidenceFor:
   - 'The NBA fined the Utah Jazz $500,000 in February 2026'
   - The fine was issued for 'conduct detrimental to the league'
@@ -81,7 +78,6 @@ whatThisMeans:
   - >-
     The $500,000 penalty represents one of the largest fines issued to a team
     for roster management decisions
-sourcesVerified: false
 relatedSlugs:
   - utah-jazz-nba-fine-500000-tanking-resting-starters
 ---

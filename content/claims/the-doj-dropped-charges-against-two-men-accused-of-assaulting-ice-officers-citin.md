@@ -78,6 +78,5 @@ whatThisMeans:
   - >-
     The nature and specifics of the inconsistent evidence remain undisclosed in
     public reporting, limiting full assessment of what led to the dismissal
-sourcesVerified: false
 ---
 

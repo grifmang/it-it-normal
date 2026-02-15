@@ -20,7 +20,6 @@ sources:
     summary: >-
       Fact-check rating Trump's claim as wrong regarding Minneapolis crime
       reduction attributed to immigration enforcement
-    needsResolution: true
   - title: Minneapolis Police Department Crime Dashboard
     url: 'https://www.minneapolismn.gov/government/government-data/crime-dashboard/'
     type: official
@@ -78,7 +77,6 @@ whatThisMeans:
   - >-
     Fact-checking organizations found the available crime data inconsistent with
     the magnitude of reduction claimed
-sourcesVerified: false
 relatedSlugs:
   - 3000-federal-agents-twin-cities-immigration-operation
   - any-lucia-lopez-belloza-ice-deportation-mistake

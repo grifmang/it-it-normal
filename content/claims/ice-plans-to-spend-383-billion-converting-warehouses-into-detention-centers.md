@@ -18,14 +18,12 @@ sources:
     summary: >-
       Internal ICE planning documents outlining detention infrastructure needs
       and cost estimates for capacity expansion
-    needsResolution: true
   - title: Washington Post - ICE Detention Expansion Plans
     url: ''
     type: news
     summary: >-
       Reporting on ICE planning documents showing $38.3 billion in estimated
       infrastructure costs for detention facility expansion
-    needsResolution: true
   - title: U.S. Immigration and Customs Enforcement Budget
     url: 'https://www.ice.gov/budget '
     type: official
@@ -34,7 +32,6 @@ sources:
     url: ''
     type: report
     summary: Annual state budget data showing $38 billion exceeds budgets of 22 states
-    needsResolution: true
 evidenceFor:
   - >-
     ICE planning documents from January 2025 include cost estimates totaling
@@ -91,7 +88,6 @@ whatThisMeans:
   - >-
     The scale of the estimated costs is substantial, exceeding the total annual
     budgets of nearly half of U.S. states
-sourcesVerified: false
 relatedSlugs:
   - 3000-federal-agents-twin-cities-immigration-operation
   - any-lucia-lopez-belloza-ice-deportation-mistake

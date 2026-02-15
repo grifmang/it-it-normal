@@ -84,6 +84,5 @@ whatThisMeans:
     The volume of subpoenas, if confirmed in the hundreds, would represent an
     unusually large-scale information request focused on specific political
     content
-sourcesVerified: false
 ---
 

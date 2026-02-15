@@ -4,7 +4,7 @@ title: >-
   targeting suspected drug smuggling boats
 slug: us-boat-strike-caribbean-deaths-drug-enforcement
 topic: drug_enforcement
-status: unresolved
+status: mixed
 summary: >-
   Reports indicate a U.S. boat strike in the Caribbean resulted in 3 deaths,
   allegedly connected to counter-narcotics operations. The incident appears to
@@ -22,7 +22,6 @@ sources:
       Reported on U.S. boat strike in Caribbean killing 3 people, connected to
       operations targeting drug smuggling boats since early November in Pacific
       Ocean
-    needsResolution: true
   - title: U.S. Coast Guard News and Media
     url: 'https://www.news.uscg.mil/ '
     type: official
@@ -90,6 +89,5 @@ whatThisMeans:
     Verification through official government sources (.gov) is necessary to
     confirm operational details, casualty figures, legal authorities under which
     operations were conducted, and whether investigations are underway
-sourcesVerified: false
 ---
 

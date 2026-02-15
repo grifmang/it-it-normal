@@ -4,7 +4,7 @@ title: >-
   U.S. government's power to regulate climate change
 slug: epa-endangerment-finding-repeal-2026
 topic: climate_policy
-status: unresolved
+status: mixed
 summary: >-
   The claim references the EPA's 2009 endangerment finding, which determined
   that greenhouse gases endanger public health and welfare under the Clean Air
@@ -94,6 +94,5 @@ whatThisMeans:
     The claim's accuracy depends on whether the repeal process is actually
     complete, whether legal challenges have been resolved, and whether
     'eliminating power to regulate' accurately describes the legal effect
-sourcesVerified: false
 ---
 

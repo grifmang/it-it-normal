@@ -97,7 +97,6 @@ whatThisMeans:
     Legal challenges may emerge regarding the breadth of the subpoenas and
     whether they serve legitimate investigative purposes or chill protected
     speech
-sourcesVerified: false
 relatedSlugs:
   - ftc-ferguson-apple-news-warning-2025
   - ftc-chairman-apple-news-warning

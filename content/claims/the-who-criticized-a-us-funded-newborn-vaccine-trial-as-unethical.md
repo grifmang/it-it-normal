@@ -88,7 +88,6 @@ whatThisMeans:
     The criticism represents an institutional disagreement between WHO ethics
     reviewers and the CDC-funded researchers about the appropriateness of the
     study design
-sourcesVerified: false
 relatedSlugs:
   - florida-university-measles-outbreak-21-states-2026
   - cdc-guinea-bissau-hepatitis-b-vaccine-study-who-criticism

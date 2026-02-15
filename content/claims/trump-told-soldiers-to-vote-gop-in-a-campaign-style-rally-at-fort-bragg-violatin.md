@@ -4,7 +4,7 @@ title: >-
   violating Army policy prohibiting partisan displays
 slug: trump-fort-bragg-gop-rally-army-policy
 topic: military_politics
-status: unresolved
+status: mixed
 summary: >-
   This claim references an alleged event at Fort Bragg (now Fort Liberty) in
   February 2026 where President Trump reportedly urged soldiers to vote for
@@ -43,7 +43,6 @@ sources:
     summary: >-
       News report allegedly describing Trump urging soldiers to vote GOP at Fort
       Bragg event
-    needsResolution: true
 evidenceFor:
   - >-
     DOD Directive 1344.10 prohibits active-duty military members from
@@ -96,6 +95,5 @@ whatThisMeans:
     Without access to verified reporting, transcripts, or official statements
     about the specific February 2026 event, the factual basis of this claim
     remains unconfirmed
-sourcesVerified: false
 ---
 

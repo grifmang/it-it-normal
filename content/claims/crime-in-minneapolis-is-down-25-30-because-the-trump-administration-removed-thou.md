@@ -20,14 +20,12 @@ sources:
     summary: >-
       Rated Trump's claim about Minneapolis crime reduction being caused by
       immigration enforcement as wrong
-    needsResolution: true
   - title: Associated Press report on dismissed charges in ICE officer assault case
     url: ''
     type: news
     summary: >-
       Report on Minneapolis judge dismissing charges against men accused of
       assaulting ICE officer
-    needsResolution: true
   - title: Minneapolis Police Department Crime Statistics
     url: 'https://www.minneapolismn.gov/government/departments/police/data-reports/'
     type: official
@@ -81,7 +79,6 @@ whatThisMeans:
   - >-
     Crime reduction claims require analysis of comprehensive data including
     crime categories, arrest statistics, and comparison to historical trends
-sourcesVerified: false
 relatedSlugs:
   - locust-laser-system-el-paso-airspace
   - federal-agents-shot-pretti-good-minneapolis

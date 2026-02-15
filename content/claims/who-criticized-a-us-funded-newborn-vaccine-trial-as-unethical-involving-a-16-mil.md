@@ -5,7 +5,7 @@ title: >-
   Guinea-Bissau
 slug: who-criticized-us-funded-hepatitis-b-vaccine-trial-guinea-bissau-unethical
 topic: health
-status: unresolved
+status: mixed
 summary: >-
   A clinical trial examining hepatitis B vaccine timing in newborns in
   Guinea-Bissau received CDC funding and faced WHO criticism regarding ethical
@@ -19,7 +19,6 @@ sources:
     url: ''
     type: news
     summary: News report indicating WHO criticism of US-funded vaccine trial
-    needsResolution: true
   - title: CDC grant database or NIH Reporter
     url: 'https://reporter.nih.gov/ [VERIFY specific grant]'
     type: official
@@ -30,7 +29,6 @@ sources:
     url: ''
     type: official
     summary: Official WHO statement or report on ethical concerns regarding the trial
-    needsResolution: true
   - title: ClinicalTrials.gov registry
     url: 'https://clinicaltrials.gov/ [VERIFY specific trial]'
     type: official
@@ -84,7 +82,6 @@ whatThisMeans:
   - >-
     CDC funding of international vaccine research is part of global health
     initiatives, with grants subject to ethical review processes
-sourcesVerified: false
 relatedSlugs:
   - florida-university-measles-outbreak-21-states-2026
   - trump-cdc-grants-cut-blue-states-restraining-order

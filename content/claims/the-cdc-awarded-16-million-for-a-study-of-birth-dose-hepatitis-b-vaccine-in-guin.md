@@ -25,14 +25,12 @@ sources:
     url: ''
     type: official
     summary: WHO statement addressing ethical concerns regarding the study design
-    needsResolution: true
   - title: Ars Technica Report on WHO Criticism of Vaccine Trial
     url: ''
     type: news
     summary: >-
       News coverage of WHO criticism of US-funded newborn vaccine trial in
       Guinea-Bissau
-    needsResolution: true
   - title: ClinicalTrials.gov Registry Entry
     url: 'https://clinicaltrials.gov'
     type: official
@@ -94,7 +92,6 @@ whatThisMeans:
     The funding amount of $1.6 million and WHO criticism are factually grounded,
     but the degree and nature of WHO's criticism requires examination of their
     actual statement language
-sourcesVerified: false
 relatedSlugs:
   - florida-university-measles-outbreak-21-states-2026
   - trump-cdc-grants-cut-blue-states-restraining-order

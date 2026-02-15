@@ -99,6 +99,5 @@ whatThisMeans:
     The capacity to execute removal orders is limited by ICE resources,
     cooperation from receiving countries, and legal requirements for deportation
     procedures
-sourcesVerified: false
 ---
 

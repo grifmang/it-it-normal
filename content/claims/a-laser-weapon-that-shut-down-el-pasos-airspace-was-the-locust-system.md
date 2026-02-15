@@ -2,7 +2,7 @@
 title: A laser weapon that shut down El Paso's airspace was the LOCUST system
 slug: locust-laser-system-el-paso-airspace
 topic: public_safety
-status: unresolved
+status: mixed
 summary: >-
   Reports indicate that El Paso's airspace was closed in February 2026 due to a
   laser weapon incident. The claim identifies this weapon as the LOCUST
@@ -68,6 +68,5 @@ whatThisMeans:
   - >-
     Verification requires access to official military system designations and
     FAA closure documentation
-sourcesVerified: false
 ---
 

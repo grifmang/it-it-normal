@@ -34,7 +34,6 @@ sources:
     url: ''
     type: news
     summary: Reporting on DHS shutdown effects and TSA operations during funding lapses
-    needsResolution: true
   - title: Government Accountability Office - 2019 Shutdown Effects
     url: 'https://www.gao.gov '
     type: report
@@ -90,7 +89,6 @@ whatThisMeans:
   - >-
     The designation of TSA as essential personnel reflects the critical nature
     of aviation security to public safety and commerce
-sourcesVerified: false
 relatedSlugs:
   - locust-laser-system-el-paso-airspace
   - minneapolis-crime-down-ice-enforcement

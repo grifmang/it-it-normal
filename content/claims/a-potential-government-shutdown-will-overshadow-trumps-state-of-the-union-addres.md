@@ -4,7 +4,7 @@ title: >-
   address scheduled for February 24, with DHS funding set to lapse
 slug: trump-state-of-union-dhs-shutdown-february-2026
 topic: government
-status: unresolved
+status: mixed
 summary: >-
   The claim references a State of the Union address scheduled for February 24,
   2026, and suggests DHS funding is set to lapse around that time, potentially
@@ -21,14 +21,12 @@ sources:
     summary: >-
       Reportedly covers Republican concerns about potential shutdown timing
       relative to State of the Union address
-    needsResolution: true
   - title: AP news feed on TSA agents during shutdown
     url: ''
     type: news
     summary: >-
       Reportedly mentions TSA agents working without pay during shutdown
       scenario
-    needsResolution: true
   - title: Congress.gov - State of the Union historical records
     url: 'https://www.congress.gov/state-of-the-union'
     type: official
@@ -92,7 +90,6 @@ whatThisMeans:
     State of the Union addresses require joint session invitations from
     congressional leadership, and scheduling is subject to negotiation between
     branches
-sourcesVerified: false
 relatedSlugs:
   - tsa-agents-working-without-pay-government-shutdown
 ---

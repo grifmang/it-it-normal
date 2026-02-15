@@ -4,7 +4,7 @@ title: >-
   officer hit in the head with a rock
 slug: three-federal-officers-injured-la-protests-ice-rock
 topic: public_safety
-status: unresolved
+status: mixed
 summary: >-
   The claim refers to reported injuries to federal officers during protests in
   Los Angeles involving immigration enforcement facilities. According to
@@ -79,7 +79,6 @@ whatThisMeans:
   - >-
     Without access to primary documentation, the claim status remains unresolved
     pending verification of government statements and incident reports
-sourcesVerified: false
 relatedSlugs:
   - locust-laser-system-el-paso-airspace
   - federal-agents-shot-pretti-good-minneapolis

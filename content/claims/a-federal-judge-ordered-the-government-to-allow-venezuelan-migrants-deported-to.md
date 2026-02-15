@@ -5,7 +5,7 @@ title: >-
   of entry
 slug: judge-boasberg-venezuelan-migrants-el-salvador-alien-enemies-act
 topic: immigration
-status: unresolved
+status: mixed
 summary: >-
   Reports indicate that U.S. District Judge James Boasberg issued an order
   related to Venezuelan migrants who were deported to El Salvador under the
@@ -83,6 +83,5 @@ whatThisMeans:
     The legal authority of federal courts to order the return of individuals
     already deported to third countries involves complex questions of
     jurisdiction and remedial power
-sourcesVerified: false
 ---
 

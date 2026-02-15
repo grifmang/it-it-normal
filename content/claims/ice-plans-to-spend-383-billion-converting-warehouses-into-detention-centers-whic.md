@@ -20,7 +20,6 @@ sources:
     summary: >-
       Reported on ICE planning documents showing $38.3 billion in
       detention-related spending projections
-    needsResolution: true
   - title: U.S. Immigration and Customs Enforcement Budget Overview
     url: 'https://www.ice.gov/budget '
     type: official
@@ -70,7 +69,6 @@ whatThisMeans:
   - >-
     ICE detention capacity expansion represents a significant increase in
     enforcement infrastructure spending compared to historical funding levels
-sourcesVerified: false
 relatedSlugs:
   - 3000-federal-agents-twin-cities-immigration-operation
   - any-lucia-lopez-belloza-ice-deportation-mistake

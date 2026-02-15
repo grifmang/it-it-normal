@@ -134,8 +134,6 @@ If you find issues, describe each one clearly and suggest fixes where possible.`
     parsed.data.sources = sources;
   }
 
-  // Update sourcesVerified flag
-  parsed.data.sourcesVerified = result.allSourcesVerified;
   const updated = matter.stringify(parsed.content, parsed.data);
   fs.writeFileSync(filepath, updated, "utf8");
 

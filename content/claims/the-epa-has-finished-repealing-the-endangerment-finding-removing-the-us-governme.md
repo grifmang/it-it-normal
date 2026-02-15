@@ -101,6 +101,5 @@ whatThisMeans:
   - >-
     The claim overstates current developments by stating the repeal is
     'finished' when no formal repeal process appears to have been completed
-sourcesVerified: false
 ---
 

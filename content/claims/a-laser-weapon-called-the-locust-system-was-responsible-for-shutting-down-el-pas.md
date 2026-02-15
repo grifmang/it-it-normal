@@ -4,7 +4,7 @@ title: >-
   Paso's airspace
 slug: locust-laser-system-el-paso-airspace-closure
 topic: defense
-status: unresolved
+status: mixed
 summary: >-
   A claim circulated that a laser weapon system called LOCUST caused an airspace
   closure over El Paso. LOCUST (Low-Cost Unmanned Aerial Vehicle Swarming
@@ -79,6 +79,5 @@ whatThisMeans:
   - >-
     Confusion between different military acronyms and weapons systems is common
     in defense reporting, requiring careful verification of technical details
-sourcesVerified: false
 ---
 

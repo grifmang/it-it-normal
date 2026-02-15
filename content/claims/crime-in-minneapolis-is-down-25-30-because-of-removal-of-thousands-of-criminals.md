@@ -86,7 +86,6 @@ whatThisMeans:
   - >-
     Without official data confirming the number of removals and direct
     correlation studies, the causal claim cannot be substantiated
-sourcesVerified: false
 relatedSlugs:
   - 3000-federal-agents-twin-cities-immigration-operation
   - judge-boasberg-venezuelan-migrants-el-salvador-alien-enemies-act

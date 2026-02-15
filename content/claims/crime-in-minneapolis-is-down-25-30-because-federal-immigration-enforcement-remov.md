@@ -4,7 +4,7 @@ title: >-
   removed thousands of criminals from the area
 slug: minneapolis-crime-down-immigration-enforcement
 topic: immigration
-status: unresolved
+status: mixed
 summary: >-
   This claim connects a reported decrease in Minneapolis crime rates with
   federal immigration enforcement actions. While Minneapolis has reported crime
@@ -88,6 +88,5 @@ whatThisMeans:
   - >-
     Official crime statistics may not capture all criminal activity and can be
     affected by changes in reporting, classification, or enforcement priorities
-sourcesVerified: false
 ---
 

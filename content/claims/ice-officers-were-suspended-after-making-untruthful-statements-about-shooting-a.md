@@ -4,7 +4,7 @@ title: >-
   shooting a Venezuelan man on January 14
 slug: ice-officers-suspended-untruthful-statements-venezuelan-shooting
 topic: immigration
-status: unresolved
+status: mixed
 summary: >-
   Reports indicate that ICE officers were suspended following a shooting
   incident involving a Venezuelan man, with allegations that officers made
@@ -22,7 +22,6 @@ sources:
       Reported that ICE officers were suspended for making untruthful statements
       about shooting a Venezuelan man, with reference to criminal inquiry and
       contradicting evidence
-    needsResolution: true
   - title: ICE Office of Professional Responsibility
     url: 'https://www.ice.gov/opr '
     type: official
@@ -63,7 +62,6 @@ whatThisMeans:
     The case remains under investigation, and final determinations about the
     truthfulness of statements and appropriateness of force have not been
     publicly released
-sourcesVerified: false
 relatedSlugs:
   - 3000-federal-agents-twin-cities-immigration-operation
   - any-lucia-lopez-belloza-ice-deportation-mistake

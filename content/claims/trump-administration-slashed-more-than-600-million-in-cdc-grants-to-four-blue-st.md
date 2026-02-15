@@ -32,7 +32,6 @@ sources:
     summary: >-
       Federal court order granting temporary restraining order against CDC
       funding pause
-    needsResolution: true
   - title: CDC Grant Programs Information
     url: 'https://www.cdc.gov/grants'
     type: official
@@ -87,6 +86,5 @@ whatThisMeans:
     The term 'slashed' in the original claim may overstate the nature of what
     was characterized as a pause, though the practical effect on states was a
     halt to more than $600 million in funding
-sourcesVerified: false
 ---
 

@@ -29,14 +29,12 @@ sources:
     summary: >-
       News reporting on specific Trump administration officials mentioned in
       released Epstein documents
-    needsResolution: true
   - title: Trump Administration Cabinet and Senior Officials List
     url: ''
     type: official
     summary: >-
       Reference for determining which individuals held official administration
       positions
-    needsResolution: true
 evidenceFor:
   - >-
     Steve Bannon, who served as White House Chief Strategist in 2017, is
@@ -90,7 +88,6 @@ whatThisMeans:
     The claim's accuracy depends heavily on definitions: what constitutes a
     'top' official versus other administration appointees, and whether any
     mention qualifies as 'appearing in' the files
-sourcesVerified: false
 ---
 
 # At least half a dozen top Trump administration officials appear in the Jeffrey Epstein files

@@ -16,7 +16,6 @@ sources:
     url: ''
     type: news
     summary: Fact-check analyzing Trump's statement and marking the claim as wrong
-    needsResolution: true
   - title: Minneapolis Police Department Crime Dashboard
     url: 'https://www.minneapolismn.gov/government/government-data/crime-dashboard/'
     type: official
@@ -73,7 +72,6 @@ whatThisMeans:
     Political statements about crime rates can be evaluated against publicly
     available data from municipal police departments and federal crime reporting
     systems
-sourcesVerified: false
 relatedSlugs:
   - 3000-federal-agents-twin-cities-immigration-operation
   - any-lucia-lopez-belloza-ice-deportation-mistake

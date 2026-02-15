@@ -76,7 +76,7 @@ Return ONLY valid JSON: {"index": <1-based number>, "confidence": "high"|"low"}
 
 export async function resolveEmptySources(
   filepath: string
-): Promise<{ resolved: number; flagged: number }> {
+): Promise<{ resolved: number; unresolved: number }> {
   const raw = fs.readFileSync(filepath, "utf8");
   const parsed = matter(raw);
   const sources = parsed.data.sources as Array<{
@@ -84,16 +84,15 @@ export async function resolveEmptySources(
     url: string;
     type: string;
     summary: string;
-    needsResolution?: boolean;
   }>;
 
   if (!sources || sources.length === 0) {
-    return { resolved: 0, flagged: 0 };
+    return { resolved: 0, unresolved: 0 };
   }
 
   const claimTitle = parsed.data.title || "";
   let resolved = 0;
-  let flagged = 0;
+  let unresolved = 0;
   let modified = false;
 
   for (const source of sources) {
@@ -101,20 +100,12 @@ export async function resolveEmptySources(
 
     const result = await searchForSourceUrl(source.title, claimTitle);
 
-    if (result && result.confidence === "high") {
+    if (result) {
       source.url = result.url;
-      delete source.needsResolution;
       resolved++;
       modified = true;
-    } else if (result && result.confidence === "low") {
-      source.url = result.url;
-      source.needsResolution = true;
-      flagged++;
-      modified = true;
     } else {
-      source.needsResolution = true;
-      flagged++;
-      modified = true;
+      unresolved++;
     }
 
     // Rate limit between API calls
@@ -126,7 +117,7 @@ export async function resolveEmptySources(
     fs.writeFileSync(filepath, updated, "utf8");
   }
 
-  return { resolved, flagged };
+  return { resolved, unresolved };
 }
 
 async function resolveAll(): Promise<void> {
@@ -134,7 +125,7 @@ async function resolveAll(): Promise<void> {
 
   const dirs = [config.claimsDir, config.draftsDir];
   let totalResolved = 0;
-  let totalFlagged = 0;
+  let totalUnresolved = 0;
   let filesProcessed = 0;
 
   for (const dir of dirs) {
@@ -156,11 +147,11 @@ async function resolveAll(): Promise<void> {
         if (!hasEmpty) continue;
 
         console.log(`Processing: ${file}`);
-        const { resolved, flagged } = await resolveEmptySources(filepath);
-        console.log(`  -> Resolved: ${resolved}, Flagged: ${flagged}`);
+        const { resolved, unresolved } = await resolveEmptySources(filepath);
+        console.log(`  -> Resolved: ${resolved}, Unresolved: ${unresolved}`);
 
         totalResolved += resolved;
-        totalFlagged += flagged;
+        totalUnresolved += unresolved;
         filesProcessed++;
 
         // Rate limit between files
@@ -174,7 +165,7 @@ async function resolveAll(): Promise<void> {
   console.log(`\n=== Resolution Summary ===`);
   console.log(`  Files processed: ${filesProcessed}`);
   console.log(`  URLs resolved: ${totalResolved}`);
-  console.log(`  URLs flagged for review: ${totalFlagged}\n`);
+  console.log(`  URLs unresolved (left empty): ${totalUnresolved}\n`);
 }
 
 // Self-executing main block

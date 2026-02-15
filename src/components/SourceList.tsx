@@ -122,9 +122,6 @@ export default function SourceList({ sources }: { sources: Source[] }) {
               </span>
             </div>
             <p className="mt-0.5 text-sm text-gray-600">{source.summary}</p>
-            {source.needsResolution && !source.url && (
-              <p className="mt-0.5 text-xs text-amber-500">Source pending verification</p>
-            )}
           </div>
         </div>
       ))}

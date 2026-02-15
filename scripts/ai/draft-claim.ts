@@ -22,7 +22,6 @@ const ClaimFrontmatterSchema = z.object({
       url: z.string(),
       type: z.string(),
       summary: z.string(),
-      needsResolution: z.boolean().optional(),
     })
   ),
   evidenceFor: z.array(z.string()),
@@ -205,9 +204,9 @@ Return ONLY the markdown content, starting with --- and ending with ---`,
 
   // Attempt to resolve any empty source URLs
   try {
-    const { resolved, flagged } = await resolveEmptySources(filepath);
-    if (resolved > 0 || flagged > 0) {
-      console.log(`  -> Source resolution: ${resolved} resolved, ${flagged} flagged for review`);
+    const { resolved, unresolved } = await resolveEmptySources(filepath);
+    if (resolved > 0 || unresolved > 0) {
+      console.log(`  -> Source resolution: ${resolved} resolved, ${unresolved} left empty`);
     }
   } catch (error) {
     console.warn(`  -> Source resolution skipped: ${error}`);

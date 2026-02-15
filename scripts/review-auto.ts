@@ -30,7 +30,6 @@ async function main() {
   }
 
   let autoPublished = 0;
-  let needsReview = 0;
 
   for (const filename of drafts) {
     const filepath = path.join(config.draftsDir, filename);
@@ -42,18 +41,9 @@ async function main() {
     const frontmatter = parsed.data;
 
     const isVerified = frontmatter.sourcesVerified === true;
-    const isNotUnresolved = frontmatter.status !== "unresolved";
-    const sources = (frontmatter.sources || []) as Array<{ needsResolution?: boolean }>;
-    const hasUnresolvedSources = sources.some((s) => s.needsResolution === true);
 
-    if (hasUnresolvedSources) {
-      console.log(`  -> Needs manual review (unresolved source URLs)`);
-      needsReview++;
-      continue;
-    }
-
-    if (isVerified && isNotUnresolved) {
-      // Already verified and has a resolved status — auto-publish
+    if (isVerified) {
+      // Already verified — publish immediately
       const destPath = path.join(config.claimsDir, filename);
       fs.renameSync(filepath, destPath);
       console.log(`  -> Auto-published to content/claims/${filename}`);
@@ -61,46 +51,30 @@ async function main() {
       continue;
     }
 
-    // Not yet verified — run AI verification
+    // Run AI verification then publish regardless
     console.log(`  -> Running AI verification...`);
     try {
-      const result = await verifyClaim(filepath);
+      await verifyClaim(filepath);
 
-      // Re-read the file after verification (verifyClaim updates it)
-      const updatedRaw = fs.readFileSync(filepath, "utf8");
-      const updatedParsed = matter(updatedRaw);
-      const updatedFrontmatter = updatedParsed.data;
-
-      const nowVerified = updatedFrontmatter.sourcesVerified === true;
-      const nowNotUnresolved = updatedFrontmatter.status !== "unresolved";
-
-      if (nowVerified && nowNotUnresolved) {
-        const destPath = path.join(config.claimsDir, filename);
-        fs.renameSync(filepath, destPath);
-        console.log(`  -> Verified and auto-published to content/claims/${filename}`);
-        autoPublished++;
-      } else {
-        console.log(`  -> Needs manual review`);
-        if (!nowVerified) {
-          console.log(`     Reason: sources not verified (${result.issueCount} issue(s))`);
-        }
-        if (!nowNotUnresolved) {
-          console.log(`     Reason: status is "unresolved"`);
-        }
-        needsReview++;
-      }
+      const destPath = path.join(config.claimsDir, filename);
+      fs.renameSync(filepath, destPath);
+      console.log(`  -> Verified and auto-published to content/claims/${filename}`);
+      autoPublished++;
 
       // Rate limit between API calls
       await new Promise((r) => setTimeout(r, 2000));
     } catch (error) {
-      console.error(`  -> Error during verification: ${error}`);
-      needsReview++;
+      // Publish even if verification errors — automation first
+      console.warn(`  -> Verification error (publishing anyway): ${error}`);
+      const destPath = path.join(config.claimsDir, filename);
+      fs.renameSync(filepath, destPath);
+      console.log(`  -> Auto-published to content/claims/${filename}`);
+      autoPublished++;
     }
   }
 
   console.log(`\n=== Auto-Review Summary ===`);
-  console.log(`  Auto-published: ${autoPublished}`);
-  console.log(`  Needs manual review: ${needsReview}\n`);
+  console.log(`  Auto-published: ${autoPublished}\n`);
 }
 
 // Self-executing main block

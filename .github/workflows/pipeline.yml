@@ -39,7 +39,6 @@ jobs:
           COURTLISTENER_API_TOKEN=${{ secrets.COURTLISTENER_API_TOKEN }}
           AUTO_PUBLISH=true
           GOOGLE_TRENDS_GEO=US
-          REDDIT_SUBREDDITS=politics,news,neutralpolitics
           NEWS_API_TOPICS=politics,government,congress,supreme court,immigration,election
           MAX_CLAIMS_PER_RUN=6
           MIN_RELEVANCE_SCORE=0.6

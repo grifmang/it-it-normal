@@ -1,5 +1,4 @@
 import { fetchGoogleTrends, TrendingTopic } from "./google-trends";
-import { fetchRedditPosts, RedditPost } from "./reddit";
 import { fetchNewsArticles, NewsArticle } from "./news-api";
 import { fetchRssFeeds, RssItem } from "./rss";
 import { fetchCongressActivity, CongressItem } from "./congress";
@@ -7,11 +6,10 @@ import { fetchCourtOpinions, CourtOpinion } from "./courtlistener";
 import { fetchExecutiveOrders, ExecutiveOrderItem } from "./executive-orders";
 import { fetchGoogleFactCheckClaims, FactCheckClaim } from "./google-fact-check";
 
-export type RawItem = TrendingTopic | RedditPost | NewsArticle | RssItem | CongressItem | CourtOpinion | ExecutiveOrderItem | FactCheckClaim;
+export type RawItem = TrendingTopic | NewsArticle | RssItem | CongressItem | CourtOpinion | ExecutiveOrderItem | FactCheckClaim;
 
 export interface AggregatedContent {
   googleTrends: TrendingTopic[];
-  reddit: RedditPost[];
   news: NewsArticle[];
   rss: RssItem[];
   congress: CongressItem[];
@@ -25,9 +23,8 @@ export interface AggregatedContent {
 export async function aggregateAllSources(): Promise<AggregatedContent> {
   console.log("\n=== Aggregating sources ===\n");
 
-  const [googleTrends, reddit, news, rss, congress, courtlistener, executiveOrders, googleFactChecks] = await Promise.all([
+  const [googleTrends, news, rss, congress, courtlistener, executiveOrders, googleFactChecks] = await Promise.all([
     fetchGoogleTrends(),
-    fetchRedditPosts(),
     fetchNewsArticles(),
     fetchRssFeeds(),
     fetchCongressActivity(),
@@ -36,13 +33,12 @@ export async function aggregateAllSources(): Promise<AggregatedContent> {
     fetchGoogleFactCheckClaims(),
   ]);
 
-  const all: RawItem[] = [...googleTrends, ...reddit, ...news, ...rss, ...congress, ...courtlistener, ...executiveOrders, ...googleFactChecks];
+  const all: RawItem[] = [...googleTrends, ...news, ...rss, ...congress, ...courtlistener, ...executiveOrders, ...googleFactChecks];
 
   console.log(`\n=== Total: ${all.length} items from all sources ===\n`);
 
   return {
     googleTrends,
-    reddit,
     news,
     rss,
     congress,

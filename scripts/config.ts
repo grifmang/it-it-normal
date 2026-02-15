@@ -16,9 +16,6 @@ export const config = {
 
   // Source settings
   googleTrendsGeo: process.env.GOOGLE_TRENDS_GEO || "US",
-  redditSubreddits: (
-    process.env.REDDIT_SUBREDDITS || "politics,news,neutralpolitics,PoliticalDiscussion,law,scotus"
-  ).split(",").map(s => s.trim()).filter(Boolean),
   newsApiTopics: (
     process.env.NEWS_API_TOPICS ||
     "politics,government,congress,supreme court,immigration,election,executive order,federal budget,trade policy"

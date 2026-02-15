@@ -118,14 +118,6 @@ function buildDigest(content: AggregatedContent): string {
     }
   }
 
-  if (content.reddit.length > 0) {
-    sections.push("\n## Reddit (High-Engagement Political Posts)");
-    for (const p of content.reddit.slice(0, 40)) {
-      sections.push(
-        `- [r/${p.subreddit}, score: ${p.score}] "${p.title}" ${p.selftext ? `| ${p.selftext.slice(0, 200)}` : ""}`
-      );
-    }
-  }
 
   if (content.news.length > 0) {
     sections.push("\n## News Headlines");

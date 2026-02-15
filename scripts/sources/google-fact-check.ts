@@ -1,6 +1,19 @@
 import { config } from "../config";
 
 const GOOGLE_FACT_CHECK_API = "https://factchecktools.googleapis.com/v1alpha1/claims:search";
+const FACT_CHECK_MAX_CONCURRENCY = 1;
+const FACT_CHECK_CACHE_TTL_MS = 6 * 60 * 60 * 1000;
+const FACT_CHECK_MAX_RETRIES = 8;
+const RETRYABLE_STATUS_CODES = new Set([429, 500, 502, 503, 504]);
+
+interface FactCheckCacheEntry {
+  expiresAt: number;
+  data: GoogleFactCheckResponse;
+}
+
+const factCheckResponseCache = new Map<string, FactCheckCacheEntry>();
+let activeFactCheckRequests = 0;
+const factCheckQueue: Array<() => void> = [];
 
 export interface FactCheckReview {
   publisher: string;
@@ -43,6 +56,112 @@ interface GoogleFactCheckResponse {
   claims?: GoogleFactCheckClaim[];
 }
 
+function toCacheKey(params: URLSearchParams): string {
+  return params.toString();
+}
+
+async function withFactCheckLimiter<T>(task: () => Promise<T>): Promise<T> {
+  if (activeFactCheckRequests >= FACT_CHECK_MAX_CONCURRENCY) {
+    await new Promise<void>((resolve) => {
+      factCheckQueue.push(resolve);
+    });
+  }
+
+  activeFactCheckRequests += 1;
+
+  try {
+    return await task();
+  } finally {
+    activeFactCheckRequests -= 1;
+    const next = factCheckQueue.shift();
+    if (next) {
+      next();
+    }
+  }
+}
+
+function parseRetryAfterMs(response: Response): number | null {
+  const retryAfter = response.headers.get("retry-after");
+  if (!retryAfter) return null;
+
+  const seconds = Number(retryAfter);
+  if (Number.isFinite(seconds) && seconds >= 0) {
+    return seconds * 1000;
+  }
+
+  const date = Date.parse(retryAfter);
+  if (Number.isNaN(date)) return null;
+
+  return Math.max(0, date - Date.now());
+}
+
+async function fetchFactCheckWithRetry(params: URLSearchParams): Promise<GoogleFactCheckResponse | null> {
+  const cacheKey = toCacheKey(params);
+  const cached = factCheckResponseCache.get(cacheKey);
+  if (cached && cached.expiresAt > Date.now()) {
+    return cached.data;
+  }
+
+  const url = `${GOOGLE_FACT_CHECK_API}?${params.toString()}`;
+
+  const data = await withFactCheckLimiter(async () => {
+    for (let attempt = 0; attempt < FACT_CHECK_MAX_RETRIES; attempt++) {
+      try {
+        const response = await fetch(url, {
+          method: "GET",
+          headers: {
+            "User-Agent": "Mozilla/5.0 (compatible; IsThisNormal/1.0)",
+          },
+        });
+
+        if (response.ok) {
+          return (await response.json()) as GoogleFactCheckResponse;
+        }
+
+        const body = await response.text().catch(() => "");
+        if (!RETRYABLE_STATUS_CODES.has(response.status) || attempt === FACT_CHECK_MAX_RETRIES - 1) {
+          console.warn(`[Google Fact Check] HTTP ${response.status}: ${body}`);
+          return null;
+        }
+
+        const retryAfterMs = parseRetryAfterMs(response);
+        const backoffMs = Math.min(60_000, (2 ** attempt) * 1000 + Math.floor(Math.random() * 1000));
+        const waitMs = retryAfterMs ?? backoffMs;
+
+        console.warn(
+          `[Google Fact Check] Retryable HTTP ${response.status}; retrying in ${waitMs}ms (attempt ${attempt + 1}/${FACT_CHECK_MAX_RETRIES})`
+        );
+        await new Promise((r) => setTimeout(r, waitMs));
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        if (attempt === FACT_CHECK_MAX_RETRIES - 1) {
+          console.warn(`[Google Fact Check] Request error after retries: ${message}`);
+          return null;
+        }
+
+        const backoffMs = Math.min(60_000, (2 ** attempt) * 1000 + Math.floor(Math.random() * 1000));
+        console.warn(
+          `[Google Fact Check] Request error "${message}"; retrying in ${backoffMs}ms (attempt ${attempt + 1}/${FACT_CHECK_MAX_RETRIES})`
+        );
+        await new Promise((r) => setTimeout(r, backoffMs));
+      }
+    }
+
+    return null;
+  });
+
+  if (!data) {
+    return null;
+  }
+
+  factCheckResponseCache.set(cacheKey, {
+    data,
+    expiresAt: Date.now() + FACT_CHECK_CACHE_TTL_MS,
+  });
+
+  return data;
+}
+
 export interface FactCheckSearchResult {
   title: string;
   url: string;
@@ -63,22 +182,13 @@ export async function searchGoogleFactCheck(query: string): Promise<FactCheckSea
     pageSize: "10",
   });
 
-  const url = `${GOOGLE_FACT_CHECK_API}?${params.toString()}`;
-
   try {
-    const response = await fetch(url, {
-      headers: {
-        "User-Agent": "Mozilla/5.0 (compatible; IsThisNormal/1.0)",
-      },
-    });
-
-    if (!response.ok) {
-      const body = await response.text().catch(() => "");
-      console.error(`[Google Fact Check Search] HTTP ${response.status}: ${body}`);
+    const data = await fetchFactCheckWithRetry(params);
+    if (!data) {
+      console.warn(`[Google Fact Check Search] Query "${query}" returned no data after retries.`);
       return [];
     }
 
-    const data = (await response.json()) as GoogleFactCheckResponse;
     const results: FactCheckSearchResult[] = [];
 
     for (const claim of data.claims || []) {
@@ -159,27 +269,12 @@ export async function fetchGoogleFactCheckClaims(): Promise<FactCheckClaim[]> {
         pageSize: String(config.googleFactCheckPageSize),
       });
 
-      const url = `${GOOGLE_FACT_CHECK_API}?${params.toString()}`;
-
-      let response: Response | null = null;
-      for (let attempt = 0; attempt < 3; attempt++) {
-        response = await fetch(url, {
-          headers: {
-            "User-Agent": "Mozilla/5.0 (compatible; IsThisNormal/1.0)",
-          },
-        });
-        if (response.status !== 503) break;
-        // Exponential backoff: 2s, 4s
-        await new Promise((r) => setTimeout(r, 2000 * (attempt + 1)));
-      }
-
-      if (!response || !response.ok) {
-        const body = response ? await response.text().catch(() => "") : "no response";
-        console.warn(`[Google Fact Check] Query "${query}" failed: HTTP ${response?.status} — ${body}`);
+      const data = await fetchFactCheckWithRetry(params);
+      if (!data) {
+        console.warn(`[Google Fact Check] Query "${query}" failed after retries.`);
         continue;
       }
 
-      const data = (await response.json()) as GoogleFactCheckResponse;
       for (const claim of data.claims || []) {
         const key = claim.text || "";
         if (!key || seen.has(key)) continue;
@@ -205,8 +300,8 @@ export async function fetchGoogleFactCheckClaims(): Promise<FactCheckClaim[]> {
           });
         }
       }
-      // Rate limit between queries to avoid 503s
-      await new Promise((r) => setTimeout(r, 500));
+      // Soft spacing between broad query scans.
+      await new Promise((r) => setTimeout(r, 250));
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
       console.warn(`[Google Fact Check] Query "${query}" error: ${message}`);

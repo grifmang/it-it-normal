@@ -35,6 +35,7 @@ export interface ClaimFrontmatter {
   whatThisMeans: string[];
   relatedSlugs?: string[];
   sourcesVerified?: boolean;
+  showDetailedNotes?: boolean;
 }
 
 export interface Claim extends ClaimFrontmatter {

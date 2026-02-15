@@ -1,11 +1,33 @@
 import { TimelineEvent } from "@/lib/types";
 
+function parseTimelineDate(dateString: string): Date | null {
+  const parsed = new Date(dateString);
+  return Number.isNaN(parsed.getTime()) ? null : parsed;
+}
+
+function formatTimelineDate(dateString: string): string {
+  const parsed = parseTimelineDate(dateString);
+  if (!parsed) return "Date pending verification";
+
+  return parsed.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+
 export default function Timeline({ events }: { events: TimelineEvent[] }) {
   if (!events || events.length === 0) return null;
 
-  const sorted = [...events].sort(
-    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
-  );
+  const sorted = [...events].sort((a, b) => {
+    const aDate = parseTimelineDate(a.date);
+    const bDate = parseTimelineDate(b.date);
+
+    if (aDate && bDate) return aDate.getTime() - bDate.getTime();
+    if (aDate && !bDate) return -1;
+    if (!aDate && bDate) return 1;
+    return 0;
+  });
 
   return (
     <div className="relative">
@@ -16,11 +38,7 @@ export default function Timeline({ events }: { events: TimelineEvent[] }) {
             <div className="absolute left-1.5 top-1.5 h-3 w-3 rounded-full border-2 border-blue-800 bg-white" />
             <div>
               <time className="text-xs font-semibold text-blue-800">
-                {new Date(event.date).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
+                {formatTimelineDate(event.date)}
               </time>
               <p className="mt-0.5 text-sm text-gray-700">
                 {event.description}

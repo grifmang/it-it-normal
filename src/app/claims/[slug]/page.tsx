@@ -203,17 +203,19 @@ export default async function ClaimPage({
               What This Means
             </h2>
             <div className="rounded-lg border border-blue-100 bg-blue-50 p-4">
-              <p className="mb-2 text-xs font-medium text-blue-800 uppercase tracking-wide">
+              <p className="mb-3 text-xs font-medium text-blue-800 uppercase tracking-wide">
                 Structured interpretation — not opinion
               </p>
-              <ul className="space-y-1.5">
+              <ul className="space-y-2">
                 {claim.whatThisMeans.map((item, i) => (
                   <li
                     key={i}
-                    className="flex items-start gap-2 text-sm text-gray-700"
+                    className="rounded-md border border-blue-100 bg-white p-3"
                   >
-                    <span className="mt-1 block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-blue-800" />
-                    {item}
+                    <p className="mb-1 text-xs font-semibold text-blue-700">
+                      Key takeaway {i + 1}
+                    </p>
+                    <p className="text-sm leading-relaxed text-gray-700">{item}</p>
                   </li>
                 ))}
               </ul>
@@ -221,10 +223,16 @@ export default async function ClaimPage({
           </section>
         )}
 
-        {/* Additional Content */}
-        {claim.content && (
-          <section className="prose prose-sm max-w-none">
-            <div dangerouslySetInnerHTML={{ __html: claim.content }} />
+        {/* Additional Content (opt-in for editor-facing notes only) */}
+        {claim.showDetailedNotes === true && claim.content && (
+          <section className="mb-8 rounded-lg border border-gray-200 bg-gray-50 p-4">
+            <h2 className="mb-2 text-base font-semibold text-gray-900">
+              Detailed Research Notes
+            </h2>
+            <div
+              className="prose prose-sm max-w-none text-gray-700 [&_h1]:hidden"
+              dangerouslySetInnerHTML={{ __html: claim.content }}
+            />
           </section>
         )}
 

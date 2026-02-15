@@ -22,11 +22,13 @@ export async function getClaimBySlug(slug: string): Promise<Claim> {
   const fileContents = fs.readFileSync(fullPath, "utf8");
   const { data, content } = matter(fileContents);
 
+  const normalizedContent = content.replace(/\\n/g, "\n");
+
   const processedContent = await remark()
     .use(remarkRehype)
     .use(rehypeSanitize)
     .use(rehypeStringify)
-    .process(content);
+    .process(normalizedContent);
   const contentHtml = processedContent.toString();
 
   const frontmatter = data as ClaimFrontmatter;

@@ -20,7 +20,7 @@ sources:
       immigration enforcement caused the crime drop
     needsResolution: true
   - title: Minneapolis Police Department Crime Dashboard
-    url: 'https://www.minneapolismn.gov/government/government-data/crime-dashboard/ '
+    url: 'https://www.minneapolismn.gov/government/government-data/crime-dashboard/'
     type: official
     summary: Official crime statistics from Minneapolis Police Department
   - title: Minneapolis crime statistics 2024
@@ -55,13 +55,12 @@ timeline:
       verify start of decline]
   - date: '2025-01-20'
     description: >-
-      Trump administration begins, increases immigration enforcement operations
-      Unknown
-  - date: Unknown
+      Trump administration begins, and federal immigration enforcement policy priorities shift
+  - date: 'Date pending verification'
     description: >-
       Trump makes statement crediting immigration enforcement for 25-30% crime
       drop in Minneapolis
-  - date: Unknown
+  - date: 'Date pending verification'
     description: PolitiFact publishes fact-check rating claim as wrong
 whatThisMeans:
   - >-

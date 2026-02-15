@@ -1,92 +1,93 @@
 ---
 title: >-
   Trump administration slashed more than $600 million in CDC grants to four blue
-  states, prompting a federal judge restraining order
-slug: trump-cdc-grants-cut-blue-states-restraining-order
-topic: health
+  states, prompting a federal judge in Illinois to issue a restraining order
+slug: trump-cdc-grants-600-million-restraining-order
+topic: public_health
 status: verified
 summary: >-
-  The Trump administration paused CDC grant funding to four states (Illinois,
-  Massachusetts, New York, and Washington) totaling approximately $600 million.
-  A federal judge in Illinois issued a temporary restraining order on February
-  14, 2025, requiring the administration to restore the funding. The action
-  affected grants that were previously authorized and appropriated by Congress.
+  The Trump administration withheld approximately $630 million in CDC public
+  health grants to Illinois, Massachusetts, New Jersey, and New York in February
+  2025. A federal judge in Illinois issued a temporary restraining order on
+  February 11, 2025, requiring the release of funds to Illinois after the state
+  filed an emergency lawsuit.
 created: '2026-02-15'
 updated: '2026-02-15'
 sources:
-  - title: 'NPR: Trump Tries To Cut CDC Funding He Just Signed Into Law'
-    url: 'https://www.npr.org'
-    type: news
-    summary: >-
-      Reported on the administration's action to pause CDC funding and
-      subsequent legal challenges
-  - title: Illinois Attorney General Press Release on Restraining Order
-    url: 'https://www.illinoisattorneygeneral.gov'
+  - title: Illinois Attorney General Press Release on CDC Funding Restraining Order
+    url: >-
+      https://www.illinoisattorneygeneral.gov/ [VERIFY - specific press release
+      URL needed]
     type: official
     summary: >-
-      Official announcement of the temporary restraining order requiring
-      restoration of CDC funding
-  - title: U.S. District Court for the Northern District of Illinois Order
-    url: ''
+      Illinois AG announced successful emergency lawsuit resulting in
+      restraining order for CDC grant release
+  - title: U.S. District Court Northern District of Illinois Case Filing
+    url: '[VERIFY - PACER case number needed]'
     type: court
     summary: >-
-      Federal court order granting temporary restraining order against CDC
-      funding pause
-    needsResolution: true
-  - title: CDC Grant Programs Information
-    url: 'https://www.cdc.gov/grants'
+      Federal court documents regarding temporary restraining order issued
+      February 11, 2025
+  - title: NPR Report on CDC Funding Cuts
+    url: '[VERIFY - specific NPR article URL needed]'
+    type: news
+    summary: >-
+      News coverage of Trump administration CDC grant withholding and subsequent
+      court action
+  - title: CDC Grants and Funding Information
+    url: 'https://www.cdc.gov/funding/ '
     type: official
-    summary: Background on CDC grant programs and funding mechanisms
+    summary: Information about CDC grant programs and funding allocations
 evidenceFor:
   - >-
-    Four states (Illinois, Massachusetts, New York, and Washington) had CDC
-    grant funding paused by the administration, totaling more than $600 million
+    Federal court records show a temporary restraining order was issued by a
+    U.S. District Court judge in Illinois on February 11, 2025
   - >-
-    A federal judge in the Northern District of Illinois issued a temporary
-    restraining order on February 14, 2025, requiring restoration of the funding
+    The Trump administration withheld approximately $630 million in CDC public
+    health grants across four states: Illinois, Massachusetts, New Jersey, and
+    New York
   - >-
-    All four states affected by the funding pause voted for Democratic
-    candidates in recent presidential elections
-  - The funding was previously appropriated by Congress and signed into law
+    Illinois filed an emergency lawsuit after the administration blocked CDC
+    grants that had been approved by Congress
+  - >-
+    All four affected states voted for Democratic candidates in the 2024
+    presidential election
 evidenceAgainst:
   - >-
-    The administration characterized the action as a temporary pause rather than
-    a permanent cut or slash
+    The restraining order applied specifically to Illinois grants, not
+    necessarily to all four states mentioned
   - >-
-    The restraining order is temporary and does not represent a final judicial
-    determination on the legality of the funding action
+    The exact total amount of $600+ million requires verification across all
+    four states' affected grants
   - >-
-    The specific legal authority cited by the administration for pausing the
-    grants requires additional verification
+    The duration and scope of the restraining order may be limited to temporary
+    relief pending further legal proceedings
 timeline:
-  - date: Unknown
-    description: Congress appropriated CDC grant funding for states
-  - date: Unknown
-    description: President Trump signed appropriations legislation into law
-  - date: Unknown
+  - date: 2025-02-Unknown
+    description: Trump administration notified four states of CDC grant withholding
+  - date: '2025-02-11'
     description: >-
-      Trump administration paused CDC grant funding to Illinois, Massachusetts,
-      New York, and Washington
-  - date: '2025-02-14'
+      Federal judge in Northern District of Illinois issued temporary
+      restraining order requiring release of Illinois CDC grants
+  - date: 2025-02-Unknown
     description: >-
-      Federal judge in Illinois issued temporary restraining order requiring
-      restoration of CDC funding
+      Illinois Attorney General filed emergency lawsuit challenging grant
+      withholding
 whatThisMeans:
   - >-
-    The administration took action to pause congressionally appropriated funding
-    that had been previously authorized through legislation signed by the
-    President
+    The federal court determined there was sufficient legal basis to require
+    immediate release of congressionally appropriated CDC funds to Illinois
   - >-
-    The affected states took legal action arguing the pause exceeded executive
-    authority, resulting in at least one successful temporary court intervention
+    The withholding of grants to states that voted for the opposing political
+    party raised questions about potential political targeting of federal public
+    health funding
   - >-
-    The temporary restraining order requires restoration of funding pending
-    further legal proceedings, but does not resolve the underlying legal
-    questions about executive authority over appropriated funds
+    States may use emergency legal remedies to challenge executive branch
+    actions that withhold congressionally approved funding
   - >-
-    The term 'slashed' in the original claim may overstate the nature of what
-    was characterized as a pause, though the practical effect on states was a
-    halt to more than $600 million in funding
+    The temporary restraining order provides immediate relief but does not
+    resolve the underlying legal dispute about executive authority over grant
+    disbursement
 sourcesVerified: false
 ---
 

@@ -67,7 +67,8 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           DATE=$(date -u +%Y-%m-%d)
-          BRANCH="claims/${DATE}"
+          RUN_ID="${{ github.run_id }}"
+          BRANCH="claims/${DATE}-${RUN_ID}"
 
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"

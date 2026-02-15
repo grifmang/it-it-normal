@@ -12,7 +12,7 @@ const ClaimFrontmatterSchema = z.object({
   title: z.string(),
   slug: z.string(),
   topic: z.string(),
-  status: z.enum(["verified", "mixed", "unsupported", "unresolved"]),
+  status: z.enum(["verified", "mixed", "unsupported"]),
   summary: z.string(),
   created: z.string(),
   updated: z.string(),
@@ -87,7 +87,7 @@ export async function generateDraft(claim: ExtractedClaim): Promise<string> {
         role: "user",
         content: `You are a research assistant for "Is This Normal?", a neutral, evidence-based political claim analysis site.
 
-Your task: Generate a complete claim page draft in markdown with YAML frontmatter.
+Your task: Generate a complete, PUBLISH-READY claim page in markdown with YAML frontmatter. This will be published immediately with no human review.
 
 CLAIM TO RESEARCH: "${claim.claim}"
 TOPIC: ${claim.topic}
@@ -98,15 +98,17 @@ CRITICAL RULES:
 - Be STRICTLY NEUTRAL. No adjectives implying judgment. No editorial tone.
 - Every factual assertion must reference a source
 - Prefer .gov and .edu sources when available — they are more authoritative
-- Never fabricate URLs — always use [VERIFY] tag if you are uncertain about a URL
-- When Fact Check results are provided in the source context, use those real URLs instead of guessing
-- Cross-reference multiple sources before determining the claim status
-- For sources you cannot verify right now, use placeholder URLs with [VERIFY] tags
-- Status must be one of: verified, mixed, unsupported, unresolved
-- If you're uncertain about the status, use "unresolved"
+- NEVER fabricate URLs. If Fact Check results are provided above, USE those real URLs as sources.
+- If you don't have a real URL for a source, leave the url field as an empty string ""
+- DO NOT use placeholder tags like [VERIFY] or [DATE NEEDED] — this is fully automated
+- You MUST pick a definitive status: "verified", "mixed", or "unsupported". NEVER use "unresolved".
+  - "verified" = the evidence strongly supports the claim as stated
+  - "mixed" = the claim has some truth but is misleading, exaggerated, or missing context
+  - "unsupported" = the evidence does not support the claim, or contradicts it
+- If you're uncertain, lean toward "mixed" rather than leaving it unresolved
 - The summary should be 2-3 sentences, factual, no opinion
 - Evidence sections should contain specific, sourced claims
-- Timeline should include real dates where known, or [DATE NEEDED] placeholders
+- Timeline dates: use real dates where known, use approximate dates like "2025-02" for month-level, or "Unknown" if truly unknown
 - "What This Means" should be structured interpretation, NOT opinion
 
 Generate the complete markdown file with this exact frontmatter structure:
@@ -115,13 +117,13 @@ Generate the complete markdown file with this exact frontmatter structure:
 title: "The exact claim text"
 slug: "url-friendly-slug"
 topic: "${claim.topic}"
-status: "verified|mixed|unsupported|unresolved"
+status: "verified|mixed|unsupported"
 summary: "2-3 sentence neutral summary"
 created: "${today}"
 updated: "${today}"
 sources:
   - title: "Source name"
-    url: "https://... or [VERIFY]"
+    url: "https://real-url-here or empty string"
     type: "court|news|official|transcript|report"
     summary: "What this source says"
 evidenceFor:
@@ -135,8 +137,6 @@ whatThisMeans:
   - "Structured interpretation point"
 ---
 
-IMPORTANT: Mark any source URL you cannot verify with [VERIFY] so a human reviewer can check it. Mark any date you're uncertain about with [DATE NEEDED]. Mark the status as "unresolved" if you don't have enough information to make a determination.
-
 Return ONLY the markdown content, starting with --- and ending with ---`,
       },
     ],
@@ -149,17 +149,18 @@ Return ONLY the markdown content, starting with --- and ending with ---`,
   const frontmatterMatch = text.match(/---[\s\S]*---/);
   let markdown = frontmatterMatch ? frontmatterMatch[0] + "\n" : text;
 
-  // Check for unverified items before cleaning
-  const verifyCount = (markdown.match(/\[VERIFY\]/g) || []).length;
-  const dateNeeded = (markdown.match(/\[DATE NEEDED\]/g) || []).length;
-  const hasUnverified = verifyCount > 0 || dateNeeded > 0;
-
-  // Clean up [VERIFY] and [DATE NEEDED] markers
+  // Clean up any stray placeholder markers the model might still produce
   markdown = markdown.replace(/\[VERIFY\]\s*/g, "");
   markdown = markdown.replace(/\[DATE NEEDED\]/g, "Unknown");
 
   // Parse frontmatter with gray-matter and validate with Zod
   const parsed = matter(markdown);
+
+  // Force status to a valid value if the model used "unresolved"
+  if (parsed.data.status === "unresolved") {
+    parsed.data.status = "mixed";
+  }
+
   const validated = ClaimFrontmatterSchema.safeParse(parsed.data);
   if (!validated.success) {
     console.error(
@@ -168,9 +169,6 @@ Return ONLY the markdown content, starting with --- and ending with ---`,
     );
     return "";
   }
-
-  // Add sourcesVerified flag via parsed data
-  parsed.data.sourcesVerified = !hasUnverified;
 
   // Auto-populate relatedSlugs by finding existing claims with the same topic
   const relatedSlugs = findRelatedClaims(parsed.data.topic, parsed.data.slug);
@@ -189,18 +187,16 @@ Return ONLY the markdown content, starting with --- and ending with ---`,
     .slice(0, 80)
     .replace(/-$/, "");
 
-  // Route to claims or drafts based on autoPublish config
-  const targetDir = config.autoPublish ? config.claimsDir : config.draftsDir;
-  const targetLabel = config.autoPublish ? "content/claims" : "content/drafts";
+  // Always publish directly to claims
   const filename = `${slug}.md`;
-  const filepath = path.join(targetDir, filename);
+  const filepath = path.join(config.claimsDir, filename);
 
-  if (!fs.existsSync(targetDir)) {
-    fs.mkdirSync(targetDir, { recursive: true });
+  if (!fs.existsSync(config.claimsDir)) {
+    fs.mkdirSync(config.claimsDir, { recursive: true });
   }
 
   fs.writeFileSync(filepath, markdown, "utf8");
-  console.log(`  -> Saved: ${targetLabel}/${filename}`);
+  console.log(`  -> Published: content/claims/${filename}`);
 
   // Attempt to resolve any empty source URLs
   try {
@@ -210,12 +206,6 @@ Return ONLY the markdown content, starting with --- and ending with ---`,
     }
   } catch (error) {
     console.warn(`  -> Source resolution skipped: ${error}`);
-  }
-
-  if (hasUnverified) {
-    console.log(
-      `  -> Marked as unverified (${verifyCount} URLs, ${dateNeeded} dates)`
-    );
   }
 
   return filepath;

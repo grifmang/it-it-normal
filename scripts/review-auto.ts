@@ -1,7 +1,6 @@
 // npm script: "review:auto": "tsx scripts/review-auto.ts"
 import fs from "fs";
 import path from "path";
-import matter from "gray-matter";
 import { config } from "./config";
 import { verifyClaim } from "./ai/verify-claim";
 
@@ -35,46 +34,25 @@ async function main() {
     const filepath = path.join(config.draftsDir, filename);
     console.log(`Reviewing: ${filename}`);
 
-    // Read and parse frontmatter
-    const raw = fs.readFileSync(filepath, "utf8");
-    const parsed = matter(raw);
-    const frontmatter = parsed.data;
-
-    const isVerified = frontmatter.sourcesVerified === true;
-
-    if (isVerified) {
-      // Already verified — publish immediately
-      const destPath = path.join(config.claimsDir, filename);
-      fs.renameSync(filepath, destPath);
-      console.log(`  -> Auto-published to content/claims/${filename}`);
-      autoPublished++;
-      continue;
-    }
-
-    // Run AI verification then publish regardless
-    console.log(`  -> Running AI verification...`);
+    // Run AI verification then publish
     try {
       await verifyClaim(filepath);
-
-      const destPath = path.join(config.claimsDir, filename);
-      fs.renameSync(filepath, destPath);
-      console.log(`  -> Verified and auto-published to content/claims/${filename}`);
-      autoPublished++;
-
-      // Rate limit between API calls
-      await new Promise((r) => setTimeout(r, 2000));
     } catch (error) {
-      // Publish even if verification errors — automation first
       console.warn(`  -> Verification error (publishing anyway): ${error}`);
-      const destPath = path.join(config.claimsDir, filename);
-      fs.renameSync(filepath, destPath);
-      console.log(`  -> Auto-published to content/claims/${filename}`);
-      autoPublished++;
     }
+
+    // Always publish
+    const destPath = path.join(config.claimsDir, filename);
+    fs.renameSync(filepath, destPath);
+    console.log(`  -> Published to content/claims/${filename}`);
+    autoPublished++;
+
+    // Rate limit between API calls
+    await new Promise((r) => setTimeout(r, 2000));
   }
 
   console.log(`\n=== Auto-Review Summary ===`);
-  console.log(`  Auto-published: ${autoPublished}\n`);
+  console.log(`  Published: ${autoPublished}\n`);
 }
 
 // Self-executing main block

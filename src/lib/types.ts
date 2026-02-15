@@ -33,7 +33,6 @@ export interface ClaimFrontmatter {
   timeline: TimelineEvent[];
   whatThisMeans: string[];
   relatedSlugs?: string[];
-  sourcesVerified?: boolean;
   showDetailedNotes?: boolean;
 }
 

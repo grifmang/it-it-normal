@@ -79,5 +79,14 @@
     "claimsSkipped": 2,
     "errors": 0,
     "durationMs": 178284
+  },
+  {
+    "timestamp": "2026-02-15T22:42:16.584Z",
+    "sourcesCount": 1296,
+    "claimsExtracted": 6,
+    "claimsGenerated": 6,
+    "claimsSkipped": 0,
+    "errors": 0,
+    "durationMs": 295548
   }
 ]

@@ -24,6 +24,7 @@ export const config = {
   googleFactCheckPageSize: parseInt(
     process.env.GOOGLE_FACT_CHECK_PAGE_SIZE || "20"
   ),
+  duckDuckGoRegion: process.env.DUCKDUCKGO_REGION || "us-en",
 
   // Publish mode
   autoPublish: process.env.AUTO_PUBLISH === "true",

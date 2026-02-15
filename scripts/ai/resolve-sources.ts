@@ -3,7 +3,8 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { config } from "../config";
-import { searchGoogleFactCheck, FactCheckSearchResult } from "../sources/google-fact-check";
+import { searchGoogleFactCheck } from "../sources/google-fact-check";
+import { searchDuckDuckGo } from "../sources/duckduckgo-search";
 
 const client = new Anthropic({ apiKey: config.anthropicApiKey });
 
@@ -16,23 +17,48 @@ export async function searchForSourceUrl(
   sourceTitle: string,
   claimTitle: string
 ): Promise<ResolveResult | null> {
-  // Step 1: Search with source title
-  let results = await searchGoogleFactCheck(sourceTitle);
+  // Use Google Fact Check API first, then DuckDuckGo as fallback.
+  let googleResults = await searchGoogleFactCheck(sourceTitle);
 
-  // Step 2: If no results, broaden search with claim title
-  if (results.length === 0) {
-    results = await searchGoogleFactCheck(claimTitle);
+  if (googleResults.length === 0) {
+    googleResults = await searchGoogleFactCheck(claimTitle);
   }
 
-  if (results.length === 0) {
+  const duckResults = await searchDuckDuckGo(sourceTitle);
+  const combined = [
+    ...googleResults.map((r) => ({
+      title: r.title,
+      url: r.url,
+      publisher: r.publisher,
+      rating: r.rating,
+      source: "google-fact-check",
+      snippet: "",
+    })),
+    ...duckResults.map((r) => ({
+      title: r.title,
+      url: r.url,
+      publisher: "Unknown",
+      rating: "Unrated",
+      source: "duckduckgo",
+      snippet: r.snippet,
+    })),
+  ];
+
+  const deduped = Array.from(new Map(combined.map((r) => [r.url, r])).values());
+
+  if (deduped.length === 0) {
     return null;
   }
 
-  // Step 3: Use Claude Haiku to pick the best match
   try {
-    const candidateList = results
-      .slice(0, 10)
-      .map((r, i) => `${i + 1}. "${r.title}" | ${r.url} | Publisher: ${r.publisher}`)
+    const candidateList = deduped
+      .slice(0, 12)
+      .map(
+        (r, i) =>
+          `${i + 1}. [${r.source}] "${r.title}" | ${r.url} | Publisher: ${r.publisher}${
+            r.snippet ? ` | Snippet: ${r.snippet}` : ""
+          }`
+      )
       .join("\n");
 
     const response = await client.messages.create({
@@ -47,8 +73,8 @@ Candidates:
 ${candidateList}
 
 Return ONLY valid JSON: {"index": <1-based number>, "confidence": "high"|"low"}
-- "high" if the title/publisher clearly matches the source
-- "low" if it's a plausible but uncertain match
+- Prefer official records and direct reporting over aggregators
+- Prefer candidates where title and publisher clearly match
 - If none match at all, return {"index": 0, "confidence": "low"}`,
         },
       ],
@@ -62,10 +88,10 @@ Return ONLY valid JSON: {"index": <1-based number>, "confidence": "high"|"low"}
     const index = parsed.index;
     const confidence = parsed.confidence === "high" ? "high" : "low";
 
-    if (index === 0 || index > results.length) return null;
+    if (index === 0 || index > deduped.length) return null;
 
     return {
-      url: results[index - 1].url,
+      url: deduped[index - 1].url,
       confidence,
     };
   } catch (error) {
@@ -108,7 +134,6 @@ export async function resolveEmptySources(
       unresolved++;
     }
 
-    // Rate limit between API calls
     await new Promise((r) => setTimeout(r, 500));
   }
 
@@ -154,7 +179,6 @@ async function resolveAll(): Promise<void> {
         totalUnresolved += unresolved;
         filesProcessed++;
 
-        // Rate limit between files
         await new Promise((r) => setTimeout(r, 500));
       } catch (error) {
         console.error(`  -> Error processing ${file}:`, error);
@@ -168,7 +192,6 @@ async function resolveAll(): Promise<void> {
   console.log(`  URLs unresolved (left empty): ${totalUnresolved}\n`);
 }
 
-// Self-executing main block
 if (process.argv[1] && process.argv[1].includes("resolve-sources")) {
   resolveAll().catch((error) => {
     console.error("Source resolution failed:", error);

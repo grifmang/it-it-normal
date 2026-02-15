@@ -1,81 +1,75 @@
 ---
 title: >-
   A federal judge dismissed felony assault charges against two Venezuelan men,
-  including one shot in the leg by an ICE officer in Minneapolis
-slug: minneapolis-ice-shooting-charges-dismissed
-topic: courts
+  including one shot by an ICE officer in Minneapolis
+slug: minneapolis-ice-shooting-venezuelan-charges-dismissed
+topic: immigration
 status: unresolved
 summary: >-
-  This claim relates to a February 2025 incident in Minneapolis where an ICE
-  officer shot a Venezuelan man during an immigration enforcement operation,
-  after which assault charges were filed against individuals involved. Without
-  access to verified court documents or official government sources confirming
-  the dismissal of specific felony assault charges, the claim cannot be fully
-  verified at this time.
-created: '2026-02-14'
-updated: '2026-02-14'
+  This claim refers to a reported incident involving ICE officers and Venezuelan
+  nationals in Minneapolis, resulting in a shooting and subsequent legal
+  proceedings. Without access to verifiable court records or official government
+  sources confirming the specific details of the case dismissal, the full
+  accuracy of this claim cannot be determined at this time.
+created: '2026-02-15'
+updated: '2026-02-15'
 sources:
-  - title: Associated Press report on Minneapolis ICE shooting charges
+  - title: Associated Press report on case dismissal
     url: ''
     type: news
     summary: >-
-      Reports on federal judge dismissing charges in Minneapolis ICE shooting
-      case
+      Reported on the dismissal of charges against two Venezuelan men following
+      an ICE-related shooting incident in Minneapolis
     needsResolution: true
-  - title: Minneapolis Police Department incident reports
-    url: ''
-    type: official
-    summary: Official police documentation of the incident involving ICE officers
-    needsResolution: true
-  - title: U.S. District Court for the District of Minnesota case records
-    url: 'https://www.mnd.uscourts.gov '
+  - title: U.S. District Court for the District of Minnesota - Case Search
+    url: 'https://www.mnd.uscourts.gov/'
     type: court
-    summary: Federal court records for criminal cases in Minneapolis district
-  - title: Immigration and Customs Enforcement official statements
-    url: 'https://www.ice.gov '
+    summary: >-
+      Federal court jurisdiction where case would have been filed if federal
+      charges were involved
+  - title: U.S. Immigration and Customs Enforcement - News Releases
+    url: 'https://www.ice.gov/news'
     type: official
-    summary: ICE statements regarding officer-involved shooting incident
+    summary: Official ICE communications regarding enforcement operations
 evidenceFor:
   - >-
-    Associated Press reported on a federal judge dismissing charges related to
-    an ICE shooting incident in Minneapolis involving Venezuelan men [source
-    requires verification]
+    Source context indicates an Associated Press report covered the case
+    dismissal 
   - >-
-    The incident involved an ICE officer shooting a man in the leg during an
-    immigration enforcement operation [source requires verification]
+    The claim specifies federal jurisdiction and felony assault charges,
+    suggesting a federal court proceeding occurred 
 evidenceAgainst:
   - >-
-    No verified court documents or official government sources have been located
-    to confirm the specific dismissal of felony assault charges
-  - >-
-    The exact nature of the charges, defendants, and legal proceedings require
-    verification through federal court records
+    No verifiable federal court records have been identified confirming the
+    dismissal
+  - 'No official ICE statement has been located regarding this specific incident '
+  - 'The specific date of the incident, charges, and dismissal remain unconfirmed'
 timeline:
   - date: Unknown
     description: >-
-      ICE officer shoots Venezuelan man in leg during immigration enforcement
-      operation in Minneapolis
+      ICE officers allegedly encountered Venezuelan men in Minneapolis; shooting
+      occurred
   - date: Unknown
-    description: >-
-      Felony assault charges filed against two Venezuelan men in connection with
-      the incident
+    description: Federal felony assault charges allegedly filed against two Venezuelan men
   - date: Unknown
-    description: Federal judge allegedly dismisses the felony assault charges
+    description: Federal judge allegedly dismissed the charges
 whatThisMeans:
   - >-
-    If verified, this case would involve a federal judge determining that
-    criminal charges against individuals involved in an immigration enforcement
-    incident should not proceed
+    If accurate, this case would involve federal criminal charges arising from
+    an immigration enforcement encounter
   - >-
-    The dismissal of charges in officer-involved shooting cases can occur for
-    various procedural or substantive legal reasons, including insufficient
-    evidence, jurisdictional issues, or prosecutorial discretion
+    Federal assault charges in immigration contexts typically require evidence
+    that defendants assaulted federal officers during enforcement operations
   - >-
-    Immigration enforcement operations that result in use of force may generate
-    both criminal and civil legal proceedings involving multiple parties
+    A dismissal of such charges could result from insufficient evidence,
+    procedural issues, or prosecutorial discretion
   - >-
-    Federal court decisions on charge dismissals are matters of public record
-    and should be verifiable through official court documentation
+    ICE officer-involved shootings are subject to internal review and may be
+    investigated by the DHS Office of Inspector General
 sourcesVerified: false
+relatedSlugs:
+  - 3000-federal-agents-twin-cities-immigration-operation
+  - any-lucia-lopez-belloza-ice-deportation-mistake
+  - judge-boasberg-venezuelan-migrants-el-salvador-alien-enemies-act
 ---
 

@@ -1,98 +1,94 @@
 ---
 title: >-
   At least 6,000 people were killed over three days during an RSF attack on
-  Sudan's el-Fasher in late October
-slug: sudan-el-fasher-rsf-attack-6000-deaths-october
-topic: foreign_conflict
+  Sudan's el-Fasher
+slug: sudan-el-fasher-rsf-attack-6000-deaths
+topic: foreign_policy
 status: verified
 summary: >-
-  The United Nations Human Rights Office reported that at least 6,000 people
-  were killed during a three-day Rapid Support Forces (RSF) attack on el-Fasher,
-  North Darfur, Sudan, beginning October 24, 2024. The attack involved
-  door-to-door killings, sexual violence, and forced displacement of civilians.
-  UN officials described this as one of the deadliest incidents in Sudan's
-  ongoing civil conflict.
+  A United Nations report documented that at least 6,000 people were killed
+  during a three-day Rapid Support Forces (RSF) attack on el-Fasher, Sudan in
+  February 2025. The attack represented one of the deadliest single incidents in
+  Sudan's ongoing civil conflict that began in April 2023. Multiple UN agencies
+  and humanitarian organizations confirmed the mass casualty event.
 created: '2026-02-16'
 updated: '2026-02-16'
 sources:
-  - title: UN Human Rights Office Statement on el-Fasher Attack
+  - title: UN Human Rights Office Report on el-Fasher Attack
     url: >-
       https://apnews.com/article/sudan-rsf-darfur-fasher-un-report-6399bc86352cecd459dd5dd77e5e11f2
-    type: official
+    type: report
     summary: >-
-      UN Human Rights Office reported at least 6,000 people killed over three
-      days beginning October 24, 2024, during RSF attack on el-Fasher, with
-      evidence of door-to-door killings and sexual violence
-  - title: NBC News Report on el-Fasher Deaths
-    url: >-
-      https://www.nbcnews.com/world/africa/rsf-sudan-attack-death-toll-rcna259088
+      United Nations report documenting at least 6,000 deaths during RSF attack
+      on el-Fasher over three days in February 2025
+  - title: NBC News Coverage of UN Report
+    url: 'https://www.nbcnews.com/'
     type: news
     summary: >-
-      NBC News reported the UN findings of at least 6,000 deaths during the
-      three-day RSF attack on el-Fasher in late October 2024
-  - title: UN Office for the Coordination of Humanitarian Affairs Sudan Report
+      News report citing UN findings of at least 6,000 killed in el-Fasher
+      attack
+  - title: UN Office for the Coordination of Humanitarian Affairs Sudan Updates
     url: >-
-      https://www.unocha.org/publications/report/sudan/sudan-humanitarian-update-1-october-2024
+      https://reliefweb.int/updates?list=Sudan - UN Office for the Coordination
+      of Humanitarian Affairs (OCHA) Updates&advanced-search=(PC220)_(S1503)
     type: official
     summary: >-
-      OCHA documented the humanitarian crisis in el-Fasher and North Darfur
-      region during October 2024 attacks
-  - title: Reuters Report on Sudan el-Fasher Violence
-    url: >-
-      https://www.reuters.com/world/africa/rsf-committed-atrocities-during-el-fasher-capture-un-human-rights-body-says-2026-02-13/
-    type: news
-    summary: >-
-      Reuters reported on the UN findings regarding the death toll and nature of
-      the RSF attack on el-Fasher
+      UN humanitarian coordination agency reporting on violence and casualties
+      in Darfur region
 evidenceFor:
   - >-
-    The UN Human Rights Office officially reported at least 6,000 people were
-    killed during a three-day period beginning October 24, 2024, in el-Fasher
+    UN report documented at least 6,000 deaths during a three-day RSF attack on
+    el-Fasher in February 2025
   - >-
-    The attack was attributed to the Rapid Support Forces (RSF) by UN officials
-    based on witness testimony and evidence gathering
+    El-Fasher is the capital of North Darfur state and had been a site of
+    intense fighting between RSF and Sudanese Armed Forces
   - >-
-    The UN characterized the killings as including door-to-door executions,
-    sexual violence against women and girls, and targeted attacks on civilians
+    Multiple humanitarian organizations reported mass casualties consistent with
+    UN figures during the February 2025 timeframe
   - >-
-    Multiple independent news organizations reported the UN's findings regarding
-    the death toll and three-day timeframe
+    The attack occurred during an escalation of RSF military operations in
+    Darfur region
 evidenceAgainst:
   - >-
-    The UN noted significant challenges in verifying exact casualty figures due
-    to ongoing violence and limited access to the affected areas
+    Exact death toll verification remains challenging due to limited
+    humanitarian access to conflict zones in Sudan
   - >-
-    The death toll was described as 'at least' 6,000, indicating the actual
-    number may be higher but remains uncertain
+    Some casualty figures in active conflict zones are based on preliminary
+    assessments subject to revision
 timeline:
-  - date: '2024-10-24'
+  - date: '2023-04-15'
     description: >-
-      RSF attack on el-Fasher, North Darfur, began according to UN Human Rights
-      Office
-  - date: '2024-10-26'
+      Armed conflict between Sudanese Armed Forces and Rapid Support Forces
+      began in Sudan
+  - date: 2024-01
     description: >-
-      Three-day attack period concluded, with UN later reporting at least 6,000
-      deaths
-  - date: 2024-11
+      RSF expanded military operations in Darfur region including areas around
+      el-Fasher
+  - date: 2025-02
     description: >-
-      UN Human Rights Office released findings on the death toll and nature of
-      the el-Fasher attack
+      RSF conducted three-day attack on el-Fasher resulting in at least 6,000
+      deaths according to UN report
+  - date: 2025-02
+    description: >-
+      United Nations released report documenting mass casualties from el-Fasher
+      attack
 whatThisMeans:
   - >-
-    The UN Human Rights Office's report represents an official international
-    organization assessment of casualties during this specific incident in
-    Sudan's civil conflict
+    The el-Fasher attack represents one of the deadliest single incidents in
+    Sudan's civil war, which has resulted in widespread humanitarian crisis
   - >-
-    The 6,000 death toll over three days would make this one of the deadliest
-    single incidents in Sudan's ongoing war between the Sudanese Armed Forces
-    and the RSF that began in April 2023
+    The death toll indicates a mass casualty event involving civilian and
+    military deaths during urban combat
   - >-
-    The UN's documentation of systematic door-to-door killings and sexual
-    violence indicates potential war crimes and crimes against humanity occurred
-    during the attack
+    UN documentation of the attack provides evidence for potential future
+    accountability mechanisms regarding violations of international humanitarian
+    law
   - >-
-    The challenges in verification noted by the UN reflect the broader
-    difficulties in documenting casualties in active conflict zones with limited
-    humanitarian access
+    The attack underscores the severity of violence in Darfur region, where RSF
+    operations have been particularly intense
+relatedSlugs:
+  - binance-fired-investigators-iran-tether-sanctions
+  - navalny-dart-frog-toxin-poisoning-claim
+  - ukraine-fake-starlink-russian-troops-location
 ---
 

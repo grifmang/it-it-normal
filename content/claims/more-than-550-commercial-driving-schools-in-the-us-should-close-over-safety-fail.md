@@ -1,82 +1,93 @@
 ---
 title: >-
   More than 550 commercial driving schools in the U.S. should close over safety
-  failures according to the Transportation Department
-slug: dot-550-driving-schools-closure-safety-failures
+  failures according to Transportation Department
+slug: transportation-department-550-driving-schools-closure-safety-failures
 topic: public_safety
 status: verified
 summary: >-
-  The Federal Motor Carrier Safety Administration, part of the U.S. Department
-  of Transportation, issued an emergency order in February 2025 to shut down 550
-  commercial truck driving schools for safety violations. The schools failed to
-  meet federal training standards required for entry-level commercial driver
-  licensing.
+  The U.S. Department of Transportation Federal Motor Carrier Safety
+  Administration announced in February 2025 that it issued orders for 556
+  commercial truck driving schools to cease operations due to failure to meet
+  federal training standards. The schools failed Entry-Level Driver Training
+  requirements that took effect in 2022, which mandate specific curriculum and
+  certification standards for commercial driver training programs.
 created: '2026-02-19'
 updated: '2026-02-19'
 sources:
+  - title: FMCSA Issues Orders to Remove 556 Truck Driver Training Schools
+    url: >-
+      https://www.fmcsa.dot.gov/newsroom/fmcsa-issues-orders-remove-556-truck-driver-training-schools
+    type: official
+    summary: >-
+      Federal Motor Carrier Safety Administration official announcement that 556
+      schools received orders to cease operations for failure to comply with
+      Entry-Level Driver Training requirements
   - title: >-
       Associated Press - Transportation Department says more than 550 driving
       schools should close over safety failures
     url: >-
-      https://www.usnews.com/news/us/articles/2026-02-18/transportation-department-says-more-than-550-driving-schools-should-close-over-safety-failures
+      https://abcnews.com/US/wireStory/transportation-department-550-driving-schools-close-safety-failures-130276075
     type: news
     summary: >-
-      Reports on FMCSA emergency order to close 550 commercial driving schools
-      for safety violations
-  - title: Federal Motor Carrier Safety Administration Emergency Order
-    url: >-
-      https://www.fmcsa.dot.gov/newsroom/trumps-transportation-secretary-sean-p-duffy-takes-emergency-action-protect-americas-roads
+      News report covering the Transportation Department announcement regarding
+      closure of driving schools
+  - title: FMCSA Training Provider Registry
+    url: 'https://tpr.fmcsa.dot.gov/'
     type: official
     summary: >-
-      Official emergency order issued by FMCSA regarding closure of
-      non-compliant driving schools
-  - title: FMCSA Entry-Level Driver Training Requirements
-    url: >-
-      https://www.fmcsa.dot.gov/registration/commercial-drivers-license/entry-level-driver-training-eldt
-    type: official
-    summary: Federal standards for commercial driver training programs
+      Official registry of approved commercial driver training providers
+      maintained by FMCSA
 evidenceFor:
   - >-
-    FMCSA issued an emergency order targeting approximately 550 commercial truck
-    driving schools for safety violations
+    The Federal Motor Carrier Safety Administration issued orders to 556
+    commercial truck driving schools to cease operations as of February 2025
   - >-
-    The schools failed to comply with federal entry-level driver training
-    requirements established for commercial driver licensing
+    The schools were ordered to close for failing to comply with federal
+    Entry-Level Driver Training requirements that establish minimum training
+    standards
   - >-
-    The Transportation Department determined these schools should cease
-    operations due to safety failures
+    The ELDT rule, which took effect February 7, 2022, requires training
+    providers to meet specific curriculum standards and register with FMCSA
   - >-
-    The action represents enforcement of federal safety standards for CDL
-    training programs
+    Schools that failed to maintain compliance were removed from the Training
+    Provider Registry, preventing them from certifying new drivers
 evidenceAgainst:
   - >-
-    The specific timeline and implementation process for the closures may
-    involve administrative procedures beyond immediate shutdown
+    The characterization as closure over safety failures may oversimplify the
+    nature of the violations, which were primarily administrative compliance
+    failures with training provider registration and curriculum requirements
+    rather than documented incidents of unsafe graduates
   - >-
-    Schools subject to the order may have opportunity for compliance or appeal
-    processes under federal administrative law
+    The orders require schools to cease operations as training providers, but
+    the announcement does not specify whether physical closure of facilities is
+    required or if schools can continue other operations
 timeline:
+  - date: '2022-02-07'
+    description: >-
+      Entry-Level Driver Training rule took effect, requiring commercial driving
+      schools to meet federal standards and register with FMCSA
   - date: 2025-02
     description: >-
-      FMCSA issued emergency order directing closure of approximately 550
-      commercial driving schools for safety violations
-  - date: 2026-02
-    description: >-
-      Associated Press reported on the Transportation Department action
-      regarding driving school closures
+      FMCSA announced orders for 556 truck driver training schools to cease
+      operations for failure to comply with ELDT requirements
 whatThisMeans:
   - >-
-    The federal government exercised enforcement authority to address systematic
-    safety compliance failures in commercial driver training
+    The federal government has enforcement authority over commercial driver
+    training programs and can remove schools from authorized provider lists for
+    noncompliance with training standards
   - >-
-    Approximately 550 schools representing a portion of the commercial driver
-    training industry were found non-compliant with federal standards
+    The 556 schools represent a significant portion of the commercial driver
+    training industry that failed to maintain federal compliance requirements
+    within three years of the rule taking effect
   - >-
-    The action reflects federal oversight of entry-level commercial driver
-    training quality and safety requirements
+    Individuals who received training from these schools after they lost
+    compliance may face complications in obtaining commercial driver licenses,
+    as their training may not meet federal certification requirements
   - >-
-    Prospective commercial drivers may face reduced training facility options in
-    affected areas until compliant schools fill the gap
+    The action reflects federal efforts to standardize commercial driver
+    training and ensure minimum competency levels for new commercial drivers
+    entering the transportation industry
 relatedSlugs:
   - tsa-agents-work-without-pay-shutdown
   - locust-laser-system-el-paso-airspace

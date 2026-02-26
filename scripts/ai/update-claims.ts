@@ -85,7 +85,7 @@ If there are no significant updates, respond with:
   "updateSummary": "No significant new developments found."
 }`,
             cache_control: { type: "ephemeral" },
-          } as any,
+          } as Anthropic.Messages.TextBlockParam & { cache_control: { type: "ephemeral" } },
           {
             type: "text",
             text: `CLAIM: "${title}"

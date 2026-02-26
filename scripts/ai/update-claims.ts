@@ -55,30 +55,19 @@ export async function checkForUpdates(
     .join("\n- ");
 
   const response = await client.messages.create({
-    model: "claude-sonnet-4-5-20250929",
+    model: "claude-haiku-4-5-20251001",
     max_tokens: 2048,
     messages: [
       {
         role: "user",
-        content: `You are a research assistant for "Is This Normal?", a neutral, evidence-based political claim analysis site.
+        content: [
+          {
+            type: "text",
+            text: `You are a research assistant for "Is This Normal?", a neutral, evidence-based political claim analysis site.
 
 Review this existing claim and determine if there are significant new developments since the last update.
 
-CLAIM: "${title}"
-SUMMARY: ${summary}
-CURRENT STATUS: ${status}
-LAST UPDATED: ${data.updated}
-
-CURRENT EVIDENCE FOR:
-- ${evidenceFor || "None"}
-
-CURRENT EVIDENCE AGAINST:
-- ${evidenceAgainst || "None"}
-
-CURRENT TIMELINE:
-- ${timeline || "None"}
-
-Are there any significant new developments related to this claim since ${data.updated}? Consider recent news, court decisions, policy changes, or new data.
+Are there any significant new developments related to this claim? Consider recent news, court decisions, policy changes, or new data.
 
 Respond with ONLY valid JSON in this exact format:
 {
@@ -95,6 +84,27 @@ If there are no significant updates, respond with:
   "hasUpdates": false,
   "updateSummary": "No significant new developments found."
 }`,
+            cache_control: { type: "ephemeral" },
+          } as any,
+          {
+            type: "text",
+            text: `CLAIM: "${title}"
+SUMMARY: ${summary}
+CURRENT STATUS: ${status}
+LAST UPDATED: ${data.updated}
+
+CURRENT EVIDENCE FOR:
+- ${evidenceFor || "None"}
+
+CURRENT EVIDENCE AGAINST:
+- ${evidenceAgainst || "None"}
+
+CURRENT TIMELINE:
+- ${timeline || "None"}
+
+Are there any significant new developments related to this claim since ${data.updated}?`,
+          },
+        ],
       },
     ],
   });
@@ -171,6 +181,11 @@ export async function updateAllClaims(): Promise<void> {
   let skipped = 0;
 
   for (const { file, filepath } of sorted) {
+    if (checked >= config.maxUpdatesPerRun) {
+      console.log(`\n[Update] Reached MAX_UPDATES_PER_RUN limit (${config.maxUpdatesPerRun}). Stopping.`);
+      break;
+    }
+
     const parsed = matter(fs.readFileSync(filepath, "utf8"));
     const title = parsed.data.title || file;
 

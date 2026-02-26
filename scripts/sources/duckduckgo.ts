@@ -3,6 +3,7 @@ import { WebSearchResult } from "./search-types";
 
 const CACHE_TTL_MS = 6 * 60 * 60 * 1000;
 const MAX_RETRIES = 3;
+const MIN_REQUEST_GAP_MS = 3000;
 
 interface CacheEntry {
   expiresAt: number;
@@ -10,6 +11,7 @@ interface CacheEntry {
 }
 
 const responseCache = new Map<string, CacheEntry>();
+let lastRequestAt = 0;
 
 export async function searchDuckDuckGo(query: string): Promise<WebSearchResult[]> {
   const cached = responseCache.get(query);
@@ -17,8 +19,14 @@ export async function searchDuckDuckGo(query: string): Promise<WebSearchResult[]
     return cached.data;
   }
 
+  const msSinceLast = Date.now() - lastRequestAt;
+  if (msSinceLast < MIN_REQUEST_GAP_MS) {
+    await new Promise((r) => setTimeout(r, MIN_REQUEST_GAP_MS - msSinceLast));
+  }
+
   for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
     try {
+      lastRequestAt = Date.now();
       const searchResults = await search(query, {
         safeSearch: SafeSearchType.MODERATE,
       });

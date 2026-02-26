@@ -9,6 +9,7 @@ export const config = {
   congressApiKey: process.env.CONGRESS_API_KEY || "",
   courtListenerApiToken: process.env.COURTLISTENER_API_TOKEN || "",
   googleFactCheckApiKey: process.env.GOOGLE_FACT_CHECK_API_KEY || "",
+  googleCustomSearchEngineId: process.env.GOOGLE_CUSTOM_SEARCH_ENGINE_ID || "",
 
   // Directories
   claimsDir: path.join(__dirname, "..", "content", "claims"),
@@ -58,6 +59,7 @@ export const config = {
 
   // Pipeline settings
   maxClaimsPerRun: parseInt(process.env.MAX_CLAIMS_PER_RUN || "6"),
+  maxUpdatesPerRun: parseInt(process.env.MAX_UPDATES_PER_RUN || "20"),
   minRelevanceScore: parseFloat(process.env.MIN_RELEVANCE_SCORE || "0.6"),
 };
 

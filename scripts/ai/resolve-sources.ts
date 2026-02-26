@@ -3,7 +3,6 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { config } from "../config";
-import { searchGoogleFactCheck, FactCheckSearchResult } from "../sources/google-fact-check";
 import { searchGoogleCustom } from "../sources/google-custom-search";
 import { searchDuckDuckGo } from "../sources/duckduckgo";
 import { WebSearchResult } from "../sources/search-types";
@@ -15,31 +14,15 @@ interface ResolveResult {
   confidence: "high" | "low";
 }
 
-function adaptFactCheckResults(results: FactCheckSearchResult[]): WebSearchResult[] {
-  return results.map((r) => ({
-    title: r.title,
-    url: r.url,
-    snippet: `Publisher: ${r.publisher} | Rating: ${r.rating}`,
-    source: "googleFactCheck" as const,
-  }));
-}
-
 async function cascadeSearch(query: string): Promise<WebSearchResult[]> {
-  // Backend 1: Google Fact Check
-  const factCheckResults = await searchGoogleFactCheck(query);
-  if (factCheckResults.length > 0) {
-    console.log(`[Cascade] Resolved via Google Fact Check (${factCheckResults.length} results)`);
-    return adaptFactCheckResults(factCheckResults);
-  }
-
-  // Backend 2: Google Custom Search
+  // Backend 1: Google Custom Search
   const customSearchResults = await searchGoogleCustom(query);
   if (customSearchResults.length > 0) {
     console.log(`[Cascade] Resolved via Google Custom Search (${customSearchResults.length} results)`);
     return customSearchResults;
   }
 
-  // Backend 3: DuckDuckGo
+  // Backend 2: DuckDuckGo
   const ddgResults = await searchDuckDuckGo(query);
   if (ddgResults.length > 0) {
     console.log(`[Cascade] Resolved via DuckDuckGo (${ddgResults.length} results)`);

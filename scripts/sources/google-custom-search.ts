@@ -117,7 +117,7 @@ async function fetchWithRetry(params: URLSearchParams): Promise<GoogleCustomSear
 }
 
 export async function searchGoogleCustom(query: string): Promise<WebSearchResult[]> {
-  if (!config.googleFactCheckApiKey || !config.googleCustomSearchEngineId) {
+  if (!config.googleApiKey || !config.googleCustomSearchEngineId) {
     console.log("[Google Custom Search] API key or Search Engine ID missing; skipping.");
     return [];
   }
@@ -128,7 +128,7 @@ export async function searchGoogleCustom(query: string): Promise<WebSearchResult
   }
 
   const params = new URLSearchParams({
-    key: config.googleFactCheckApiKey,
+    key: config.googleApiKey,
     cx: config.googleCustomSearchEngineId,
     q: query,
     num: "10",

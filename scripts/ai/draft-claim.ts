@@ -5,7 +5,6 @@ import matter from "gray-matter";
 import { z } from "zod";
 import { config } from "../config";
 import { ExtractedClaim } from "./extract-claims";
-import { searchGoogleFactCheck } from "../sources/google-fact-check";
 import { resolveEmptySources } from "./resolve-sources";
 
 const ClaimFrontmatterSchema = z.object({
@@ -73,12 +72,6 @@ export async function generateDraft(claim: ExtractedClaim): Promise<string> {
 
   const today = new Date().toISOString().split("T")[0];
 
-  // Search Google Fact Check for real URLs related to this claim
-  const factCheckResults = await searchGoogleFactCheck(claim.claim);
-  const factCheckContext = factCheckResults.length > 0
-    ? `\nFACT CHECK RESULTS (use these real, verified URLs as sources):\n${factCheckResults.map(r => `- "${r.title}" | ${r.url} | Publisher: ${r.publisher} | Rating: ${r.rating}`).join("\n")}`
-    : "";
-
   const response = await client.messages.create({
     model: "claude-sonnet-4-5-20250929",
     max_tokens: 4096,
@@ -92,7 +85,7 @@ Your task: Generate a complete, PUBLISH-READY claim page in markdown with YAML f
 CLAIM TO RESEARCH: "${claim.claim}"
 TOPIC: ${claim.topic}
 SUGGESTED RESEARCH QUERIES: ${claim.searchQueries.join(", ")}
-SOURCE CONTEXT: ${claim.sourceItems.join("; ")}${factCheckContext}
+SOURCE CONTEXT: ${claim.sourceItems.join("; ")}
 
 CRITICAL RULES:
 - Be STRICTLY NEUTRAL. No adjectives implying judgment. No editorial tone.

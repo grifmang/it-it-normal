@@ -8,7 +8,7 @@ export const config = {
   newsApiKey: process.env.NEWS_API_KEY || "",
   congressApiKey: process.env.CONGRESS_API_KEY || "",
   courtListenerApiToken: process.env.COURTLISTENER_API_TOKEN || "",
-  googleFactCheckApiKey: process.env.GOOGLE_FACT_CHECK_API_KEY || "",
+  googleApiKey: process.env.GOOGLE_FACT_CHECK_API_KEY || "",
   googleCustomSearchEngineId: process.env.GOOGLE_CUSTOM_SEARCH_ENGINE_ID || "",
 
   // Directories
@@ -21,10 +21,6 @@ export const config = {
     process.env.NEWS_API_TOPICS ||
     "politics,government,congress,supreme court,immigration,election,executive order,federal budget,trade policy"
   ).split(",").map(s => s.trim()).filter(Boolean),
-  googleFactCheckLanguage: process.env.GOOGLE_FACT_CHECK_LANGUAGE || "en-US",
-  googleFactCheckPageSize: parseInt(
-    process.env.GOOGLE_FACT_CHECK_PAGE_SIZE || "20"
-  ),
   duckDuckGoRegion: process.env.DUCKDUCKGO_REGION || "us-en",
 
   // Publish mode

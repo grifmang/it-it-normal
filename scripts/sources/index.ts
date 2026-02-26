@@ -4,9 +4,7 @@ import { fetchRssFeeds, RssItem } from "./rss";
 import { fetchCongressActivity, CongressItem } from "./congress";
 import { fetchCourtOpinions, CourtOpinion } from "./courtlistener";
 import { fetchExecutiveOrders, ExecutiveOrderItem } from "./executive-orders";
-import { fetchGoogleFactCheckClaims, FactCheckClaim } from "./google-fact-check";
-
-export type RawItem = TrendingTopic | NewsArticle | RssItem | CongressItem | CourtOpinion | ExecutiveOrderItem | FactCheckClaim;
+export type RawItem = TrendingTopic | NewsArticle | RssItem | CongressItem | CourtOpinion | ExecutiveOrderItem;
 
 export interface AggregatedContent {
   googleTrends: TrendingTopic[];
@@ -15,7 +13,6 @@ export interface AggregatedContent {
   congress: CongressItem[];
   courtlistener: CourtOpinion[];
   executiveOrders: ExecutiveOrderItem[];
-  googleFactChecks: FactCheckClaim[];
   all: RawItem[];
   fetchedAt: string;
 }
@@ -23,17 +20,16 @@ export interface AggregatedContent {
 export async function aggregateAllSources(): Promise<AggregatedContent> {
   console.log("\n=== Aggregating sources ===\n");
 
-  const [googleTrends, news, rss, congress, courtlistener, executiveOrders, googleFactChecks] = await Promise.all([
+  const [googleTrends, news, rss, congress, courtlistener, executiveOrders] = await Promise.all([
     fetchGoogleTrends(),
     fetchNewsArticles(),
     fetchRssFeeds(),
     fetchCongressActivity(),
     fetchCourtOpinions(),
     fetchExecutiveOrders(),
-    fetchGoogleFactCheckClaims(),
   ]);
 
-  const all: RawItem[] = [...googleTrends, ...news, ...rss, ...congress, ...courtlistener, ...executiveOrders, ...googleFactChecks];
+  const all: RawItem[] = [...googleTrends, ...news, ...rss, ...congress, ...courtlistener, ...executiveOrders];
 
   console.log(`\n=== Total: ${all.length} items from all sources ===\n`);
 
@@ -44,7 +40,6 @@ export async function aggregateAllSources(): Promise<AggregatedContent> {
     congress,
     courtlistener,
     executiveOrders,
-    googleFactChecks,
     all,
     fetchedAt: new Date().toISOString(),
   };
@@ -55,4 +50,3 @@ export type { CourtOpinion } from "./courtlistener";
 
 export type { ExecutiveOrderItem } from "./executive-orders";
 
-export type { FactCheckClaim } from "./google-fact-check";

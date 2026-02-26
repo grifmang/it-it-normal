@@ -164,22 +164,5 @@ function buildDigest(content: AggregatedContent): string {
     }
   }
 
-  if (content.googleFactChecks.length > 0) {
-    sections.push("\n## Google Fact Check Explorer (Recent Claim Reviews)");
-    for (const factCheck of content.googleFactChecks.slice(0, 30)) {
-      const topPublishers = factCheck.reviews
-        .slice(0, 3)
-        .map((review) => review.publisher)
-        .join(", ");
-      const topRatings = factCheck.reviews
-        .slice(0, 3)
-        .map((review) => review.textualRating)
-        .join(", ");
-      sections.push(
-        `- "${factCheck.text}" | Claimant: ${factCheck.claimant || "Unknown"} | Reviews: ${topPublishers || "n/a"} | Ratings: ${topRatings || "n/a"}`
-      );
-    }
-  }
-
   return sections.join("\n");
 }

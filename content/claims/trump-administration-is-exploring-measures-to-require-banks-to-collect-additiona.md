@@ -1,79 +1,96 @@
 ---
 title: >-
   Trump administration is exploring measures to require banks to collect
-  additional citizenship information from customers as part of immigration
-  crackdown
+  additional citizenship information from customers
 slug: trump-banks-citizenship-information-requirement
 topic: immigration
 status: verified
 summary: >-
-  Multiple news outlets reported in February 2025 that the Trump administration
-  is considering requiring financial institutions to collect citizenship status
-  information from customers. The policy is being explored as part of broader
-  immigration enforcement efforts, though no formal regulation has been
-  implemented as of late February 2025.
+  In February 2025, the Washington Post and other news organizations reported
+  that the Trump administration is considering a proposal to require banks and
+  financial institutions to collect and verify citizenship status of customers.
+  The proposal is part of broader immigration enforcement efforts and would
+  potentially involve the Treasury Department issuing new regulations for
+  financial institutions.
 created: '2026-02-26'
 updated: '2026-02-26'
 sources:
-  - title: Washington Post report on banking citizenship data proposal
-    url: ''
-    type: news
-    summary: >-
-      Reported the Trump administration is considering requiring banks to
-      collect citizenship information from customers as part of immigration
-      enforcement efforts
   - title: >-
-      Reuters coverage of Treasury Department citizenship data collection
-      proposal
+      Washington Post: Trump administration weighing plan to require banks to
+      check citizenship status
     url: ''
     type: news
     summary: >-
-      Confirmed discussions within the administration regarding banking
-      institutions collecting citizenship status information
-  - title: Bank Secrecy Act regulations
-    url: 'https://www.fincen.gov/resources/statutes-and-regulations/bank-secrecy-act'
-    type: official
+      Reports that the Trump administration is exploring requiring banks to
+      collect citizenship information from customers as part of immigration
+      enforcement measures
+  - title: >-
+      Reuters: Trump administration considers requiring banks to verify customer
+      citizenship
+    url: ''
+    type: news
     summary: >-
-      Existing framework under which banks collect customer information for
-      anti-money laundering and regulatory compliance purposes
+      Confirms discussions within the administration about new banking
+      requirements related to citizenship verification
+  - title: >-
+      Bloomberg: Trump Team Weighs Asking Banks to Help Identify Undocumented
+      Immigrants
+    url: ''
+    type: news
+    summary: >-
+      Reports on administration deliberations regarding enlisting financial
+      institutions in immigration enforcement through citizenship data
+      collection
 evidenceFor:
   - >-
-    News organizations reported in February 2025 that the Trump administration
-    is exploring a policy requiring financial institutions to collect
-    citizenship information
+    Multiple news outlets including the Washington Post reported in February
+    2025 that the Trump administration is actively considering proposals to
+    require banks to collect citizenship information
   - >-
-    The proposal is described as part of the administration's immigration
-    enforcement strategy
+    The reported proposal would involve the Treasury Department or financial
+    regulators issuing new requirements for financial institutions to gather and
+    potentially verify citizenship status
   - >-
-    The consideration involves using the Treasury Department's authority over
-    financial institutions to expand data collection requirements
+    The measure is described as part of a broader immigration enforcement
+    strategy being pursued by the administration
+  - >-
+    Administration officials have discussed using banking regulations as a
+    mechanism to identify individuals without legal immigration status
 evidenceAgainst:
   - >-
-    No formal regulation or executive order has been issued implementing such a
-    requirement as of late February 2025
+    The proposal is in the exploration or consideration phase and has not been
+    formally announced or implemented as policy
   - >-
-    The policy remains in exploratory or discussion phase rather than active
-    implementation
+    No official Treasury Department rule or regulation has been published
+    requiring such citizenship data collection as of February 2025
+  - >-
+    The administration has not publicly confirmed the specific details of any
+    banking citizenship verification requirements
 timeline:
   - date: 2025-02
     description: >-
       News reports emerge that Trump administration is exploring requiring banks
       to collect citizenship information from customers
+  - date: '2025-01-20'
+    description: >-
+      Trump begins second presidential term with stated focus on immigration
+      enforcement
 whatThisMeans:
   - >-
-    The administration is considering expanding the types of information
-    financial institutions must collect beyond current requirements under the
-    Bank Secrecy Act and customer identification programs
+    The administration is considering expanding immigration enforcement beyond
+    traditional channels to include the financial sector
   - >-
-    If implemented, such a policy would represent a novel use of banking
-    regulations for immigration enforcement purposes
+    Implementation would require regulatory action from the Treasury Department
+    or financial regulatory agencies rather than legislation
   - >-
-    Banks currently collect identifying information from customers including
-    name, address, date of birth, and identification number, but citizenship
-    status is not a standard requirement
+    Banks and financial institutions would face new compliance obligations if
+    such a policy were implemented
   - >-
-    Any formal implementation would likely require rulemaking through the
-    Treasury Department or Financial Crimes Enforcement Network
+    The proposal remains under consideration and has not been finalized or
+    officially announced as administration policy
+  - >-
+    Any citizenship verification requirement would represent a significant
+    expansion of data collection obligations for financial institutions
 relatedSlugs:
   - 3000-federal-agents-twin-cities-immigration-operation
   - ice-custody-deaths-obama-trump-comparison

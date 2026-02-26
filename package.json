@@ -18,6 +18,7 @@
   "dependencies": {
     "@anthropic-ai/sdk": "^0.74.0",
     "dotenv": "^17.3.1",
+    "duck-duck-scrape": "^2.2.7",
     "fuse.js": "^7.1.0",
     "google-trends-api": "^4.9.2",
     "gray-matter": "^4.0.3",

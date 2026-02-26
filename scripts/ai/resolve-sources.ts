@@ -3,8 +3,10 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { config } from "../config";
-import { searchGoogleFactCheck } from "../sources/google-fact-check";
-import { searchDuckDuckGo } from "../sources/duckduckgo-search";
+import { searchGoogleFactCheck, FactCheckSearchResult } from "../sources/google-fact-check";
+import { searchGoogleCustom } from "../sources/google-custom-search";
+import { searchDuckDuckGo } from "../sources/duckduckgo";
+import { WebSearchResult } from "../sources/search-types";
 
 const client = new Anthropic({ apiKey: config.anthropicApiKey });
 
@@ -13,52 +15,61 @@ interface ResolveResult {
   confidence: "high" | "low";
 }
 
+function adaptFactCheckResults(results: FactCheckSearchResult[]): WebSearchResult[] {
+  return results.map((r) => ({
+    title: r.title,
+    url: r.url,
+    snippet: `Publisher: ${r.publisher} | Rating: ${r.rating}`,
+    source: "googleFactCheck" as const,
+  }));
+}
+
+async function cascadeSearch(query: string): Promise<WebSearchResult[]> {
+  // Backend 1: Google Fact Check
+  const factCheckResults = await searchGoogleFactCheck(query);
+  if (factCheckResults.length > 0) {
+    console.log(`[Cascade] Resolved via Google Fact Check (${factCheckResults.length} results)`);
+    return adaptFactCheckResults(factCheckResults);
+  }
+
+  // Backend 2: Google Custom Search
+  const customSearchResults = await searchGoogleCustom(query);
+  if (customSearchResults.length > 0) {
+    console.log(`[Cascade] Resolved via Google Custom Search (${customSearchResults.length} results)`);
+    return customSearchResults;
+  }
+
+  // Backend 3: DuckDuckGo
+  const ddgResults = await searchDuckDuckGo(query);
+  if (ddgResults.length > 0) {
+    console.log(`[Cascade] Resolved via DuckDuckGo (${ddgResults.length} results)`);
+    return ddgResults;
+  }
+
+  console.log(`[Cascade] No results from any backend for "${query}"`);
+  return [];
+}
+
 export async function searchForSourceUrl(
   sourceTitle: string,
   claimTitle: string
 ): Promise<ResolveResult | null> {
-  // Use Google Fact Check API first, then DuckDuckGo as fallback.
-  let googleResults = await searchGoogleFactCheck(sourceTitle);
+  // Step 1: Search with source title
+  let results = await cascadeSearch(sourceTitle);
 
-  if (googleResults.length === 0) {
-    googleResults = await searchGoogleFactCheck(claimTitle);
+  // Step 2: If no results, broaden search with claim title
+  if (results.length === 0) {
+    results = await cascadeSearch(claimTitle);
   }
 
-  const duckResults = await searchDuckDuckGo(sourceTitle);
-  const combined = [
-    ...googleResults.map((r) => ({
-      title: r.title,
-      url: r.url,
-      publisher: r.publisher,
-      rating: r.rating,
-      source: "google-fact-check",
-      snippet: "",
-    })),
-    ...duckResults.map((r) => ({
-      title: r.title,
-      url: r.url,
-      publisher: "Unknown",
-      rating: "Unrated",
-      source: "duckduckgo",
-      snippet: r.snippet,
-    })),
-  ];
-
-  const deduped = Array.from(new Map(combined.map((r) => [r.url, r])).values());
-
-  if (deduped.length === 0) {
+  if (results.length === 0) {
     return null;
   }
 
   try {
-    const candidateList = deduped
-      .slice(0, 12)
-      .map(
-        (r, i) =>
-          `${i + 1}. [${r.source}] "${r.title}" | ${r.url} | Publisher: ${r.publisher}${
-            r.snippet ? ` | Snippet: ${r.snippet}` : ""
-          }`
-      )
+    const candidateList = results
+      .slice(0, 10)
+      .map((r, i) => `${i + 1}. "${r.title}" | ${r.url} | ${r.snippet}`)
       .join("\n");
 
     const response = await client.messages.create({
@@ -88,10 +99,10 @@ Return ONLY valid JSON: {"index": <1-based number>, "confidence": "high"|"low"}
     const index = parsed.index;
     const confidence = parsed.confidence === "high" ? "high" : "low";
 
-    if (index === 0 || index > deduped.length) return null;
+    if (index === 0 || index > results.length) return null;
 
     return {
-      url: deduped[index - 1].url,
+      url: results[index - 1].url,
       confidence,
     };
   } catch (error) {

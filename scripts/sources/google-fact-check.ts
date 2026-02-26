@@ -95,7 +95,7 @@ function parseRetryAfterMs(response: Response): number | null {
   return Math.max(0, date - Date.now());
 }
 
-async function fetchFactCheckWithRetry(params: URLSearchParams): Promise<GoogleFactCheckResponse | null> {
+async function fetchFactCheckWithRetry(params: URLSearchParams, maxRetries = FACT_CHECK_MAX_RETRIES): Promise<GoogleFactCheckResponse | null> {
   const cacheKey = toCacheKey(params);
   const cached = factCheckResponseCache.get(cacheKey);
   if (cached && cached.expiresAt > Date.now()) {
@@ -105,7 +105,7 @@ async function fetchFactCheckWithRetry(params: URLSearchParams): Promise<GoogleF
   const url = `${GOOGLE_FACT_CHECK_API}?${params.toString()}`;
 
   const data = await withFactCheckLimiter(async () => {
-    for (let attempt = 0; attempt < FACT_CHECK_MAX_RETRIES; attempt++) {
+    for (let attempt = 0; attempt < maxRetries; attempt++) {
       try {
         const response = await fetch(url, {
           method: "GET",
@@ -119,7 +119,7 @@ async function fetchFactCheckWithRetry(params: URLSearchParams): Promise<GoogleF
         }
 
         const body = await response.text().catch(() => "");
-        if (!RETRYABLE_STATUS_CODES.has(response.status) || attempt === FACT_CHECK_MAX_RETRIES - 1) {
+        if (!RETRYABLE_STATUS_CODES.has(response.status) || attempt === maxRetries - 1) {
           console.warn(`[Google Fact Check] HTTP ${response.status}: ${body}`);
           return null;
         }
@@ -129,19 +129,19 @@ async function fetchFactCheckWithRetry(params: URLSearchParams): Promise<GoogleF
         const waitMs = retryAfterMs ?? backoffMs;
 
         console.warn(
-          `[Google Fact Check] Retryable HTTP ${response.status}; retrying in ${waitMs}ms (attempt ${attempt + 1}/${FACT_CHECK_MAX_RETRIES})`
+          `[Google Fact Check] Retryable HTTP ${response.status}; retrying in ${waitMs}ms (attempt ${attempt + 1}/${maxRetries})`
         );
         await new Promise((r) => setTimeout(r, waitMs));
       } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
-        if (attempt === FACT_CHECK_MAX_RETRIES - 1) {
+        if (attempt === maxRetries - 1) {
           console.warn(`[Google Fact Check] Request error after retries: ${message}`);
           return null;
         }
 
         const backoffMs = Math.min(60_000, (2 ** attempt) * 1000 + Math.floor(Math.random() * 1000));
         console.warn(
-          `[Google Fact Check] Request error "${message}"; retrying in ${backoffMs}ms (attempt ${attempt + 1}/${FACT_CHECK_MAX_RETRIES})`
+          `[Google Fact Check] Request error "${message}"; retrying in ${backoffMs}ms (attempt ${attempt + 1}/${maxRetries})`
         );
         await new Promise((r) => setTimeout(r, backoffMs));
       }
@@ -269,7 +269,7 @@ export async function fetchGoogleFactCheckClaims(): Promise<FactCheckClaim[]> {
         pageSize: String(config.googleFactCheckPageSize),
       });
 
-      const data = await fetchFactCheckWithRetry(params);
+      const data = await fetchFactCheckWithRetry(params, 2);
       if (!data) {
         console.warn(`[Google Fact Check] Query "${query}" failed after retries.`);
         continue;
